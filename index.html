@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeiniah Alfiah — AI Engineer & Full-Stack AI Builder</title>
+  <meta name="description" content="Portfolio of Zeiniah Alfiah, AI Engineer Intern at PT Bali Towerindo Sentra Tbk, specializing in autonomous multi-agent workflows, deep learning architectures, and full-stack intelligent systems.">
+
+  <!-- Google Fonts: Instrument Serif (Editorial) + Plus Jakarta Sans (Clean Modern Sans) + DM Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            twilight: '#231F2E',
+            mauve: '#8B6D83',
+            lilac: '#CBB3C4',
+            peach: '#F6DAD4',
+            coral: '#D98F84',
+            'coral-hover': '#C87C71',
+            canvas: '#FAF5F3',
+            'canvas-card': '#FFFFFF',
+            'canvas-subtle': '#F8F1EE',
+            'border-subtle': '#E8DDE5',
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+            mono: ['"DM Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'soft': '0 8px 30px rgba(35, 31, 46, 0.05)',
+            'card': '0 12px 36px rgba(35, 31, 46, 0.06)',
+            'hover': '0 20px 48px rgba(217, 143, 132, 0.16)',
+            'glass': '0 8px 32px 0 rgba(139, 109, 131, 0.12)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF5F3;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBB3C4;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8B6D83;
+    }
+
+    /* Subtle Glassmorphism */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(232, 221, 229, 0.9);
+    }
+
+    .glass-nav {
+      background: rgba(250, 245, 243, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(232, 221, 229, 0.7);
+    }
+
+    /* Custom Cursor Follower */
+    .cursor-dot {
+      pointer-events: none;
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background-color: #D98F84;
+      border-radius: 50%;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+    }
+
+    .cursor-ring {
+      pointer-events: none;
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(217, 143, 132, 0.45);
+      border-radius: 50%;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.2s ease, height 0.2s ease;
+    }
+
+    /* Interactive Tilt & Float */
+    .tilt-card {
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    }
+    .tilt-card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+
+<body class="bg-canvas text-twilight font-sans antialiased selection:bg-peach selection:text-twilight min-h-screen relative overflow-x-hidden">
+
+  <!-- Interactive Custom Cursor -->
+  <div id="cursor-dot" class="cursor-dot hidden md:block"></div>
+  <div id="cursor-ring" class="cursor-ring hidden md:block"></div>
+
+  <!-- FLOATING NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand & Live Status -->
+      <a href="#hero" class="flex items-center gap-3.5 group">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <div>
+          <span class="font-sans font-bold text-base tracking-tight text-twilight group-hover:text-coral transition-colors">
+            ZEINIAH ALFIAH
+          </span>
+          <span class="hidden sm:inline-block ml-2 text-xs font-mono text-mauve bg-peach/50 px-2 py-0.5 rounded-full border border-lilac/40">
+            AI Engineer Intern @ PT Bali Towerindo Tbk
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-mauve">
+        <a href="#bento" class="hover:text-twilight transition-colors">Overview</a>
+        <a href="#flagship" class="hover:text-twilight transition-colors">Case Studies</a>
+        <a href="#vault" class="hover:text-twilight transition-colors">All Projects</a>
+        <a href="#journey" class="hover:text-twilight transition-colors">Experience</a>
+        <a href="#speaking" class="hover:text-twilight transition-colors">Leadership</a>
+        <a href="#credentials" class="hover:text-twilight transition-colors">Credentials</a>
+      </nav>
+
+      <!-- CTA Contact Link -->
+      <div class="flex items-center gap-3">
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 text-xs font-mono font-medium px-4 py-2 rounded-full border border-lilac text-twilight hover:bg-peach/60 transition-colors">
+          <span>Get in Touch</span>
+          <svg class="w-3.5 h-3.5 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH INTERACTIVE CANVAS -->
+  <section id="hero" class="relative min-h-[92vh] pt-32 pb-20 flex items-center justify-center overflow-hidden">
+    <!-- Interactive Background Canvas -->
+    <canvas id="neural-canvas" class="absolute inset-0 pointer-events-none opacity-60 z-0"></canvas>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Column: Editorial Headline & Narrative -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Top Role Pill -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/80 border border-lilac shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-coral"></span>
+            <span class="text-xs font-mono font-medium text-twilight tracking-wide uppercase">
+              Artificial Intelligence & Machine Learning
+            </span>
+          </div>
+
+          <!-- Bold Friendly Headline (Seth Lukin + Sierra Hopkins Synthesis) -->
+          <div class="space-y-2">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-serif text-twilight leading-[1.08] tracking-tight">
+              Hi there, I'm <span class="italic font-normal text-coral">Zeiniah.</span>
+            </h1>
+            <p class="text-xl sm:text-2xl font-sans font-medium text-mauve max-w-xl leading-snug">
+              AI Engineer bridging deep learning research with production-grade autonomous agentic workflows.
+            </p>
+          </div>
+
+          <!-- Highlight Card: Current Role -->
+          <div class="p-4 sm:p-5 rounded-2xl glass-card border border-lilac/70 shadow-soft max-w-xl space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-mauve">
+              <span class="font-semibold text-coral uppercase tracking-wider">Current Corporate Impact</span>
+              <span>2026 - Present</span>
+            </div>
+            <p class="text-sm font-sans font-medium text-twilight leading-relaxed">
+              Spearheading <strong class="text-coral font-semibold">AutoRestock</strong>, an autonomous multi-agent procurement & inventory replenishment engine at 
+              <span class="underline decoration-lilac underline-offset-4 font-semibold">PT Bali Towerindo Sentra Tbk</span> using LangGraph, FastAPI, and DuckDB.
+            </p>
+          </div>
+
+          <!-- CTAs & Fast Links -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#flagship" class="px-6 py-3.5 rounded-full bg-coral text-white font-sans font-semibold text-sm shadow-card hover:bg-coral-hover hover:shadow-hover transition-all flex items-center gap-2">
+              <span>Explore Case Studies</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+              </svg>
+            </a>
+
+            <a href="#contact" class="px-6 py-3.5 rounded-full bg-white border border-lilac text-twilight font-sans font-semibold text-sm hover:bg-canvas-subtle transition-all flex items-center gap-2">
+              <span>Get in Touch</span>
+              <svg class="w-4 h-4 text-mauve" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </a>
+
+            <div class="flex items-center gap-3 pl-2">
+              <a href="https://github.com/zeyniaa" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-full bg-white/80 border border-lilac/70 text-twilight hover:text-coral hover:border-coral transition-colors" title="GitHub">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+              </a>
+              <a href="https://bit.ly/ZeiniahLinkedIn" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-full bg-white/80 border border-lilac/70 text-twilight hover:text-coral hover:border-coral transition-colors" title="LinkedIn">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Tactile Photo Card -->
+        <div class="lg:col-span-5 flex justify-center lg:justify-end">
+          <div class="relative w-full max-w-sm sm:max-w-md">
+            
+            <!-- Soft Aesthetic Blur Glow Behind Image -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-peach via-lilac to-coral/30 rounded-[36px] filter blur-2xl opacity-60 -z-10"></div>
+
+            <!-- Main Portrait Frame -->
+            <div class="tilt-card rounded-[32px] overflow-hidden bg-white p-3.5 border border-lilac/80 shadow-card">
+              <div class="relative rounded-[26px] overflow-hidden aspect-[4/5] bg-canvas-subtle">
+                <img src="assets/portrait_studio.jpg" alt="Zeiniah Alfiah" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700">
+                
+                <!-- Floating Mini Badge Inside Frame -->
+                <div class="absolute bottom-4 left-4 right-4 p-3 rounded-2xl glass-card border border-white/60 shadow-soft flex items-center justify-between text-xs">
+                  <div>
+                    <p class="font-sans font-semibold text-twilight">Zeiniah, S.Kom</p>
+                    <p class="font-mono text-[11px] text-mauve">Informatics Engineering UIN Jakarta</p>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full bg-peach/80 text-[10px] font-mono font-medium text-twilight border border-lilac/50">
+                    Graduated 2026
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Little Floating Telemetry Tag (Out of the box touch) -->
+            <div class="absolute -top-4 -left-4 sm:-left-6 px-3.5 py-2 rounded-xl bg-white border border-lilac shadow-soft text-xs font-mono text-twilight flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-coral"></span>
+              <span>112 Sign Classes Recognized</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: THE CORE BENTO OVERVIEW -->
+  <section id="bento" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="space-y-4 mb-12">
+      <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Core Snapshot</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
+        A fusion of deep learning rigor and <span class="italic font-normal">engineering leadership.</span>
+      </h2>
+    </div>
+
+    <!-- Bento Grid (4 Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      
+      <!-- Bento 1: Corporate Role (7 cols) -->
+      <div class="md:col-span-7 p-8 rounded-3xl glass-card border border-lilac/70 shadow-soft hover:shadow-card transition-all space-y-4 relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/60 text-twilight border border-lilac/40">
+            ENTERPRISE AI SYSTEMS
+          </span>
+          <span class="text-xs font-mono text-mauve">IDX: BALI</span>
+        </div>
+        <h3 class="text-2xl font-serif text-twilight">
+          AI Engineer Intern at PT Bali Towerindo Sentra Tbk
+        </h3>
+        <p class="text-sm font-sans text-mauve leading-relaxed">
+          Architected the autonomous multi-agent replenishment pipeline (AutoRestock). Designed stateful task graphs with LangGraph, local high-speed inventory analytics via DuckDB, and asynchronous order dispatching with FastAPI.
+        </p>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-canvas-subtle text-twilight border border-border-subtle">LangGraph</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-canvas-subtle text-twilight border border-border-subtle">FastAPI</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-canvas-subtle text-twilight border border-border-subtle">DuckDB</span>
+          <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-canvas-subtle text-twilight border border-border-subtle">Typst PDF</span>
+        </div>
+      </div>
+
+      <!-- Bento 2: Academic Research (5 cols) -->
+      <div class="md:col-span-5 p-8 rounded-3xl glass-card border border-lilac/70 shadow-soft hover:shadow-card transition-all space-y-4">
+        <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/60 text-twilight border border-lilac/40">
+          UNDERGRADUATE THESIS
+        </span>
+        <h3 class="text-2xl font-serif text-twilight">
+          Quranic Hijaiyah Sign Language
+        </h3>
+        <p class="text-sm font-sans text-mauve leading-relaxed">
+          Evaluated Bi-LSTM, Hybrid LSTM-GRU, and Transformer Encoders for LPMQ Kemenag RI, establishing a state-of-the-art benchmark.
+        </p>
+        <div class="pt-2">
+          <span class="text-4xl font-serif font-bold text-coral">97.54%</span>
+          <span class="text-xs font-mono text-mauve block mt-1">Accuracy on 112 gesture classes (44,697+ frames)</span>
+        </div>
+      </div>
+
+      <!-- Bento 3: Community & Leadership (5 cols) -->
+      <div class="md:col-span-5 p-8 rounded-3xl glass-card border border-lilac/70 shadow-soft hover:shadow-card transition-all space-y-4">
+        <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/60 text-twilight border border-lilac/40">
+          TECH LEADERSHIP
+        </span>
+        <h3 class="text-2xl font-serif text-twilight">
+          Community Co-Lead & National MC
+        </h3>
+        <p class="text-sm font-sans text-mauve leading-relaxed">
+          Led GDGoC UIN Jakarta to become the #1 Most Impactful Chapter in Indonesia (55+ technical events, 500+ members). Master of Ceremonies at YOTNC 2024 youth summit.
+        </p>
+        <div class="flex items-center gap-4 pt-2 text-xs font-mono text-twilight">
+          <div>
+            <span class="font-bold text-coral text-lg block font-sans">55+</span>
+            <span class="text-mauve text-[11px]">Technical Events</span>
+          </div>
+          <div class="w-px h-8 bg-lilac"></div>
+          <div>
+            <span class="font-bold text-coral text-lg block font-sans">500+</span>
+            <span class="text-mauve text-[11px]">Active Members</span>
+          </div>
+          <div class="w-px h-8 bg-lilac"></div>
+          <div>
+            <span class="font-bold text-coral text-lg block font-sans">93%</span>
+            <span class="text-mauve text-[11px]">Retention Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento 4: Technical Arsenal (7 cols) -->
+      <div class="md:col-span-7 p-8 rounded-3xl glass-card border border-lilac/70 shadow-soft hover:shadow-card transition-all space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/60 text-twilight border border-lilac/40">
+            ENGINEERING STACK
+          </span>
+          <span class="text-xs font-mono text-mauve">MODERN TOOLCHAIN</span>
+        </div>
+        <h3 class="text-2xl font-serif text-twilight">
+          Specialized Tools & Production Environments
+        </h3>
+        <p class="text-sm font-sans text-mauve leading-relaxed">
+          Versatile full-stack AI practitioner adept at model architecture prototyping, telemetry extraction, and backend integration.
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono text-twilight">
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">Python / PyTorch</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">LangGraph / Agents</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">FastAPI / REST</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">DuckDB / MongoDB</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">MediaPipe / OpenCV</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">TensorFlow / Keras</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">Librosa (Audio AI)</div>
+          <div class="p-2.5 rounded-xl bg-white border border-border-subtle">Git / Docker / MLOps</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: FLAGSHIP AI CASE STUDIES (THE HEAVYWEIGHTS) -->
+  <section id="flagship" class="py-24 bg-canvas-subtle border-y border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Featured Implementations</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight mt-1">
+            Flagship Case Studies
+          </h2>
+        </div>
+        <p class="text-sm font-sans text-mauve max-w-md">
+          Deep-dives into enterprise agentic architectures, computer vision research, and acoustic signal modeling.
+        </p>
+      </div>
+
+      <!-- Case Study 01: AutoRestock -->
+      <article class="p-8 sm:p-10 lg:p-12 rounded-[32px] bg-white border border-lilac/80 shadow-card mb-12 hover:border-coral transition-all">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/70 text-twilight font-semibold">
+                CASE STUDY 01
+              </span>
+              <span class="text-xs font-mono text-coral font-medium">PT Bali Towerindo Sentra Tbk</span>
+            </div>
+            
+            <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
+              AutoRestock: Autonomous Multi-Agent Procurement System
+            </h3>
+
+            <p class="text-sm font-sans text-mauve leading-relaxed">
+              Designed an enterprise replenishment architecture bridging real-time warehouse inventory telemetry with intelligent supplier selection. Employs LangGraph to manage stateful multi-agent execution, verifying stock depletion velocity, drafting supplier tenders, and compiling legal PDF Purchase Orders via Typst with human-in-the-loop governance.
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
+              <div>
+                <span class="text-xl font-serif font-bold text-twilight">LangGraph</span>
+                <span class="text-[11px] font-mono text-mauve block">Multi-Agent Loops</span>
+              </div>
+              <div>
+                <span class="text-xl font-serif font-bold text-twilight">DuckDB</span>
+                <span class="text-[11px] font-mono text-mauve block">Sub-ms Analytics</span>
+              </div>
+              <div>
+                <span class="text-xl font-serif font-bold text-twilight">FastAPI</span>
+                <span class="text-[11px] font-mono text-mauve block">Async REST Engine</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+              <a href="https://github.com/zeyniaa/AutoRestock-AI-Agent" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors">
+                <span>View Repository</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Visual Diagram / Mockup -->
+          <div class="lg:col-span-5">
+            <div class="p-6 rounded-2xl bg-canvas-subtle border border-border-subtle space-y-4">
+              <span class="text-xs font-mono text-mauve uppercase tracking-wider block">Agentic Flow Orchestration</span>
+              <div class="space-y-3 text-xs font-mono">
+                <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                  <span>Inventory Monitor Agent</span>
+                  <span class="text-emerald-600 font-bold">Telemetry OK</span>
+                </div>
+                <div class="w-0.5 h-4 bg-lilac mx-auto"></div>
+                <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                  <span>Supplier Evaluation Agent</span>
+                  <span class="text-coral font-bold">Lead Time Minimized</span>
+                </div>
+                <div class="w-0.5 h-4 bg-lilac mx-auto"></div>
+                <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                  <span>Human-in-the-Loop Gate</span>
+                  <span class="text-twilight font-bold">Approved</span>
+                </div>
+                <div class="w-0.5 h-4 bg-lilac mx-auto"></div>
+                <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                  <span>Typst PDF Compiler</span>
+                  <span class="text-indigo-600 font-bold">PO Dispatched</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case Study 02: Quranic Sign Language -->
+      <article class="p-8 sm:p-10 lg:p-12 rounded-[32px] bg-white border border-lilac/80 shadow-card mb-12 hover:border-coral transition-all">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/70 text-twilight font-semibold">
+                CASE STUDY 02
+              </span>
+              <span class="text-xs font-mono text-coral font-medium">LPMQ Kementerian Agama RI & Thesis</span>
+            </div>
+            
+            <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
+              Qur'anic Hijaiyah Sign Language Recognition
+            </h3>
+
+            <p class="text-sm font-sans text-mauve leading-relaxed">
+              Spearheaded computer vision research to translate 112 Hijaiyah letter and harakat sign language gestures into text for deaf inclusive Quranic education. Extracted 75 skeleton keypoints per frame via MediaPipe Holistic and benchmarked Bi-LSTM, Hybrid LSTM-GRU, and Transformer Encoders over 44,697+ frames.
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
+              <div>
+                <span class="text-2xl font-serif font-bold text-coral">97.54%</span>
+                <span class="text-[11px] font-mono text-mauve block">Transformer Acc</span>
+              </div>
+              <div>
+                <span class="text-2xl font-serif font-bold text-twilight">112</span>
+                <span class="text-[11px] font-mono text-mauve block">Gesture Classes</span>
+              </div>
+              <div>
+                <span class="text-2xl font-serif font-bold text-twilight">75 Pts</span>
+                <span class="text-[11px] font-mono text-mauve block">MediaPipe Keypoints</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+              <a href="https://github.com/zeyniaa/hijaiyah-sign-language-recognition" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors">
+                <span>View Repository</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Project Image -->
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl overflow-hidden border border-lilac shadow-soft">
+              <img src="assets/project_hand_landmark.jpg" alt="MediaPipe Sign Language Landmark Detection" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case Study 03: Autism Meltdown Detector -->
+      <article class="p-8 sm:p-10 lg:p-12 rounded-[32px] bg-white border border-lilac/80 shadow-card mb-12 hover:border-coral transition-all">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/70 text-twilight font-semibold">
+                CASE STUDY 03
+              </span>
+              <span class="text-xs font-mono text-coral font-medium">Datathon 2025 by Ristek UI</span>
+            </div>
+            
+            <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
+              Autism Sensory Meltdown Audio Risk Detector
+            </h3>
+
+            <p class="text-sm font-sans text-mauve leading-relaxed">
+              Developed an assistive acoustic intelligence model identifying high-risk auditory triggers that precipitate sensory meltdowns in autistic children. Engineered spectral audio preprocessing with Librosa, extracted Mel-Frequency Cepstral Coefficients (MFCC), and trained a 1D-CNN classifier achieving 90% validation accuracy.
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
+              <div>
+                <span class="text-2xl font-serif font-bold text-coral">90.0%</span>
+                <span class="text-[11px] font-mono text-mauve block">Model Accuracy</span>
+              </div>
+              <div>
+                <span class="text-2xl font-serif font-bold text-twilight">1D-CNN</span>
+                <span class="text-[11px] font-mono text-mauve block">Neural Network</span>
+              </div>
+              <div>
+                <span class="text-2xl font-serif font-bold text-twilight">MFCC</span>
+                <span class="text-[11px] font-mono text-mauve block">Spectral Features</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+              <a href="https://github.com/zeyniaa/Autism-Meltdown-Detector" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors">
+                <span>View Repository</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl overflow-hidden border border-lilac shadow-soft">
+              <img src="assets/project_meltdown_audio.jpg" alt="Acoustic Signal Processing Waveform" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case Study 04: Event Telemetry KADA -->
+      <article class="p-8 sm:p-10 lg:p-12 rounded-[32px] bg-white border border-lilac/80 shadow-card hover:border-coral transition-all">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono px-3 py-1 rounded-full bg-peach/70 text-twilight font-semibold">
+                CASE STUDY 04
+              </span>
+              <span class="text-xs font-mono text-coral font-medium">Korea-ASEAN Digital Academy (KADA)</span>
+            </div>
+            
+            <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
+              Event Telemetry & Survey Intelligence Engine
+            </h3>
+
+            <p class="text-sm font-sans text-mauve leading-relaxed">
+              Engineered a full-stack analytics platform with flexible MongoDB schemas and Express/TypeScript APIs, integrated with an LLM-driven synthesis layer to transform unstructured event participant surveys into structured diagnostic insights and actionable sentiment opportunities.
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
+              <div>
+                <span class="text-xl font-serif font-bold text-twilight">LLM Engine</span>
+                <span class="text-[11px] font-mono text-mauve block">Sentiment Synthesis</span>
+              </div>
+              <div>
+                <span class="text-xl font-serif font-bold text-twilight">MongoDB</span>
+                <span class="text-[11px] font-mono text-mauve block">Dynamic Schemas</span>
+              </div>
+              <div>
+                <span class="text-xl font-serif font-bold text-twilight">TypeScript</span>
+                <span class="text-[11px] font-mono text-mauve block">Full-Stack Core</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+              <a href="https://github.com/zeyniaa/Event-Intelligence-Platform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors">
+                <span>View Repository</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 p-6 rounded-2xl bg-canvas-subtle border border-border-subtle">
+            <span class="text-xs font-mono text-mauve uppercase tracking-wider block mb-3">Survey Synthesis Flow</span>
+            <div class="space-y-2.5 text-xs font-mono">
+              <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                <span>Dynamic Form Submissions</span>
+                <span class="text-mauve">JSON / NoSQL</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                <span>Semantic LLM Clustering</span>
+                <span class="text-coral font-bold">Insight Extracted</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-lilac flex items-center justify-between">
+                <span>Executive Summary Output</span>
+                <span class="text-emerald-600 font-bold">Rendered</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE COMPLETE PROJECT VAULT (WITH TABS) -->
+  <section id="vault" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+      <div>
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Full Project Archive</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight mt-1">
+          Complete Engineering Vault
+        </h2>
+      </div>
+      
+      <!-- Filter Tabs -->
+      <div id="filter-tabs" class="flex flex-wrap gap-2 text-xs font-mono">
+        <button data-filter="all" class="tab-btn px-4 py-2 rounded-full bg-coral text-white font-medium shadow-sm transition-all">All Works</button>
+        <button data-filter="ai" class="tab-btn px-4 py-2 rounded-full bg-white text-mauve border border-lilac hover:text-twilight transition-all">AI & Agents</button>
+        <button data-filter="cv" class="tab-btn px-4 py-2 rounded-full bg-white text-mauve border border-lilac hover:text-twilight transition-all">Vision & Audio</button>
+        <button data-filter="web-iot" class="tab-btn px-4 py-2 rounded-full bg-white text-mauve border border-lilac hover:text-twilight transition-all">Full-Stack & IoT</button>
+      </div>
+    </div>
+
+    <!-- Filterable Grid -->
+    <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Vault Card 1: Lip Texture -->
+      <div class="project-item tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:shadow-card transition-all space-y-4" data-category="cv">
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span>COMPUTER VISION</span>
+          <span>GRADIO APP</span>
+        </div>
+        <h4 class="text-xl font-serif text-twilight">Lip Texture Condition Classifier</h4>
+        <p class="text-xs font-sans text-mauve leading-relaxed">
+          Trained 2D-CNN sequential models over single-channel grayscale textures to classify mucosal health states without demographic pigmentation bias.
+        </p>
+        <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-twilight pt-1">
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">TensorFlow</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">2D-CNN</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Gradio</span>
+        </div>
+        <div class="pt-2">
+          <a href="https://github.com/zeyniaa/lip-texture-condition-detector" target="_blank" class="text-xs font-mono text-coral font-medium hover:underline inline-flex items-center gap-1">
+            <span>View Code</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Vault Card 2: Hand Landmark Detection -->
+      <div class="project-item tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:shadow-card transition-all space-y-4" data-category="cv">
+        <div class="rounded-xl overflow-hidden aspect-video bg-canvas-subtle">
+          <img src="assets/project_hand_landmark.jpg" alt="Hand Landmark Detection" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span>MEDIA-PIPE & CV</span>
+          <span>INDIVIDUAL WORK</span>
+        </div>
+        <h4 class="text-xl font-serif text-twilight">Real-Time Hand Landmark Tracking</h4>
+        <p class="text-xs font-sans text-mauve leading-relaxed">
+          Custom HandDetection pipeline integrating OpenCV video stream with MediaPipe hand landmark extraction for real-time gesture tracking.
+        </p>
+        <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-twilight pt-1">
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Python</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">MediaPipe</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">OpenCV</span>
+        </div>
+      </div>
+
+      <!-- Vault Card 3: Banknote AI -->
+      <div class="project-item tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:shadow-card transition-all space-y-4" data-category="ai">
+        <div class="rounded-xl overflow-hidden aspect-video bg-canvas-subtle">
+          <img src="assets/project_banknote.jpg" alt="Banknote AI System" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span>ASSISTIVE TECH</span>
+          <span>4 MEMBERS</span>
+        </div>
+        <h4 class="text-xl font-serif text-twilight">AI Banknote Recognition with TTS</h4>
+        <p class="text-xs font-sans text-mauve leading-relaxed">
+          Assisted visually impaired individuals through Naive Bayes currency classification paired with real-time Text-to-Speech audio feedback.
+        </p>
+        <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-twilight pt-1">
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Python</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Naive Bayes</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">TTS</span>
+        </div>
+      </div>
+
+      <!-- Vault Card 4: Password Strength -->
+      <div class="project-item tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:shadow-card transition-all space-y-4" data-category="ai">
+        <div class="rounded-xl overflow-hidden aspect-video bg-canvas-subtle">
+          <img src="assets/project_password.jpg" alt="Password Strength ML" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span>CLASSIFICATION</span>
+          <span>FEATURE ANALYSIS</span>
+        </div>
+        <h4 class="text-xl font-serif text-twilight">Password Strength Classifier</h4>
+        <p class="text-xs font-sans text-mauve leading-relaxed">
+          Multi-class classifier predicting password vulnerabilities using entropy metrics, character distributions, and Random Forest models.
+        </p>
+        <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-twilight pt-1">
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Random Forest</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Scikit-Learn</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">Seaborn</span>
+        </div>
+      </div>
+
+      <!-- Vault Card 5: Smart Poultry IoT -->
+      <div class="project-item tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:shadow-card transition-all space-y-4" data-category="web-iot">
+        <div class="rounded-xl overflow-hidden aspect-video bg-canvas-subtle">
+          <img src="assets/project_poultry_iot.jpg" alt="Smart Poultry IoT" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span>HARDWARE & IOT</span>
+          <span>AUTOMATION</span>
+        </div>
+        <h4 class="text-xl font-serif text-twilight">Smart Poultry IoT Monitoring</h4>
+        <p class="text-xs font-sans text-mauve leading-relaxed">
+          Environmental telemetry hardware based on ESP32 and DHT22 sensors, monitoring poultry farm humidity and automating ventilation actuators.
+        </p>
+        <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-twilight pt-1">
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">ESP32</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">DHT22</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">C++ / IoT</span>
+        </div>
+      </div>
+
+      <!-- Vault Card 6: BiName Student System -->
+      <div class="project-item tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:shadow-card transition-all space-y-4" data-category="web-iot">
+        <div class="rounded-xl overflow-hidden aspect-video bg-canvas-subtle">
+          <img src="assets/project_biname.jpg" alt="BiName Data Portal" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span>FULL-STACK WEB</span>
+          <span>DATA PORTAL</span>
+        </div>
+        <h4 class="text-xl font-serif text-twilight">BiName: Academic Data System</h4>
+        <p class="text-xs font-sans text-mauve leading-relaxed">
+          Led front-end interface development and role-based authentication layers to streamline student academic record processing.
+        </p>
+        <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-twilight pt-1">
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">PHP</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">MySQL</span>
+          <span class="px-2 py-0.5 rounded bg-canvas-subtle border border-border-subtle">REST API</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: PROFESSIONAL & LEADERSHIP JOURNEY (TIMELINE) -->
+  <section id="journey" class="py-24 bg-canvas-subtle border-y border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="space-y-4 mb-16 text-center max-w-2xl mx-auto">
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Career Trajectory</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
+          Professional Experience & Milestones
+        </h2>
+      </div>
+
+      <!-- Timeline Items -->
+      <div class="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-3 sm:before:left-1/2 before:w-0.5 before:bg-lilac/70">
+        
+        <!-- Experience 1: Bali Towerindo -->
+        <div class="relative flex flex-col sm:flex-row items-start group">
+          <div class="flex items-center justify-center w-6 h-6 rounded-full bg-coral text-white z-10 sm:mx-auto shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-white"></span>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:w-1/2 sm:pr-10 sm:text-right pl-8 sm:pl-0">
+            <span class="text-xs font-mono text-coral font-bold block">FEB 2026 - PRESENT</span>
+            <h4 class="text-lg font-serif font-bold text-twilight">AI Engineer Intern</h4>
+            <p class="text-xs font-mono text-mauve">PT Bali Towerindo Sentra Tbk</p>
+            <p class="text-xs font-sans text-mauve mt-1.5 leading-relaxed">
+              Spearheading the AutoRestock multi-agent autonomous replenishment system using LangGraph, DuckDB, and FastAPI.
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience 2: Kemenag LPMQ -->
+        <div class="relative flex flex-col sm:flex-row items-start group">
+          <div class="flex items-center justify-center w-6 h-6 rounded-full bg-white border-2 border-coral text-white z-10 sm:mx-auto">
+            <span class="w-2 h-2 rounded-full bg-coral"></span>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:w-1/2 sm:pl-10 sm:ml-auto pl-8">
+            <span class="text-xs font-mono text-coral font-bold block">JUL 2025 - OCT 2025</span>
+            <h4 class="text-lg font-serif font-bold text-twilight">AI Engineer Intern</h4>
+            <p class="text-xs font-mono text-mauve">LPMQ Kementerian Agama RI</p>
+            <p class="text-xs font-sans text-mauve mt-1.5 leading-relaxed">
+              Engineered Quranic sign language gesture recognition pipeline with MediaPipe and Transformer Encoders (97.54% accuracy).
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience 3: GDGoC UIN Jakarta -->
+        <div class="relative flex flex-col sm:flex-row items-start group">
+          <div class="flex items-center justify-center w-6 h-6 rounded-full bg-white border-2 border-mauve text-white z-10 sm:mx-auto">
+            <span class="w-2 h-2 rounded-full bg-mauve"></span>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:w-1/2 sm:pr-10 sm:text-right pl-8 sm:pl-0">
+            <span class="text-xs font-mono text-mauve font-bold block">NOV 2024 - AUG 2025</span>
+            <h4 class="text-lg font-serif font-bold text-twilight">Co-Lead Organizer</h4>
+            <p class="text-xs font-mono text-mauve">Google Developer Group on Campus UIN Jakarta</p>
+            <p class="text-xs font-sans text-mauve mt-1.5 leading-relaxed">
+              Led chapter to become #1 Most Impactful Chapter in Indonesia, organizing 55+ technical sessions for 500+ student developers.
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience 4: Young On Top Jakarta -->
+        <div class="relative flex flex-col sm:flex-row items-start group">
+          <div class="flex items-center justify-center w-6 h-6 rounded-full bg-white border-2 border-mauve text-white z-10 sm:mx-auto">
+            <span class="w-2 h-2 rounded-full bg-mauve"></span>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:w-1/2 sm:pl-10 sm:ml-auto pl-8">
+            <span class="text-xs font-mono text-mauve font-bold block">JAN 2024 - DEC 2024</span>
+            <h4 class="text-lg font-serif font-bold text-twilight">Head Division Technology</h4>
+            <p class="text-xs font-mono text-mauve">Young On Top (YOT) Jakarta</p>
+            <p class="text-xs font-sans text-mauve mt-1.5 leading-relaxed">
+              Directed a 30-member technology team, orchestrated INTUTIVA UI/UX competition (500+ participants), and served as YOTNC 2024 National MC.
+            </p>
+          </div>
+        </div>
+
+        <!-- Experience 5: KADA Fellow -->
+        <div class="relative flex flex-col sm:flex-row items-start group">
+          <div class="flex items-center justify-center w-6 h-6 rounded-full bg-white border-2 border-mauve text-white z-10 sm:mx-auto">
+            <span class="w-2 h-2 rounded-full bg-mauve"></span>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:w-1/2 sm:pr-10 sm:text-right pl-8 sm:pl-0">
+            <span class="text-xs font-mono text-mauve font-bold block">FEB 2026 - APR 2026</span>
+            <h4 class="text-lg font-serif font-bold text-twilight">Participant & Fellow</h4>
+            <p class="text-xs font-mono text-mauve">Korea-ASEAN Digital Academy (KADA)</p>
+            <p class="text-xs font-sans text-mauve mt-1.5 leading-relaxed">
+              Selected in competitive international cohort focusing on end-to-end cloud systems, DevOps, and LLM telemetry.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: STAGE, LEADERSHIP & COMMUNITY GALLERY -->
+  <section id="speaking" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="space-y-4 mb-12">
+      <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Community Impact</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
+        Public Speaking & Stage Leadership
+      </h2>
+      <p class="text-sm font-sans text-mauve max-w-xl">
+        Bridging the communication gap: Experienced Master of Ceremonies and community facilitator hosting national youth summits, technical meetups, and academic panels.
+      </p>
+    </div>
+
+    <!-- Photo Collage -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Photo 1: YOTNC Stage -->
+      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-canvas-subtle">
+          <img src="assets/yotnc_stage.jpg" alt="YOTNC 2024 Stage MC" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-3">
+          <span class="text-xs font-mono text-coral font-bold block">NATIONAL MC</span>
+          <p class="text-sm font-serif text-twilight mt-0.5">YOTNC 2024 Stage</p>
+          <p class="text-[11px] font-sans text-mauve">Hosting Indonesia's largest youth summit</p>
+        </div>
+      </div>
+
+      <!-- Photo 2: Company Visit MC with Mic -->
+      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-canvas-subtle">
+          <img src="assets/speaking_stage_mc.jpg" alt="Company Visit MC" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-3">
+          <span class="text-xs font-mono text-coral font-bold block">TECH MODERATOR</span>
+          <p class="text-sm font-serif text-twilight mt-0.5">Company Visit & Keynote</p>
+          <p class="text-[11px] font-sans text-mauve">Leading corporate student visits & panel discussions</p>
+        </div>
+      </div>
+
+      <!-- Photo 3: GDGoC Community Gathering -->
+      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-canvas-subtle">
+          <img src="assets/gdgoc_community.jpg" alt="GDGoC UIN Jakarta Gathering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-3">
+          <span class="text-xs font-mono text-coral font-bold block">COMMUNITY LEAD</span>
+          <p class="text-sm font-serif text-twilight mt-0.5">GDGoC UIN Jakarta</p>
+          <p class="text-[11px] font-sans text-mauve">Gathering 500+ active student developers</p>
+        </div>
+      </div>
+
+      <!-- Photo 4: Kemenag Team -->
+      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-canvas-subtle">
+          <img src="assets/kemenag_team.jpg" alt="Kemenag LPMQ AI Team" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-3">
+          <span class="text-xs font-mono text-coral font-bold block">RESEARCH TEAM</span>
+          <p class="text-sm font-serif text-twilight mt-0.5">LPMQ Kemenag RI</p>
+          <p class="text-[11px] font-sans text-mauve">Collaborating on inclusive Quran digitization</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 6: VERIFIED CREDENTIALS & CERTIFICATIONS (WITH MODAL LIGHTBOX) -->
+  <section id="credentials" class="py-24 bg-canvas-subtle border-y border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Formal Recognition</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight mt-1">
+            Verified Credentials
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-mauve">
+          CLICK ANY CARD TO INSPECT OFFICIAL CERTIFICATE
+        </p>
+      </div>
+
+      <!-- Cert Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Cert 1: Dicoding elevAIte -->
+        <div onclick="openCertModal('assets/cert_dibimbing.jpg', 'elevAIte AI Program - Dicoding Indonesia', 'Selected Awardee in intensive Machine Learning and Deep Learning development program.')" class="cursor-pointer tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:border-coral transition-all space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-coral">
+            <span>DICODING</span>
+            <span>2025</span>
+          </div>
+          <h4 class="text-lg font-serif text-twilight">elevAIte AI Training Program</h4>
+          <p class="text-xs font-sans text-mauve">End-to-end neural network optimization and production ML generalization.</p>
+          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Certificate ↗</span>
+        </div>
+
+        <!-- Cert 2: Cisco Data Analytics -->
+        <div onclick="openCertModal('assets/cert_cisco_data.jpg', 'Data Analytics Essentials - Cisco Networking Academy', 'Formal verification in exploratory data analysis, data wrangling, and predictive modeling.')" class="cursor-pointer tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:border-coral transition-all space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-coral">
+            <span>CISCO ACADEMY</span>
+            <span>2025</span>
+          </div>
+          <h4 class="text-lg font-serif text-twilight">Data Analytics Essentials</h4>
+          <p class="text-xs font-sans text-mauve">Statistical data processing, visualization pipelines, and predictive algorithms.</p>
+          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Certificate ↗</span>
+        </div>
+
+        <!-- Cert 3: Cisco Python Essentials -->
+        <div onclick="openCertModal('assets/cert_python.jpg', 'Python Essentials 1 - Cisco & OpenEDG Python Institute', 'Certified competencies in core Python syntax, algorithmic data structures, and procedural programming.')" class="cursor-pointer tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:border-coral transition-all space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-coral">
+            <span>PYTHON INSTITUTE</span>
+            <span>2024</span>
+          </div>
+          <h4 class="text-lg font-serif text-twilight">Python Essentials 1</h4>
+          <p class="text-xs font-sans text-mauve">Algorithmic problem solving, object structures, and software engineering foundations.</p>
+          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Certificate ↗</span>
+        </div>
+
+        <!-- Cert 4: Dibimbing AI -->
+        <div onclick="openCertModal('assets/cert_dibimbing.jpg', 'AI & Machine Learning - Dibimbing.id', 'Intensive bootcamp on real-world industrial machine learning modeling.')" class="cursor-pointer tilt-card p-6 rounded-3xl bg-white border border-border-subtle shadow-soft hover:border-coral transition-all space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-coral">
+            <span>DIBIMBING.ID</span>
+            <span>2025</span>
+          </div>
+          <h4 class="text-lg font-serif text-twilight">Digital Skill Fair AI & ML</h4>
+          <p class="text-xs font-sans text-mauve">Hands-on exploratory data analysis, feature engineering, and model validation.</p>
+          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Certificate ↗</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 7: LET'S CONNECT / FOOTER -->
+  <footer id="contact" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="p-8 sm:p-12 lg:p-16 rounded-[36px] bg-white border border-lilac/80 shadow-card text-center space-y-8 relative overflow-hidden">
+      
+      <!-- Soft Ambient Backdrop -->
+      <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-peach/60 rounded-full filter blur-3xl -z-10"></div>
+      <div class="absolute -top-20 -left-20 w-80 h-80 bg-lilac/40 rounded-full filter blur-3xl -z-10"></div>
+
+      <div class="max-w-2xl mx-auto space-y-3">
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Let's Connect</span>
+        <h2 class="text-4xl sm:text-5xl font-serif text-twilight leading-tight">
+          Interested in collaborating on <span class="italic font-normal text-coral">impactful AI systems?</span>
+        </h2>
+        <p class="text-sm font-sans text-mauve pt-2">
+          Open to technical roles in Artificial Intelligence, Deep Learning research, and full-stack autonomous agent development.
+        </p>
+      </div>
+
+      <!-- Action Box: Direct Email Copy -->
+      <div class="inline-flex flex-col sm:flex-row items-center gap-3 p-2 rounded-2xl bg-canvas-subtle border border-lilac">
+        <span id="email-text" class="text-xs font-mono font-medium px-4 py-2 text-twilight select-all">
+          zeiniahalfiah@gmail.com
+        </span>
+        <button id="copy-email-btn" onclick="copyEmailToClipboard()" class="w-full sm:w-auto px-5 py-2 rounded-xl bg-coral text-white text-xs font-mono font-semibold hover:bg-coral-hover transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          <span id="copy-btn-text">Copy Email</span>
+        </button>
+      </div>
+
+      <!-- Quick Platform Links -->
+      <div class="flex flex-wrap justify-center items-center gap-6 pt-4 text-xs font-mono text-mauve">
+        <a href="https://github.com/zeyniaa" target="_blank" rel="noopener noreferrer" class="hover:text-twilight flex items-center gap-1.5 transition-colors">
+          <span>github.com/zeyniaa</span>
+          <svg class="w-3 h-3 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-lilac">•</span>
+        <a href="https://bit.ly/ZeiniahLinkedIn" target="_blank" rel="noopener noreferrer" class="hover:text-twilight flex items-center gap-1.5 transition-colors">
+          <span>linkedin.com/in/zeiniah</span>
+          <svg class="w-3 h-3 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-lilac">•</span>
+        <a href="https://wa.me/628819173580" target="_blank" rel="noopener noreferrer" class="hover:text-twilight flex items-center gap-1.5 transition-colors">
+          <span>WhatsApp Message</span>
+          <svg class="w-3 h-3 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+
+      <!-- Copyright Subtext -->
+      <div class="pt-8 border-t border-border-subtle/80 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-mauve/80">
+        <span>Designed & Engineered by Zeiniah Alfiah</span>
+        <span>Based in South Tangerang / Jakarta, Indonesia</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- CERTIFICATE LIGHTBOX MODAL -->
+  <div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-twilight/80 backdrop-blur-md p-4 transition-all duration-300">
+    <div class="relative max-w-3xl w-full bg-white rounded-3xl p-6 border border-lilac shadow-2xl space-y-4">
+      
+      <!-- Close Button -->
+      <button onclick="closeCertModal()" class="absolute top-4 right-4 p-2 rounded-full bg-canvas-subtle text-mauve hover:text-twilight hover:bg-peach/50 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div>
+        <h4 id="modal-title" class="text-xl font-serif text-twilight">Certificate Title</h4>
+        <p id="modal-desc" class="text-xs font-sans text-mauve mt-0.5">Certificate Description</p>
+      </div>
+
+      <!-- Modal Image Container -->
+      <div class="rounded-2xl overflow-hidden border border-border-subtle bg-canvas-subtle flex items-center justify-center p-2">
+        <img id="modal-img" src="" alt="Certificate" class="max-h-[70vh] w-auto object-contain rounded-xl">
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: INTERACTIVE CANVAS, TABS, MODAL & COPY -->
+  <script>
+    // 1. Custom Smooth Mouse Follower
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = `${mouseX}px`;
+      dot.style.top = `${mouseY}px`;
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.left = `${ringX}px`;
+      ring.style.top = `${ringY}px`;
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // 2. Interactive Neural Particle Canvas in Hero
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = canvas.parentElement.offsetHeight;
+      initParticles();
+    }
+
+    function initParticles() {
+      particles = [];
+      const numParticles = Math.floor(width / 35);
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: Math.random() * 2 + 1,
+        });
+      }
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw connecting lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(203, 179, 196, ${1 - dist / 120})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw and update particles
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce from walls
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        // Repel gently from cursor
+        const dx = p.x - mouseX;
+        const dy = p.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 90) {
+          p.x += (dx / dist) * 1.5;
+          p.y += (dy / dist) * 1.5;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#D98F84';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(renderCanvas);
+    }
+    renderCanvas();
+
+    // 3. Project Filter Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // Toggle active button style
+        tabBtns.forEach(b => {
+          b.classList.remove('bg-coral', 'text-white');
+          b.classList.add('bg-white', 'text-mauve');
+        });
+        btn.classList.add('bg-coral', 'text-white');
+        btn.classList.remove('bg-white', 'text-mauve');
+
+        // Filter projects
+        projectItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'block';
+            item.style.opacity = '0';
+            setTimeout(() => {
+              item.style.opacity = '1';
+            }, 50);
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 4. Certificate Lightbox Modal
+    const certModal = document.getElementById('cert-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+
+    function openCertModal(imageSrc, title, desc) {
+      modalImg.src = imageSrc;
+      modalTitle.innerText = title;
+      modalDesc.innerText = desc;
+      certModal.classList.remove('hidden');
+      certModal.classList.add('flex');
+    }
+
+    function closeCertModal() {
+      certModal.classList.add('hidden');
+      certModal.classList.remove('flex');
+    }
+
+    certModal.addEventListener('click', (e) => {
+      if (e.target === certModal) closeCertModal();
+    });
+
+    // 5. Copy Email Action
+    function copyEmailToClipboard() {
+      const email = 'zeiniahalfiah@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        btnText.innerText = 'Copied to Clipboard!';
+        setTimeout(() => {
+          btnText.innerText = 'Copy Email';
+        }, 2500);
+      });
+    }
+  </script>
+
+</body>
+</html>
