@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zeiniah Alfiah — AI Engineer & Full-Stack Intelligent Systems</title>
+  <title>Zeiniah Porto — AI Engineer & Full-Stack Intelligent Systems</title>
   <meta name="description" content="Portfolio of Zeiniah Alfiah, AI Engineer specializing in autonomous multi-agent workflows, deep learning architectures, and production-grade full-stack systems.">
 
   <!-- Google Fonts: Instrument Serif + Plus Jakarta Sans + DM Mono -->
@@ -413,6 +413,54 @@
     [contenteditable="true"] {
       cursor: text !important;
     }
+
+    /* Scroll reveals give each chapter a distinct entrance without trapping scroll. */
+    html.scroll-motion-ready [data-reveal] {
+      opacity: 0;
+      translate: var(--reveal-x, 0px) var(--reveal-y, 32px);
+      scale: var(--reveal-scale, 1);
+      filter: blur(var(--reveal-blur, 0px));
+      transition:
+        opacity 760ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        translate 900ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        scale 900ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, translate, filter;
+    }
+    html.scroll-motion-ready [data-reveal="from-left"] {
+      --reveal-x: -38px;
+      --reveal-y: 0px;
+    }
+    html.scroll-motion-ready [data-reveal="from-right"] {
+      --reveal-x: 38px;
+      --reveal-y: 0px;
+    }
+    html.scroll-motion-ready [data-reveal="soft"] {
+      --reveal-y: 18px;
+      --reveal-scale: 0.97;
+      --reveal-blur: 5px;
+    }
+    html.scroll-motion-ready [data-reveal="zoom"] {
+      --reveal-y: 18px;
+      --reveal-scale: 0.94;
+    }
+    html.scroll-motion-ready [data-reveal].is-in-view {
+      opacity: 1;
+      translate: 0 0;
+      scale: 1;
+      filter: blur(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.scroll-motion-ready [data-reveal] {
+        opacity: 1;
+        translate: none;
+        scale: none;
+        filter: none;
+        transition: none;
+        will-change: auto;
+      }
+    }
   </style>
 </head>
 
@@ -428,7 +476,7 @@
           Z
         </span>
         <span class="font-sans font-bold text-sm tracking-tight text-twilight group-hover:text-coral transition-colors">
-          ZEINIAH ALFIAH
+          ZEINIAH PORTO
         </span>
       </a>
 
@@ -944,7 +992,7 @@
   <section id="journey" class="py-24 bg-canvas border-b border-border-subtle">
     <div class="max-w-6xl mx-auto px-6">
       
-      <div class="space-y-3 mb-16 text-center max-w-2xl mx-auto">
+      <div class="space-y-3 mb-16 text-center max-w-2xl mx-auto" data-reveal="soft">
         <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Career Trajectory</span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
           Professional Milestones
@@ -960,7 +1008,7 @@
         <!-- Year 2026 Group -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <!-- Sticky Year Pin on Left -->
-          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2">
+          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2" data-reveal="from-left">
             <span class="text-6xl sm:text-7xl font-serif font-black text-coral/40 block leading-none">2026</span>
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-coral animate-ping"></span>
@@ -969,7 +1017,7 @@
           </div>
 
           <!-- Cards on Right -->
-          <div class="lg:col-span-9 space-y-6">
+          <div class="lg:col-span-9 space-y-6" data-reveal-stagger="from-right">
             <!-- Role 1: Bali Towerindo -->
             <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
               <div class="flex flex-wrap items-center justify-between gap-2">
@@ -1014,7 +1062,7 @@
         <!-- Year 2025 Group -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-8 border-t border-border-subtle">
           <!-- Sticky Year Pin on Left -->
-          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2">
+          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2" data-reveal="from-left">
             <span class="text-6xl sm:text-7xl font-serif font-black text-coral/40 block leading-none">2025</span>
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-lilac"></span>
@@ -1023,7 +1071,7 @@
           </div>
 
           <!-- Cards on Right -->
-          <div class="lg:col-span-9 space-y-6">
+          <div class="lg:col-span-9 space-y-6" data-reveal-stagger="from-right">
             <!-- Role 3: Kemenag -->
             <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
               <div class="flex flex-wrap items-center justify-between gap-2">
@@ -1048,7 +1096,7 @@
         <!-- Year 2024 Group -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-8 border-t border-border-subtle">
           <!-- Sticky Year Pin on Left -->
-          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2">
+          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2" data-reveal="from-left">
             <span class="text-6xl sm:text-7xl font-serif font-black text-coral/40 block leading-none">2024</span>
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-lilac"></span>
@@ -1057,7 +1105,7 @@
           </div>
 
           <!-- Cards on Right -->
-          <div class="lg:col-span-9 space-y-6">
+          <div class="lg:col-span-9 space-y-6" data-reveal-stagger="from-right">
             <!-- Role 4: GDGoC -->
             <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
               <div class="flex flex-wrap items-center justify-between gap-2">
@@ -1086,7 +1134,7 @@
   <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (BEN SHIH-INSPIRED INTERACTIVE CARD DECK & B&W EDITORIAL PHOTOGRAPHY) -->
   <section id="speaking" class="py-24 overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12" data-reveal="from-left">
       <div class="space-y-3">
         <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Stage & Facilitation</span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
@@ -1105,7 +1153,7 @@
     </div>
 
     <!-- Editorial Black & White Photography Fanned Deck (Ben Shih Interactive Spring Motion) -->
-    <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal-stagger="rise">
       
       <!-- Photo 1: REAL YOTNC 2024 Stage Photo (Uploaded by User) -->
       <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:-rotate-2 transition-all">
@@ -1163,7 +1211,7 @@
   <section id="credentials" class="py-24 border-y border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 space-y-8">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal="from-left">
         <div>
           <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Verified Accreditations</span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight mt-1">
@@ -1173,7 +1221,7 @@
       </div>
 
       <!-- Credential filters -->
-      <div class="flex flex-wrap items-center gap-3 pt-2">
+      <div class="flex flex-wrap items-center gap-3 pt-2" data-reveal="soft">
         <div class="flex flex-wrap items-center gap-2" id="cred-filter-tabs">
           <button onclick="filterCredentials('all')" id="tab-all" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border border-coral bg-coral text-white shadow-xs">
             All Accreditations (10)
@@ -1199,7 +1247,7 @@
           2026
         </div>
 
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-reveal="soft">
           
           <div class="lg:col-span-8 space-y-4">
             <div class="flex flex-wrap items-center gap-3">
@@ -1261,7 +1309,7 @@
       </div>
 
       <!-- 2. The Ben Shih-Style Interactive Horizontal Credential Dock -->
-      <div class="space-y-3">
+      <div class="space-y-3" data-reveal="rise">
         <div class="flex items-center justify-between text-xs font-mono text-mauve">
           <span class="font-bold tracking-wider">ACCREDITATION DOCK (<span id="dock-count">10</span> AVAILABLE) <span class="hidden sm:inline font-normal tracking-normal text-mauve/70">· drag to browse</span></span>
           <div class="flex items-center gap-2">
@@ -1275,7 +1323,7 @@
         </div>
 
         <!-- Scrollable Dock Container with Tactile Cards (Zero clipping, smooth scroll) -->
-        <div id="credential-dock" role="group" aria-label="Accreditation cards. Drag horizontally or use the arrow buttons to browse." class="flex gap-3 overflow-x-auto no-scrollbar py-4 px-3 scroll-smooth">
+        <div id="credential-dock" role="group" aria-label="Accreditation cards. Drag horizontally or use the arrow buttons to browse." class="flex gap-3 overflow-x-auto no-scrollbar py-4 px-3 scroll-smooth" data-reveal="rise">
           <!-- Dock Buttons populated dynamically in JS -->
         </div>
       </div>
@@ -1285,7 +1333,7 @@
 
   <!-- SECTION 6: HIGH-IMPACT RECRUITER FOOTER WITH VALUE PILLARS -->
   <footer id="contact" class="py-24 px-6">
-    <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden" data-reveal="zoom">
       
       <!-- Ambient Glow Behind Footer -->
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-coral/20 rounded-full filter blur-3xl -z-10"></div>
@@ -1826,6 +1874,35 @@
 
     renderCredentialDock();
     selectCredential(0);
+
+    // Each chapter enters with its own direction and stagger as it reaches the viewport.
+    function initScrollReveals() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+
+      const revealTargets = new Set(document.querySelectorAll('[data-reveal]'));
+      document.querySelectorAll('[data-reveal-stagger]').forEach(group => {
+        Array.from(group.children).forEach((item, index) => {
+          if (!item.hasAttribute('data-reveal')) item.dataset.reveal = group.dataset.revealStagger || 'rise';
+          item.style.setProperty('--reveal-delay', `${Math.min(index * 100, 500)}ms`);
+          revealTargets.add(item);
+        });
+      });
+
+      if (!revealTargets.size) return;
+      document.documentElement.classList.add('scroll-motion-ready');
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in-view');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+
+      revealTargets.forEach(element => revealObserver.observe(element));
+    }
+
+    initScrollReveals();
 
     // 6. Direct Email Copy with Feedback
     function copyEmailToClipboard() {
