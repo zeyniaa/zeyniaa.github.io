@@ -225,7 +225,8 @@
       box-shadow: 0 12px 24px -6px rgba(217, 143, 132, 0.38), 0 0 0 2px #D98F84;
     }
 
-    /* A connected, twilight-inspired atmosphere for the final three chapters. */
+    /* A moving sunset palette carries the story from the career timeline into twilight. */
+    #journey,
     #speaking,
     #credentials,
     #contact {
@@ -233,9 +234,11 @@
       isolation: isolate;
     }
 
-    #speaking {
-      background: #fbf5f1;
+    #journey {
+      background: linear-gradient(180deg, #fcf8f5 0%, #f5e8e8 48%, #ecd7e3 100%);
     }
+    #journey::before,
+    #journey::after,
     #speaking::before,
     #speaking::after,
     #credentials::before,
@@ -248,11 +251,40 @@
       z-index: -1;
       pointer-events: none;
     }
+    #journey::before {
+      background:
+        radial-gradient(ellipse at 82% 18%, rgba(217, 143, 132, 0.24), transparent 30%),
+        radial-gradient(ellipse at 18% 72%, rgba(203, 179, 196, 0.3), transparent 38%),
+        radial-gradient(ellipse at 76% 82%, rgba(255, 255, 255, 0.56), transparent 34%);
+      filter: blur(18px);
+      animation: auroraDrift 28s ease-in-out infinite alternate;
+    }
+    #journey::after {
+      inset: 12% -12% auto auto;
+      width: min(68vw, 900px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(139, 109, 131, 0.12);
+      border-radius: 50%;
+      box-shadow: 0 0 0 34px rgba(139, 109, 131, 0.035), 0 0 0 82px rgba(217, 143, 132, 0.04);
+      animation: horizonOrbit 36s ease-in-out infinite alternate;
+    }
+    #journey > div,
+    #speaking > div,
+    #credentials > div,
+    #contact > div {
+      position: relative;
+      z-index: 1;
+    }
+    #speaking {
+      background: linear-gradient(155deg, #ecd7e3 0%, #dfc7d9 48%, #cdb2cf 100%);
+    }
     #speaking::before {
       background:
-        radial-gradient(ellipse at 12% 34%, rgba(217, 143, 132, 0.15), transparent 35%),
-        radial-gradient(ellipse at 90% 68%, rgba(203, 179, 196, 0.24), transparent 38%),
-        linear-gradient(115deg, rgba(255,255,255,0.5), transparent 65%);
+        radial-gradient(ellipse at 12% 34%, rgba(255, 233, 221, 0.62), transparent 35%),
+        radial-gradient(ellipse at 90% 68%, rgba(139, 109, 131, 0.2), transparent 38%),
+        linear-gradient(115deg, rgba(255,255,255,0.24), transparent 65%);
+      filter: blur(12px);
+      animation: auroraDrift 24s ease-in-out infinite alternate-reverse;
     }
     #speaking::after {
       inset: 12% -8% auto auto;
@@ -261,38 +293,51 @@
       border: 1px solid rgba(139, 109, 131, 0.12);
       border-radius: 50%;
       box-shadow: 0 0 0 38px rgba(139, 109, 131, 0.035), 0 0 0 92px rgba(217, 143, 132, 0.035);
-      transform: rotate(-18deg);
-      animation: stageOrbit 24s ease-in-out infinite alternate;
+      animation: horizonOrbit 30s ease-in-out infinite alternate-reverse;
     }
     #credentials {
       overflow: hidden;
       background:
-        radial-gradient(ellipse at 8% 4%, rgba(217, 143, 132, 0.14), transparent 28%),
-        radial-gradient(ellipse at 92% 96%, rgba(139, 109, 131, 0.13), transparent 36%),
-        linear-gradient(135deg, #f8f1ee 0%, #f5edf1 52%, #fbf5f1 100%);
+        radial-gradient(ellipse at 8% 4%, rgba(255, 229, 217, 0.58), transparent 28%),
+        radial-gradient(ellipse at 92% 96%, rgba(139, 109, 131, 0.28), transparent 36%),
+        linear-gradient(145deg, #dfcce0 0%, #cbb4d0 58%, #b69ab9 100%);
     }
     #credentials::before {
-      inset: -20%;
-      background: radial-gradient(ellipse, transparent 42%, rgba(203, 179, 196, 0.18) 42.2%, transparent 42.7%);
-      transform: rotate(-18deg) scale(1.1);
-      animation: credentialPulse 18s ease-in-out infinite alternate;
+      inset: -12%;
+      background:
+        radial-gradient(ellipse at 22% 24%, rgba(255, 244, 235, 0.38), transparent 25%),
+        radial-gradient(ellipse at 76% 70%, rgba(139, 109, 131, 0.22), transparent 32%);
+      filter: blur(24px);
+      animation: auroraDrift 26s ease-in-out infinite alternate;
     }
     #credentials::after {
-      background-image: linear-gradient(rgba(139, 109, 131, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 109, 131, 0.045) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
-      opacity: 0.45;
+      background-image:
+        linear-gradient(rgba(76, 59, 82, 0.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(76, 59, 82, 0.075) 1px, transparent 1px),
+        linear-gradient(132deg, transparent 49.9%, rgba(255, 240, 230, 0.24) 50%, transparent 50.2%);
+      background-size: 52px 52px, 52px 52px, 100% 100%;
+      mask-image: radial-gradient(ellipse at center, #000 16%, transparent 78%);
+      opacity: 0.42;
+      animation: contactDrift 34s linear infinite;
     }
-    #credentials > div {
-      position: relative;
-      z-index: 1;
+    #speaking .text-mauve {
+      color: #624c68;
+    }
+    #speaking .text-coral {
+      color: #a95d55;
+    }
+    #credentials .text-mauve {
+      color: #493849;
+    }
+    #credentials .text-coral {
+      color: #70413f;
     }
     #contact {
       overflow: hidden;
       background:
-        radial-gradient(ellipse at 12% 82%, rgba(217, 143, 132, 0.19), transparent 30%),
-        radial-gradient(ellipse at 86% 14%, rgba(139, 109, 131, 0.24), transparent 34%),
-        #231f2e;
+        radial-gradient(ellipse at 12% 82%, rgba(217, 143, 132, 0.22), transparent 30%),
+        radial-gradient(ellipse at 86% 14%, rgba(203, 179, 196, 0.2), transparent 34%),
+        linear-gradient(180deg, #b69ab9 0%, #715b78 34%, #3c3047 72%, #231f2e 100%);
     }
     #contact::before {
       background-image: linear-gradient(rgba(203, 179, 196, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(203, 179, 196, 0.06) 1px, transparent 1px);
@@ -306,22 +351,26 @@
       animation: credentialPulse 16s ease-in-out infinite alternate-reverse;
     }
     #credential-dock {
-      cursor: url("assets/portfolio-cursor.svg") 9 7, grab;
+      cursor: grab;
       touch-action: pan-x pan-y;
       user-select: none;
       -webkit-user-select: none;
       scroll-behavior: smooth;
     }
     #credential-dock.is-dragging {
-      cursor: url("assets/portfolio-cursor.svg") 9 7, grabbing;
+      cursor: grabbing;
       scroll-behavior: auto;
     }
     #credential-dock.is-dragging .dock-card-btn {
       pointer-events: none;
     }
-    @keyframes stageOrbit {
-      from { transform: translate3d(0, 0, 0) rotate(-18deg); }
-      to { transform: translate3d(-26px, 18px, 0) rotate(-7deg); }
+    @keyframes auroraDrift {
+      from { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+      to { transform: translate3d(1.5%, 1%, 0) scale(1.06); }
+    }
+    @keyframes horizonOrbit {
+      from { transform: translate3d(0, 0, 0) rotate(-18deg) scale(0.98); }
+      to { transform: translate3d(-24px, 18px, 0) rotate(-7deg) scale(1.02); }
     }
     @keyframes credentialPulse {
       from { opacity: 0.34; }
@@ -332,7 +381,11 @@
     }
     @media (prefers-reduced-motion: reduce) {
       #speaking::after,
+      #journey::before,
+      #journey::after,
+      #speaking::before,
       #credentials::before,
+      #credentials::after,
       #contact::before,
       #contact::after {
         animation: none;
@@ -342,16 +395,18 @@
       }
     }
 
-    /* Pixel-outline cursor inspired by the supplied reference. */
+    /* A compact, familiar arrow in the portfolio's soft sunset palette. */
     body {
-      cursor: url("assets/portfolio-cursor.svg") 9 7, auto;
+      cursor: url("assets/portfolio-cursor.svg") 3 2, auto;
     }
     a,
     button,
     [role="button"],
-    .cursor-pointer,
+    .cursor-pointer {
+      cursor: url("assets/portfolio-cursor.svg") 3 2, pointer !important;
+    }
     .cursor-default {
-      cursor: url("assets/portfolio-cursor.svg") 9 7, pointer !important;
+      cursor: url("assets/portfolio-cursor.svg") 3 2, auto !important;
     }
     input,
     textarea,
@@ -1115,13 +1170,10 @@
             Credentials & Achievements
           </h2>
         </div>
-        <p class="text-xs font-mono text-mauve">
-          FILTER DOMAIN OR SELECT AN APP ICON FROM THE DOCK TO INSPECT
-        </p>
       </div>
 
-      <!-- Ben Shih Category Filter Tabs & Auto-Tour Control -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+      <!-- Credential filters -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
         <div class="flex flex-wrap items-center gap-2" id="cred-filter-tabs">
           <button onclick="filterCredentials('all')" id="tab-all" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border border-coral bg-coral text-white shadow-xs">
             All Accreditations (10)
@@ -1137,16 +1189,6 @@
           </button>
         </div>
 
-        <!-- Auto Tour Toggle Button -->
-        <button id="tour-toggle-btn" onclick="toggleAutoTour()" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-lilac text-xs font-mono text-twilight hover:border-coral hover:bg-peach/30 transition-all shadow-xs group">
-          <span id="tour-icon" class="text-coral group-hover:scale-110 transition-transform">▶</span>
-          <span id="tour-label" class="font-semibold">Auto-Tour</span>
-        </button>
-      </div>
-
-      <!-- Auto Tour Live Progress Bar -->
-      <div id="tour-bar-container" class="w-full h-1 bg-lilac/30 rounded-full overflow-hidden hidden">
-        <div id="tour-progress" class="h-full bg-coral w-0 transition-all duration-300"></div>
       </div>
 
       <!-- 1. The Featured Spotlight Showcase Card (Interactive Stage) -->
@@ -1406,7 +1448,7 @@
       }
     }
 
-    // 5. Ben Shih-Style Interactive Credentials Showcase with Dock Selector & Auto-Tour
+    // 5. Interactive credentials showcase with category filters and a browsable dock
     const credentialsData = [
       {
         id: 'kada',
@@ -1582,8 +1624,6 @@
 
     let activeCredIndex = 0;
     let currentCategory = 'all';
-    let autoTourTimer = null;
-    let isAutoTourRunning = false;
 
     function getFilteredCredentials() {
       if (currentCategory === 'all') return credentialsData;
@@ -1782,39 +1822,6 @@
       const nextFilteredIdx = (currentFilteredIdx + 1) % filtered.length;
       const targetOrigIdx = credentialsData.findIndex(c => c.id === filtered[nextFilteredIdx].id);
       selectCredential(targetOrigIdx, true);
-    }
-
-    function toggleAutoTour() {
-      const barContainer = document.getElementById('tour-bar-container');
-      const progressBar = document.getElementById('tour-progress');
-      const icon = document.getElementById('tour-icon');
-      const label = document.getElementById('tour-label');
-
-      if (isAutoTourRunning) {
-        clearInterval(autoTourTimer);
-        isAutoTourRunning = false;
-        barContainer.classList.add('hidden');
-        progressBar.style.width = '0%';
-        icon.textContent = '▶';
-        label.textContent = 'Auto-Tour';
-      } else {
-        isAutoTourRunning = true;
-        barContainer.classList.remove('hidden');
-        icon.textContent = '⏸';
-        label.textContent = 'Pause Tour';
-        
-        let progress = 0;
-        progressBar.style.width = '0%';
-
-        autoTourTimer = setInterval(() => {
-          progress += 5;
-          if (progress >= 100) {
-            progress = 0;
-            nextCredential();
-          }
-          progressBar.style.width = `${progress}%`;
-        }, 225);
-      }
     }
 
     renderCredentialDock();
