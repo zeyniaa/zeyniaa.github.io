@@ -117,7 +117,7 @@
       border-bottom: 1px solid rgba(232, 221, 229, 0.8);
     }
 
-    /* Custom Cursor Follower */
+    /* Custom Morphing Cursor */
     .cursor-dot {
       pointer-events: none;
       position: fixed;
@@ -127,19 +127,78 @@
       border-radius: 50%;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: transform 0.08s ease;
+      transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
     }
 
     .cursor-ring {
       pointer-events: none;
       position: fixed;
-      width: 32px;
-      height: 32px;
-      border: 1px solid rgba(217, 143, 132, 0.45);
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid rgba(217, 143, 132, 0.55);
       border-radius: 50%;
       z-index: 9998;
       transform: translate(-50%, -50%);
-      transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                  height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                  background-color 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                  border-color 0.25s ease,
+                  box-shadow 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cursor-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+
+    /* Morphing states */
+    .cursor-hover .cursor-ring {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(217, 143, 132, 0.92);
+      border-color: #D98F84;
+      box-shadow: 0 0 24px rgba(217, 143, 132, 0.45);
+    }
+    .cursor-hover .cursor-dot {
+      opacity: 0;
+    }
+    .cursor-hover .cursor-label {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .cursor-click .cursor-ring {
+      transform: translate(-50%, -50%) scale(0.8) !important;
+    }
+
+    /* Utility: Hide scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Ben Shih-Style Interactive Overlapping Deck */
+    .deck-card {
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .deck-card:hover {
+      transform: translateY(-14px) rotate(0deg) scale(1.04) !important;
+      z-index: 40 !important;
+      box-shadow: 0 25px 45px -10px rgba(35, 31, 46, 0.22), 0 0 0 1px #D98F84;
+      border-color: #D98F84;
     }
 
     /* Stacking Cards Transition for Case Studies */
@@ -234,9 +293,11 @@
 
 <body class="bg-canvas text-twilight font-sans antialiased selection:bg-peach selection:text-twilight min-h-screen relative overflow-x-hidden">
 
-  <!-- Interactive Custom Cursor (Desktop Only) -->
+  <!-- Interactive Custom Morphing Cursor (Desktop Only) -->
   <div id="cursor-dot" class="cursor-dot hidden md:block"></div>
-  <div id="cursor-ring" class="cursor-ring hidden md:block"></div>
+  <div id="cursor-ring" class="cursor-ring hidden md:block">
+    <span id="cursor-label" class="cursor-label">VIEW</span>
+  </div>
 
   <!-- FLOATING NAVIGATION BAR (Clean, Familiar, No Resume Button) -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
@@ -372,21 +433,9 @@
     </div>
   </section>
 
-  <!-- OUT-OF-THE-BOX BEN SHIH-INSPIRED TRANSITION: INTERACTIVE MULTILAYER PARALLAX HORIZON PORTAL -->
-  <div class="relative w-full z-20 -mt-16 sm:-mt-24" id="horizon-wrapper">
-    <div id="horizon-parallax-container" class="relative w-full transition-transform duration-100 ease-out select-none">
-      
-      <!-- Telemetry Horizon Tags (Left & Right) -->
-      <div class="max-w-6xl mx-auto px-6 relative flex justify-between items-center text-[10px] sm:text-xs font-mono text-mauve/80 mb-2 pointer-events-none">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-lilac/40 shadow-xs">
-          <span class="w-1.5 h-1.5 rounded-full bg-coral animate-ping"></span>
-          LAT 3.58 &bull; DEEP LEARNING HORIZON
-        </span>
-        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-lilac/40 shadow-xs">
-          TELEMETRY GATE &bull; PRODUCTION CORE &darr;
-        </span>
-      </div>
-
+  <!-- OUT-OF-THE-BOX BEN SHIH-INSPIRED TRANSITION: SMOOTH MULTILAYER HORIZON WITH LASER RIDGE RUNNER -->
+  <div class="relative w-full z-20 -mt-16 sm:-mt-24 pointer-events-none select-none" id="horizon-wrapper">
+    <div id="horizon-parallax-container" class="relative w-full">
       <svg class="w-full h-36 sm:h-48 md:h-64 block filter drop-shadow-[0_-12px_24px_rgba(217,143,132,0.18)]" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <defs>
           <linearGradient id="sunset-laser-grad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -419,26 +468,11 @@
         <!-- Animated Glowing Laser Runner Racing Along Mountain Ridge -->
         <path class="laser-ridge" d="M0,225 C340,160 680,265 1020,180 C1240,130 1370,220 1440,205" stroke="url(#sunset-laser-grad)" stroke-width="4.5" stroke-linecap="round" fill="none"/>
       </svg>
-
-      <!-- Center Interactive Horizon Dial / Descent Portal -->
-      <div class="relative z-30 flex justify-center -mt-8 sm:-mt-10">
-        <button onclick="scrollToPitch()" class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/95 backdrop-blur-md border border-coral text-twilight shadow-card hover:bg-coral hover:text-white transition-all transform hover:-translate-y-1 active:scale-95 cursor-pointer">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75 group-hover:bg-white"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-coral group-hover:bg-white"></span>
-          </span>
-          <span class="font-mono text-xs font-bold tracking-wider text-twilight group-hover:text-white">DESCEND TO PRODUCTION TELEMETRY</span>
-          <svg class="w-4 h-4 text-coral group-hover:text-white transform group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-          </svg>
-        </button>
-      </div>
-
     </div>
   </div>
 
   <!-- SECTION 1: TACTILE CURTAIN RISER WITH MARQUEE & CAPABILITIES (DEEP TWILIGHT PLUM) -->
-  <section id="recruiter-pitch" class="bg-twilight text-peach pt-4 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain rounded-t-[40px] sm:rounded-t-[56px] -mt-6">
+  <section id="recruiter-pitch" class="bg-twilight text-peach pt-6 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain -mt-1">
     <div class="max-w-6xl mx-auto px-6 space-y-14">
       
       <!-- Infinite Running Marquee Bar -->
@@ -824,7 +858,7 @@
                   <h4 class="text-2xl font-serif font-bold text-twilight">AI Engineer Intern</h4>
                   <p class="text-xs font-mono text-mauve font-medium">PT Bali Towerindo Sentra Tbk</p>
                 </div>
-                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">FEB 2026 - PRESENT</span>
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">AUG 2026 - PRESENT</span>
               </div>
               <p class="text-sm font-sans text-mauve leading-relaxed">
                 Spearheaded AutoRestock, an autonomous procurement workflow utilizing LangGraph for dynamic multi-agent execution, DuckDB for high-throughput inventory telemetry, and FastAPI for resilient order dispatch.
@@ -930,66 +964,94 @@
     </div>
   </section>
 
-  <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (100% BLACK & WHITE EDITORIAL PHOTOGRAPHY) -->
+  <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (BEN SHIH-INSPIRED INTERACTIVE CARD DECK & B&W EDITORIAL PHOTOGRAPHY) -->
   <section id="speaking" class="py-24 max-w-6xl mx-auto px-6">
-    <div class="space-y-4 mb-14">
-      <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Stage & Facilitation</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
-        Public Speaking & Leadership
-      </h2>
-      <p class="text-sm font-sans text-mauve max-w-xl">
-        High-impact stage communication: Master of Ceremonies and keynote facilitator hosting national youth summits, corporate student visits, and academic panels.
-      </p>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div class="space-y-3">
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Stage & Facilitation</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
+          Public Speaking & Leadership
+        </h2>
+        <p class="text-sm font-sans text-mauve max-w-xl">
+          High-impact stage communication: Master of Ceremonies and keynote facilitator hosting national youth summits, corporate student visits, and academic panels. Hover cards to elevate, tap to inspect full-screen.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono font-medium text-mauve px-3 py-1.5 rounded-full bg-white border border-lilac shadow-xs">
+          INTERACTIVE PHOTO DECK &bull; 4 KEY MOMENTS
+        </span>
+      </div>
     </div>
 
-    <!-- Editorial Black & White Photography Grid (High-Contrast, Zero Eye Strain, Real YOTNC Photo) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Editorial Black & White Photography Fanned Deck (Ben Shih Interactive Spring Motion) -->
+    <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Photo 1: REAL YOTNC 2024 Stage Photo (Uploaded by User) -->
-      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5">
-          <img src="assets/yotnc_real_stage.png" alt="National MC at YOTNC 2024 Kasablanka Hall" class="w-full h-full object-cover bw-editorial">
+      <div onclick="openCertModal('assets/yotnc_real_stage.png', 'National MC at YOTNC 2024', 'Master of Ceremonies for Indonesia\'s largest national youth leadership summit at The Kasablanka Hall, Jakarta.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:-rotate-2 transition-all">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
+          <img src="assets/yotnc_real_stage.png" alt="National MC at YOTNC 2024 Kasablanka Hall" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
+              Zoom Photo ↗
+            </span>
+          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">NATIONAL MC</span>
           <p class="text-base font-serif text-twilight mt-0.5 font-bold">YOTNC 2024 Kasablanka Hall</p>
-          <p class="text-[11px] font-sans text-mauve mt-0.5">Master of Ceremonies for Indonesia's largest youth summit</p>
+          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Master of Ceremonies for Indonesia's largest youth summit</p>
         </div>
       </div>
 
       <!-- Photo 2: Company Visit & Keynote Host -->
-      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5">
-          <img src="assets/speaking_stage_mc.jpg" alt="Company Visit MC" class="w-full h-full object-cover bw-editorial">
+      <div onclick="openCertModal('assets/speaking_stage_mc.jpg', 'Tech Moderator & Keynote Host', 'Leading corporate technology tours, engineering panel discussions, and executive guest speaker sessions.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:rotate-1 transition-all">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
+          <img src="assets/speaking_stage_mc.jpg" alt="Company Visit MC" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
+              Zoom Photo ↗
+            </span>
+          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">TECH MODERATOR</span>
           <p class="text-base font-serif text-twilight mt-0.5 font-bold">Company Visit & Keynote</p>
-          <p class="text-[11px] font-sans text-mauve mt-0.5">Leading corporate technology tours & panel discussions</p>
+          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Leading corporate technology tours & panel discussions</p>
         </div>
       </div>
 
-      <!-- Photo 3: LPMQ Kemenag AI Research Team -->
-      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5">
-          <img src="assets/kemenag_team.jpg" alt="Kemenag LPMQ AI Research Team" class="w-full h-full object-cover bw-editorial">
+      <!-- Photo 3: LPMQ Kemenag AI Research Internship Cohort -->
+      <div onclick="openCertModal('assets/kemenag_team.jpg', 'LPMQ Kementerian Agama RI', 'Collaborating with fellow university interns during the AI digitization research internship at LPMQ Kementerian Agama RI.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:-rotate-1 transition-all">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
+          <img src="assets/kemenag_team.jpg" alt="Kemenag LPMQ AI Research Internship Cohort" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
+              Zoom Photo ↗
+            </span>
+          </div>
         </div>
         <div class="p-3">
-          <span class="text-xs font-mono text-coral font-bold block">RESEARCH TEAM</span>
+          <span class="text-xs font-mono text-coral font-bold block">INTERNSHIP COHORT</span>
           <p class="text-base font-serif text-twilight mt-0.5 font-bold">LPMQ Kemenag RI</p>
-          <p class="text-[11px] font-sans text-mauve mt-0.5">AI engineering team behind inclusive Quran digitization</p>
+          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Collaborating with fellow university interns during the AI research internship</p>
         </div>
       </div>
 
       <!-- Photo 4: GDGoC Developer Community Gathering -->
-      <div class="rounded-3xl overflow-hidden bg-white p-3 border border-border-subtle shadow-soft tilt-card group">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5">
-          <img src="assets/gdgoc_community.jpg" alt="GDGoC UIN Jakarta Gathering" class="w-full h-full object-cover bw-editorial">
+      <div onclick="openCertModal('assets/gdgoc_community.jpg', 'GDGoC Community Gathering', 'Leading 500+ student developers across 55+ technical events and hands-on workshops as Chapter Co-Lead.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:rotate-2 transition-all">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
+          <img src="assets/gdgoc_community.jpg" alt="GDGoC UIN Jakarta Gathering" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
+            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
+              Zoom Photo ↗
+            </span>
+          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">COMMUNITY LEAD</span>
           <p class="text-base font-serif text-twilight mt-0.5 font-bold">GDGoC UIN Jakarta</p>
-          <p class="text-[11px] font-sans text-mauve mt-0.5">Gathering 500+ student developers across 55+ technical events</p>
+          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Gathering 500+ student developers across 55+ technical events</p>
         </div>
       </div>
 
@@ -1016,16 +1078,16 @@
       <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
         <div class="flex flex-wrap items-center gap-2" id="cred-filter-tabs">
           <button onclick="filterCredentials('all')" id="tab-all" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border border-coral bg-coral text-white shadow-xs">
-            All Accreditations (9)
+            All Accreditations (10)
           </button>
           <button onclick="filterCredentials('ai')" id="tab-ai" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral">
-            AI & Deep Learning (4)
+            AI & Deep Learning (5)
           </button>
           <button onclick="filterCredentials('data')" id="tab-data" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral">
             Data & Analytics (2)
           </button>
           <button onclick="filterCredentials('software')" id="tab-software" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral">
-            Systems & Security (3)
+            Systems & UI (3)
           </button>
         </div>
 
@@ -1118,7 +1180,7 @@
       <!-- 2. The Ben Shih-Style Interactive Horizontal Credential Dock -->
       <div class="space-y-3">
         <div class="flex items-center justify-between text-xs font-mono text-mauve">
-          <span class="font-bold tracking-wider">ACCREDITATION DOCK (<span id="dock-count">9</span> AVAILABLE)</span>
+          <span class="font-bold tracking-wider">ACCREDITATION DOCK (<span id="dock-count">10</span> AVAILABLE)</span>
           <div class="flex items-center gap-2">
             <button onclick="prevCredential()" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Previous Credential">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -1129,8 +1191,8 @@
           </div>
         </div>
 
-        <!-- Scrollable Dock Container with Tactile Cards -->
-        <div id="credential-dock" class="flex gap-3 overflow-x-auto pb-4 pt-1 px-1 scroll-smooth">
+        <!-- Scrollable Dock Container with Tactile Cards (Zero clipping, smooth scroll) -->
+        <div id="credential-dock" class="flex gap-3 overflow-x-auto no-scrollbar py-4 px-3 scroll-smooth">
           <!-- Dock Buttons populated dynamically in JS -->
         </div>
       </div>
@@ -1154,22 +1216,6 @@
         <p class="text-sm font-sans text-peach/90 pt-2 leading-relaxed">
           Open to full-time engineering roles, research opportunities, and high-impact AI/ML projects. Looking for an engineer who bridges cutting-edge deep learning with production architecture and communicative stage leadership? Let's connect.
         </p>
-      </div>
-
-      <!-- Recruiter Value Pillars (Clear Highlights for Hiring Managers) -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 max-w-3xl mx-auto text-left">
-        <div class="p-4 rounded-2xl bg-twilight-card border border-lilac/20 space-y-1">
-          <span class="text-coral text-xs font-mono font-bold block">01 / PRODUCTION READY</span>
-          <p class="text-xs font-sans text-peach/80 leading-relaxed">LangGraph multi-agent execution, FastAPI async backends, and DuckDB telemetry pipelines.</p>
-        </div>
-        <div class="p-4 rounded-2xl bg-twilight-card border border-lilac/20 space-y-1">
-          <span class="text-coral text-xs font-mono font-bold block">02 / PROVEN RESEARCH</span>
-          <p class="text-xs font-sans text-peach/80 leading-relaxed">97.54% gesture accuracy evaluating Attention Transformers over 44,697+ frames and Acoustic AI.</p>
-        </div>
-        <div class="p-4 rounded-2xl bg-twilight-card border border-lilac/20 space-y-1">
-          <span class="text-coral text-xs font-mono font-bold block">03 / STAGE LEADERSHIP</span>
-          <p class="text-xs font-sans text-peach/80 leading-relaxed">National MC for YOTNC 2024 at Kasablanka Hall and Co-Led 500+ student developers at GDGoC.</p>
-        </div>
       </div>
 
       <!-- Action Box: Direct Email Copy (Clean SVGs, Zero Emojis) -->
@@ -1202,13 +1248,6 @@
           <svg class="w-3 h-3 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </a>
       </div>
-
-      <!-- Copyright Subtext (No S.Kom) -->
-      <div class="pt-8 border-t border-lilac/20 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-peach/60">
-        <span>Designed & Engineered by Zeiniah Alfiah</span>
-        <span>South Tangerang / Jakarta, Indonesia</span>
-      </div>
-
     </div>
   </footer>
 
@@ -1266,9 +1305,10 @@
       }, 120);
     }
 
-    // 2. Custom Smooth Mouse Follower
+    // 2. Custom Smooth Mouse Follower with Tactile Morphing States
     const dot = document.getElementById('cursor-dot');
     const ring = document.getElementById('cursor-ring');
+    const cursorLabel = document.getElementById('cursor-label');
     let mouseX = -100, mouseY = -100;
     let ringX = -100, ringY = -100;
 
@@ -1287,6 +1327,52 @@
       requestAnimationFrame(animateCursor);
     }
     animateCursor();
+
+    // Morphing Cursor Events (Hover expansion, text labels, and click squash)
+    document.addEventListener('mouseover', (e) => {
+      const el = e.target.closest('a, button, .deck-card, .tilt-card, .dock-card-btn, #avatar-btn, [data-cursor]');
+      if (el) {
+        document.body.classList.add('cursor-hover');
+        if (el.closest('#speaking')) {
+          cursorLabel.textContent = 'VIEW';
+        } else if (el.closest('#credential-spotlight') || el.closest('#credential-dock')) {
+          cursorLabel.textContent = 'INSPECT';
+        } else if (el.id === 'avatar-btn' || el.closest('#avatar-btn')) {
+          cursorLabel.textContent = 'HELLO!';
+        } else if (el.id === 'copy-email-btn' || el.closest('#copy-email-btn')) {
+          cursorLabel.textContent = 'COPY';
+        } else if (el.closest('#flagship')) {
+          cursorLabel.textContent = 'EXPLORE';
+        } else {
+          cursorLabel.textContent = 'OPEN';
+        }
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const el = e.target.closest('a, button, .deck-card, .tilt-card, .dock-card-btn, #avatar-btn, [data-cursor]');
+      if (el) {
+        document.body.classList.remove('cursor-hover');
+      }
+    });
+
+    document.addEventListener('mousedown', () => {
+      document.body.classList.add('cursor-click');
+    });
+
+    document.addEventListener('mouseup', () => {
+      document.body.classList.remove('cursor-click');
+    });
+
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity = '0';
+      ring.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+    });
 
     // 3. Interactive Neural Spectrogram Canvas in Hero
     const canvas = document.getElementById('neural-canvas');
@@ -1357,13 +1443,6 @@
       if (layer2) layer2.style.transform = `translateX(${normX * 18}px)`;
     });
 
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      if (horizonContainer && scrollY < 900) {
-        horizonContainer.style.transform = `translateY(${scrollY * 0.15}px)`;
-      }
-    });
-
     // 4.1 Smooth Descent to Telemetry Core
     function scrollToPitch() {
       const pitch = document.getElementById('recruiter-pitch');
@@ -1377,7 +1456,7 @@
       {
         id: 'kada',
         year: '2026',
-        category: 'software',
+        category: 'ai',
         issuer: 'KOREA-ASEAN DIGITAL ACADEMY',
         title: 'Practical AI Development & Cloud Systems',
         desc: 'Selected Fellow in competitive international cohort. Engineered dynamic MongoDB survey schemas, real-time backend APIs, and an LLM-powered telemetry module to synthesize qualitative event survey data into executive recommendations.',
@@ -1388,7 +1467,7 @@
         ],
         skills: ['Dynamic Schemas', 'MongoDB', 'TypeScript APIs', 'LLM Synthesis', 'Cloud CI/CD'],
         badge: 'FELLOWSHIP',
-        image: 'assets/cert_ai_basics.jpg',
+        image: 'assets/cert_kada.png',
         icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`
       },
       {
@@ -1526,6 +1605,23 @@
         badge: 'FOUNDATIONAL',
         image: 'assets/cert_ai_basics.jpg',
         icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>`
+      },
+      {
+        id: 'uiux-dibimbing',
+        year: '2024',
+        category: 'software',
+        issuer: 'DIBIMBING.ID',
+        title: 'UI/UX Design Fundamentals',
+        desc: 'Comprehensive accreditation in design systems, high-fidelity interactive wireframing, heuristic evaluation, and user-centric prototyping in Figma.',
+        highlights: [
+          'Engineered cohesive design tokens and responsive component hierarchies in Figma.',
+          'Conducted quantitative user usability testing and heuristic evaluations.',
+          'Designed intuitive developer-ready design specifications and handoff workflows.'
+        ],
+        skills: ['Design Systems', 'Figma Prototyping', 'Heuristic Evaluation', 'Design Tokens'],
+        badge: 'CERTIFIED',
+        image: 'assets/cert_uiux.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`
       }
     ];
 
