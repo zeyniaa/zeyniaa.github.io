@@ -40,13 +40,14 @@
             'hover': '0 20px 48px rgba(217, 143, 132, 0.22)',
             'glass': '0 8px 32px 0 rgba(139, 109, 131, 0.12)',
             'speech': '0 12px 28px -4px rgba(217, 143, 132, 0.3), 0 8px 12px -6px rgba(35, 31, 46, 0.15)',
-            'glow-coral': '0 0 35px rgba(217, 143, 132, 0.35)',
+            'glow-coral': '0 0 35px rgba(217, 143, 132, 0.4)',
+            'curtain': '0 -24px 60px rgba(35, 31, 46, 0.22)',
             'stack': '0 -8px 25px rgba(35, 31, 46, 0.08), 0 15px 35px rgba(35, 31, 46, 0.05)',
+            'dock-active': '0 0 0 2px #D98F84, 0 8px 24px rgba(217, 143, 132, 0.35)',
           },
           animation: {
             'bounce-gentle': 'float 3.5s ease-in-out infinite',
             'marquee': 'marquee 26s linear infinite',
-            'marquee-slow': 'marquee 38s linear infinite',
             'float-1': 'floatSticker1 6s ease-in-out infinite',
             'float-2': 'floatSticker2 7.5s ease-in-out infinite',
             'float-3': 'floatSticker3 8.5s ease-in-out infinite',
@@ -141,18 +142,7 @@
       transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Out of the Box Reveal Transitions */
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-item.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Out of the Box Stacking Cards Transition for Case Studies */
+    /* Stacking Cards Transition for Case Studies */
     .stack-card-1 { position: sticky; top: 110px; z-index: 10; }
     .stack-card-2 { position: sticky; top: 130px; z-index: 20; }
     .stack-card-3 { position: sticky; top: 150px; z-index: 30; }
@@ -212,6 +202,33 @@
       filter: grayscale(85%) contrast(112%) brightness(100%);
       transform: scale(1.04);
     }
+
+    /* Ben Shih-style Smooth Transitions for Credential Spotlight */
+    .spotlight-fade {
+      transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Out-of-the-Box Laser Ridge Runner along Mountain Horizon */
+    @keyframes laserRunner {
+      0% { stroke-dashoffset: 2400; }
+      100% { stroke-dashoffset: -2400; }
+    }
+    .laser-ridge {
+      stroke-dasharray: 280 1400;
+      animation: laserRunner 5.5s linear infinite;
+    }
+
+    /* Tactile Ben Shih App Dock Button */
+    .dock-card-btn {
+      transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .dock-card-btn:hover {
+      transform: translateY(-5px) scale(1.04);
+    }
+    .dock-card-btn.active-dock {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 12px 24px -6px rgba(217, 143, 132, 0.38), 0 0 0 2px #D98F84;
+    }
   </style>
 </head>
 
@@ -256,7 +273,7 @@
   </header>
 
   <!-- SECTION 0: HERO (CLEAN FOREGROUND + DYNAMIC RAME BACKGROUND) -->
-  <section id="hero" class="relative min-h-[96vh] pt-36 pb-28 flex flex-col items-center justify-center overflow-hidden">
+  <section id="hero" class="relative min-h-[96vh] pt-36 pb-32 flex flex-col items-center justify-center overflow-hidden">
     
     <!-- 1. Interactive Background Canvas (Parametric 3D Cyber-Vector Waves) -->
     <canvas id="neural-canvas" class="absolute inset-0 pointer-events-none opacity-60 z-0"></canvas>
@@ -275,12 +292,12 @@
       </div>
 
       <!-- Floating Badge 3: 97.54% Accuracy -->
-      <div class="absolute bottom-[32%] left-[10%] px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-md border border-lilac text-[11px] font-mono font-medium text-mauve shadow-soft animate-float-3 hidden sm:block">
+      <div class="absolute bottom-[34%] left-[10%] px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-md border border-lilac text-[11px] font-mono font-medium text-mauve shadow-soft animate-float-3 hidden sm:block">
         <span class="text-coral">✦</span> 97.54% TRANSFORMER CV
       </div>
 
       <!-- Floating Badge 4: DuckDB -->
-      <div class="absolute bottom-[28%] right-[11%] px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-md border border-lilac text-[11px] font-mono font-medium text-mauve shadow-soft animate-float-1 hidden sm:block">
+      <div class="absolute bottom-[30%] right-[11%] px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-md border border-lilac text-[11px] font-mono font-medium text-mauve shadow-soft animate-float-1 hidden sm:block">
         <span class="text-coral">✦</span> DUCKDB ANALYTICS
       </div>
 
@@ -355,18 +372,74 @@
     </div>
   </section>
 
-  <!-- OUT-OF-THE-BOX SECTION TRANSITION: PARALLAX MOUNTAIN HORIZON -->
-  <div class="relative w-full overflow-hidden leading-none z-20 -mt-16 pointer-events-none" id="horizon-transition">
-    <svg class="w-full h-24 sm:h-36 md:h-48 block" viewBox="0 0 1440 280" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,160 C320,80 540,240 880,120 C1180,20 1340,180 1440,140 L1440,280 L0,280 Z" fill="#CBB3C4" fill-opacity="0.45"/>
-      <path d="M0,200 C280,140 600,260 920,160 C1200,80 1360,220 1440,190 L1440,280 L0,280 Z" fill="#8B6D83" fill-opacity="0.75"/>
-      <path d="M0,230 C360,170 680,270 1020,190 C1260,140 1380,230 1440,220 L1440,280 L0,280 Z" fill="#231F2E"/>
-    </svg>
+  <!-- OUT-OF-THE-BOX BEN SHIH-INSPIRED TRANSITION: INTERACTIVE MULTILAYER PARALLAX HORIZON PORTAL -->
+  <div class="relative w-full z-20 -mt-16 sm:-mt-24" id="horizon-wrapper">
+    <div id="horizon-parallax-container" class="relative w-full transition-transform duration-100 ease-out select-none">
+      
+      <!-- Telemetry Horizon Tags (Left & Right) -->
+      <div class="max-w-6xl mx-auto px-6 relative flex justify-between items-center text-[10px] sm:text-xs font-mono text-mauve/80 mb-2 pointer-events-none">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-lilac/40 shadow-xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-coral animate-ping"></span>
+          LAT 3.58 &bull; DEEP LEARNING HORIZON
+        </span>
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-lilac/40 shadow-xs">
+          TELEMETRY GATE &bull; PRODUCTION CORE &darr;
+        </span>
+      </div>
+
+      <svg class="w-full h-36 sm:h-48 md:h-64 block filter drop-shadow-[0_-12px_24px_rgba(217,143,132,0.18)]" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sunset-laser-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#CBB3C4" stop-opacity="0.1"/>
+            <stop offset="35%" stop-color="#D98F84" stop-opacity="1"/>
+            <stop offset="65%" stop-color="#FFE4DF" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#CBB3C4" stop-opacity="0.1"/>
+          </linearGradient>
+          <radialGradient id="sun-glow" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#D98F84" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#D98F84" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Ambient Horizon Glow Orb -->
+        <circle cx="720" cy="180" r="160" fill="url(#sun-glow)" />
+
+        <!-- Distant Ridge: Soft Lilac Mist with Parallax Layer 1 -->
+        <path id="mountain-layer-1" d="M0,130 C260,50 500,210 820,100 C1120,15 1300,160 1440,120 L1440,320 L0,320 Z" fill="#CBB3C4" fill-opacity="0.42"/>
+        
+        <!-- Mid Ridge: Muted Mauve with Parallax Layer 2 -->
+        <path id="mountain-layer-2" d="M0,180 C290,110 610,240 930,140 C1170,60 1340,200 1440,170 L1440,320 L0,320 Z" fill="#8B6D83" fill-opacity="0.75"/>
+        
+        <!-- Foreground Ridge: Deep Twilight Plum -->
+        <path id="mountain-layer-3" d="M0,225 C340,160 680,265 1020,180 C1240,130 1370,220 1440,205 L1440,320 L0,320 Z" fill="#231F2E"/>
+        
+        <!-- Static Sunset Contour Line -->
+        <path d="M0,225 C340,160 680,265 1020,180 C1240,130 1370,220 1440,205" stroke="#D98F84" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+
+        <!-- Animated Glowing Laser Runner Racing Along Mountain Ridge -->
+        <path class="laser-ridge" d="M0,225 C340,160 680,265 1020,180 C1240,130 1370,220 1440,205" stroke="url(#sunset-laser-grad)" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <!-- Center Interactive Horizon Dial / Descent Portal -->
+      <div class="relative z-30 flex justify-center -mt-8 sm:-mt-10">
+        <button onclick="scrollToPitch()" class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/95 backdrop-blur-md border border-coral text-twilight shadow-card hover:bg-coral hover:text-white transition-all transform hover:-translate-y-1 active:scale-95 cursor-pointer">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75 group-hover:bg-white"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-coral group-hover:bg-white"></span>
+          </span>
+          <span class="font-mono text-xs font-bold tracking-wider text-twilight group-hover:text-white">DESCEND TO PRODUCTION TELEMETRY</span>
+          <svg class="w-4 h-4 text-coral group-hover:text-white transform group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
   </div>
 
-  <!-- SECTION 1: HIGH-CONTRAST MARQUEE & CORE CAPABILITIES (DEEP TWILIGHT PLUM) -->
-  <section class="bg-twilight text-peach py-16 relative z-10 border-b border-lilac/20">
-    <div class="max-w-6xl mx-auto px-6 space-y-12">
+  <!-- SECTION 1: TACTILE CURTAIN RISER WITH MARQUEE & CAPABILITIES (DEEP TWILIGHT PLUM) -->
+  <section id="recruiter-pitch" class="bg-twilight text-peach pt-4 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain rounded-t-[40px] sm:rounded-t-[56px] -mt-6">
+    <div class="max-w-6xl mx-auto px-6 space-y-14">
       
       <!-- Infinite Running Marquee Bar -->
       <div class="w-full overflow-hidden whitespace-nowrap py-3 border-y border-lilac/30 bg-twilight-card/60 backdrop-blur-sm -mx-6 sm:mx-0 sm:rounded-2xl">
@@ -447,7 +520,7 @@
           </h2>
         </div>
         <p class="text-sm font-sans text-mauve max-w-md">
-          Scroll through to explore the tactile stacking architecture of each engineering case study.
+          Explore the tactile stacking architecture of each engineering case study.
         </p>
       </div>
 
@@ -614,8 +687,8 @@
                   <span class="text-[11px] font-mono text-mauve block">Model Accuracy</span>
                 </div>
                 <div>
-                  <span class="text-2xl font-serif font-bold text-twilight">1D-CNN</span>
-                  <span class="text-[11px] font-mono text-mauve block">Neural Network</span>
+                  <span class="text-2xl font-serif font-bold text-twilight">112</span>
+                  <span class="text-[11px] font-mono text-mauve block">Classes Benchmarked</span>
                 </div>
                 <div>
                   <span class="text-2xl font-serif font-bold text-twilight">MFCC</span>
@@ -714,7 +787,7 @@
     </div>
   </section>
 
-  <!-- SECTION 3: FLUID CAREER TRAJECTORY & EXPERIENCE (MODERN & NON-RIGID) -->
+  <!-- SECTION 3: BEN SHIH-STYLE STICKY RAIL EXPERIENCE & MILESTONES -->
   <section id="journey" class="py-24 bg-canvas border-b border-border-subtle">
     <div class="max-w-6xl mx-auto px-6">
       
@@ -724,90 +797,132 @@
           Professional Milestones
         </h2>
         <p class="text-sm font-sans text-mauve">
-          A track record bridging enterprise software engineering, government AI research, and high-retention community leadership.
+          Bridging enterprise production software, national government AI research, and technical leadership.
         </p>
       </div>
 
-      <!-- Fluid Staggered Milestone Cards (No rigid timeline lines, modern tactile layout) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Ben Shih Sticky Rail Layout: Year Indicator on Left, Cards on Right -->
+      <div class="space-y-12">
         
-        <!-- Milestone 1: PT Bali Towerindo Sentra Tbk -->
-        <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
-          <div class="flex items-center justify-between">
-            <span class="text-4xl font-serif font-black text-coral/40">2026</span>
-            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">FEB 2026 - PRESENT</span>
+        <!-- Year 2026 Group -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Sticky Year Pin on Left -->
+          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2">
+            <span class="text-6xl sm:text-7xl font-serif font-black text-coral/40 block leading-none">2026</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-coral animate-ping"></span>
+              <span class="text-xs font-mono text-mauve font-bold uppercase tracking-wider">CURRENT FOCUS</span>
+            </div>
           </div>
-          <div>
-            <h4 class="text-2xl font-serif font-bold text-twilight">AI Engineer Intern</h4>
-            <p class="text-xs font-mono text-mauve font-medium">PT Bali Towerindo Sentra Tbk</p>
-          </div>
-          <p class="text-sm font-sans text-mauve leading-relaxed">
-            Spearheaded AutoRestock, an autonomous procurement workflow utilizing LangGraph for dynamic multi-agent execution, DuckDB for high-throughput inventory telemetry, and FastAPI for resilient order dispatch.
-          </p>
-          <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">LangGraph</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">FastAPI</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">DuckDB</span>
+
+          <!-- Cards on Right -->
+          <div class="lg:col-span-9 space-y-6">
+            <!-- Role 1: Bali Towerindo -->
+            <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">AI Engineer Intern</h4>
+                  <p class="text-xs font-mono text-mauve font-medium">PT Bali Towerindo Sentra Tbk</p>
+                </div>
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">FEB 2026 - PRESENT</span>
+              </div>
+              <p class="text-sm font-sans text-mauve leading-relaxed">
+                Spearheaded AutoRestock, an autonomous procurement workflow utilizing LangGraph for dynamic multi-agent execution, DuckDB for high-throughput inventory telemetry, and FastAPI for resilient order dispatch.
+              </p>
+              <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">LangGraph</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">FastAPI</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">DuckDB</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">Typst PO Engine</span>
+              </div>
+            </div>
+
+            <!-- Role 2: KADA -->
+            <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">Fellow & AI Engineer</h4>
+                  <p class="text-xs font-mono text-mauve font-medium">Korea-ASEAN Digital Academy (KADA)</p>
+                </div>
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">FEB 2026 - APR 2026</span>
+              </div>
+              <p class="text-sm font-sans text-mauve leading-relaxed">
+                Selected in competitive international cohort focusing on end-to-end cloud systems, DevOps (CI/CD), dynamic MongoDB form builders, and LLM telemetry modules for automated survey insights.
+              </p>
+              <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">MongoDB</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">TypeScript</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">LLM Synthesis</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Milestone 2: Korea-ASEAN Digital Academy -->
-        <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
-          <div class="flex items-center justify-between">
-            <span class="text-4xl font-serif font-black text-coral/40">2026</span>
-            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">FEB 2026 - APR 2026</span>
+        <!-- Year 2025 Group -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-8 border-t border-border-subtle">
+          <!-- Sticky Year Pin on Left -->
+          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2">
+            <span class="text-6xl sm:text-7xl font-serif font-black text-coral/40 block leading-none">2025</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-lilac"></span>
+              <span class="text-xs font-mono text-mauve font-bold uppercase tracking-wider">RESEARCH & IMPACT</span>
+            </div>
           </div>
-          <div>
-            <h4 class="text-2xl font-serif font-bold text-twilight">Fellow & AI Engineer</h4>
-            <p class="text-xs font-mono text-mauve font-medium">Korea-ASEAN Digital Academy (KADA)</p>
-          </div>
-          <p class="text-sm font-sans text-mauve leading-relaxed">
-            Selected in competitive international cohort focusing on end-to-end cloud systems, DevOps (CI/CD), dynamic MongoDB form builders, and LLM telemetry modules for automated survey insights.
-          </p>
-          <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">MongoDB</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">TypeScript</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">LLM Synthesis</span>
+
+          <!-- Cards on Right -->
+          <div class="lg:col-span-9 space-y-6">
+            <!-- Role 3: Kemenag -->
+            <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">AI Engineer Intern</h4>
+                  <p class="text-xs font-mono text-mauve font-medium">LPMQ Kementerian Agama RI</p>
+                </div>
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">JUL 2025 - OCT 2025</span>
+              </div>
+              <p class="text-sm font-sans text-mauve leading-relaxed">
+                Developed deep learning models recognizing 112 Quranic sign language gesture classes for deaf inclusive education. Benchmarked Bi-LSTM, Hybrid GRU, and Attention Transformers over 44,697+ frames with 97.54% accuracy.
+              </p>
+              <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">MediaPipe Holistic</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">PyTorch</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">Attention Transformers</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Milestone 3: LPMQ Kementerian Agama RI -->
-        <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
-          <div class="flex items-center justify-between">
-            <span class="text-4xl font-serif font-black text-coral/40">2025</span>
-            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">JUL 2025 - OCT 2025</span>
+        <!-- Year 2024 Group -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-8 border-t border-border-subtle">
+          <!-- Sticky Year Pin on Left -->
+          <div class="lg:col-span-3 lg:sticky lg:top-28 space-y-2">
+            <span class="text-6xl sm:text-7xl font-serif font-black text-coral/40 block leading-none">2024</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-lilac"></span>
+              <span class="text-xs font-mono text-mauve font-bold uppercase tracking-wider">LEADERSHIP & STAGE</span>
+            </div>
           </div>
-          <div>
-            <h4 class="text-2xl font-serif font-bold text-twilight">AI Engineer Intern</h4>
-            <p class="text-xs font-mono text-mauve font-medium">LPMQ Kementerian Agama RI</p>
-          </div>
-          <p class="text-sm font-sans text-mauve leading-relaxed">
-            Developed deep learning models recognizing 112 Quranic sign language gesture classes for deaf inclusive education. Benchmarked Bi-LSTM, Hybrid GRU, and Attention Transformers over 44,697+ frames with 97.54% accuracy.
-          </p>
-          <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">MediaPipe</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">PyTorch</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">Transformers</span>
-          </div>
-        </div>
 
-        <!-- Milestone 4: GDGoC UIN Jakarta -->
-        <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
-          <div class="flex items-center justify-between">
-            <span class="text-4xl font-serif font-black text-coral/40">2024-25</span>
-            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">NOV 2024 - AUG 2025</span>
-          </div>
-          <div>
-            <h4 class="text-2xl font-serif font-bold text-twilight">Co-Lead Organizer</h4>
-            <p class="text-xs font-mono text-mauve font-medium">Google Developer Group on Campus UIN Jakarta</p>
-          </div>
-          <p class="text-sm font-sans text-mauve leading-relaxed">
-            Led chapter to become the #1 Most Impactful Chapter in Indonesia. Orchestrated 55+ technical events for 500+ active members, maintaining a 9.5/10 satisfaction score and 93% retention rate.
-          </p>
-          <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">Leadership (20+ Leads)</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">55+ Tech Events</span>
-            <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">93% Retention</span>
+          <!-- Cards on Right -->
+          <div class="lg:col-span-9 space-y-6">
+            <!-- Role 4: GDGoC -->
+            <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">Co-Lead Organizer</h4>
+                  <p class="text-xs font-mono text-mauve font-medium">Google Developer Group on Campus UIN Jakarta</p>
+                </div>
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">NOV 2024 - AUG 2025</span>
+              </div>
+              <p class="text-sm font-sans text-mauve leading-relaxed">
+                Led chapter to become the #1 Most Impactful Chapter in Indonesia. Orchestrated 55+ technical events for 500+ active members, maintaining a 9.5/10 satisfaction score and 93% retention rate.
+              </p>
+              <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">20+ Technical Leads</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">55+ Tech Sessions</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">93% Retention</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -881,11 +996,11 @@
     </div>
   </section>
 
-  <!-- SECTION 5: OUT-OF-THE-BOX INTERACTIVE CREDENTIALS VAULT -->
+  <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
   <section id="credentials" class="py-24 bg-canvas-subtle border-y border-border-subtle">
-    <div class="max-w-6xl mx-auto px-6 space-y-12">
+    <div class="max-w-6xl mx-auto px-6 space-y-8">
       
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Verified Accreditations</span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight mt-1">
@@ -893,152 +1008,137 @@
           </h2>
         </div>
         <p class="text-xs font-mono text-mauve">
-          CLICK CARD TO INSPECT OFFICIAL VERIFICATION
+          FILTER DOMAIN OR SELECT AN APP ICON FROM THE DOCK TO INSPECT
         </p>
       </div>
 
-      <!-- Interactive 3D Credential Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Ben Shih Category Filter Tabs & Auto-Tour Control -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+        <div class="flex flex-wrap items-center gap-2" id="cred-filter-tabs">
+          <button onclick="filterCredentials('all')" id="tab-all" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border border-coral bg-coral text-white shadow-xs">
+            All Accreditations (9)
+          </button>
+          <button onclick="filterCredentials('ai')" id="tab-ai" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral">
+            AI & Deep Learning (4)
+          </button>
+          <button onclick="filterCredentials('data')" id="tab-data" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral">
+            Data & Analytics (2)
+          </button>
+          <button onclick="filterCredentials('software')" id="tab-software" class="cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral">
+            Systems & Security (3)
+          </button>
+        </div>
+
+        <!-- Auto Tour Toggle Button -->
+        <button id="tour-toggle-btn" onclick="toggleAutoTour()" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-lilac text-xs font-mono text-twilight hover:border-coral hover:bg-peach/30 transition-all shadow-xs group">
+          <span id="tour-icon" class="text-coral group-hover:scale-110 transition-transform">▶</span>
+          <span id="tour-label" class="font-semibold">Auto-Tour</span>
+        </button>
+      </div>
+
+      <!-- Auto Tour Live Progress Bar -->
+      <div id="tour-bar-container" class="w-full h-1 bg-lilac/30 rounded-full overflow-hidden hidden">
+        <div id="tour-progress" class="h-full bg-coral w-0 transition-all duration-300"></div>
+      </div>
+
+      <!-- 1. The Featured Spotlight Showcase Card (Interactive Stage) -->
+      <div id="credential-spotlight" class="relative p-8 sm:p-12 rounded-[36px] bg-white border border-lilac shadow-card hover:border-coral transition-all spotlight-fade overflow-hidden">
         
-        <!-- Credential 1: KADA -->
-        <div onclick="openCertModal('assets/cert_ai_basics.jpg', 'Korea-ASEAN Digital Academy (KADA 2026)', 'Practical AI Development, Dynamic MongoDB Survey Builder, and LLM Telemetry Module.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>KADA FELLOWSHIP</span>
-            <span>2026</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            Practical AI Development & Cloud
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Full-stack backend architectures, flexible MongoDB schemas, and dynamic LLM survey synthesis module.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
+        <!-- Large Background Watermark Year -->
+        <div id="spotlight-watermark" class="absolute -right-4 -bottom-6 text-8xl sm:text-9xl font-serif font-black text-twilight/5 select-none pointer-events-none">
+          2026
         </div>
 
-        <!-- Credential 2: elevAIte Dicoding -->
-        <div onclick="openCertModal('assets/cert_dibimbing.jpg', 'elevAIte AI Program - Dicoding Indonesia (2025)', 'Selected Awardee in intensive Machine Learning, Deep Learning, and production model optimization.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>DICODING INDONESIA</span>
-            <span>2025</span>
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-3">
+              <span id="spotlight-badge" class="text-xs font-mono px-3.5 py-1 rounded-full bg-peach text-twilight font-bold border border-lilac/40">
+                FELLOWSHIP
+              </span>
+              <span id="spotlight-issuer" class="text-xs font-mono text-coral font-semibold">
+                KOREA-ASEAN DIGITAL ACADEMY
+              </span>
+              <span id="spotlight-year" class="text-xs font-mono text-mauve">
+                &bull; 2026
+              </span>
+            </div>
+
+            <h3 id="spotlight-title" class="text-3xl sm:text-4xl font-serif font-bold text-twilight">
+              Practical AI Development & Cloud Systems
+            </h3>
+
+            <p id="spotlight-desc" class="text-sm font-sans text-mauve leading-relaxed max-w-2xl">
+              Selected Fellow in competitive international cohort. Engineered dynamic MongoDB survey schemas, real-time backend APIs, and an LLM-powered telemetry module to synthesize qualitative event survey data into executive recommendations.
+            </p>
+
+            <!-- 3 Bullet Point Mastered Competencies -->
+            <div class="space-y-2 py-2" id="spotlight-highlights">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Skills Pills -->
+            <div id="spotlight-skills" class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
+              <span class="px-3 py-1 rounded-lg bg-canvas-subtle text-xs font-mono text-twilight border border-border-subtle">Dynamic Schemas</span>
+              <span class="px-3 py-1 rounded-lg bg-canvas-subtle text-xs font-mono text-twilight border border-border-subtle">MongoDB</span>
+              <span class="px-3 py-1 rounded-lg bg-canvas-subtle text-xs font-mono text-twilight border border-border-subtle">TypeScript APIs</span>
+              <span class="px-3 py-1 rounded-lg bg-canvas-subtle text-xs font-mono text-twilight border border-border-subtle">LLM Telemetry</span>
+            </div>
+
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <button id="spotlight-inspect-btn" onclick="openActiveSpotlightCert()" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors shadow-sm">
+                <span>Inspect Official Certificate</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </button>
+            </div>
           </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            elevAIte AI Training Program
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            End-to-end neural network optimization, loss function tuning, and model generalization techniques.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
+
+          <!-- Preview Frame with Interactive Hover Lens -->
+          <div class="lg:col-span-4 flex justify-center">
+            <div onclick="openActiveSpotlightCert()" class="cursor-pointer group relative w-full max-w-xs rounded-2xl overflow-hidden border border-lilac p-2 bg-canvas-subtle shadow-soft hover:shadow-card transition-all">
+              <div class="rounded-xl overflow-hidden aspect-[4/3] bg-white flex items-center justify-center relative">
+                <img id="spotlight-img" src="assets/cert_ai_basics.jpg" alt="Certificate Preview" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/10 transition-colors flex items-center justify-center">
+                  <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-xs font-mono font-bold text-twilight shadow-md">
+                    Click to Zoom ↗
+                  </span>
+                </div>
+              </div>
+              <p class="text-[11px] font-mono text-mauve text-center mt-2 group-hover:text-coral transition-colors">
+                Tap to expand fullscreen ↗
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2. The Ben Shih-Style Interactive Horizontal Credential Dock -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between text-xs font-mono text-mauve">
+          <span class="font-bold tracking-wider">ACCREDITATION DOCK (<span id="dock-count">9</span> AVAILABLE)</span>
+          <div class="flex items-center gap-2">
+            <button onclick="prevCredential()" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Previous Credential">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button onclick="nextCredential()" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Next Credential">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         </div>
 
-        <!-- Credential 3: Datathon UI -->
-        <div onclick="openCertModal('assets/project_meltdown_audio.jpg', 'Datathon 2025 - Ristek Fakultas Ilmu Komputer UI', 'Audio AI Innovation developing 1D-CNN with 90% accuracy for meltdown risk classification.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>RISTEK UI</span>
-            <span>2025</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            Datathon 2025 Audio AI Innovation
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Engineered spectral Librosa / MFCC feature extraction pipeline with 90% multi-metric model accuracy.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
+        <!-- Scrollable Dock Container with Tactile Cards -->
+        <div id="credential-dock" class="flex gap-3 overflow-x-auto pb-4 pt-1 px-1 scroll-smooth">
+          <!-- Dock Buttons populated dynamically in JS -->
         </div>
-
-        <!-- Credential 4: Cisco Data Analytics -->
-        <div onclick="openCertModal('assets/cert_cisco_data.jpg', 'Data Analytics Essentials - Cisco Networking Academy', 'Formal verification in exploratory data analysis, data wrangling, and predictive modeling.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>CISCO ACADEMY</span>
-            <span>2025</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            Data Analytics Essentials
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Statistical data processing, exploratory visualization pipelines, and predictive algorithms.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
-        </div>
-
-        <!-- Credential 5: Dibimbing AI -->
-        <div onclick="openCertModal('assets/cert_dibimbing.jpg', 'Digital Skill Fair AI & ML - Dibimbing.id', 'Intensive bootcamp on practical industry machine learning modeling and feature engineering.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>DIBIMBING.ID</span>
-            <span>2025</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            Digital Skill Fair AI & ML
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Hands-on predictive machine learning modeling to solve data-driven business problems.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
-        </div>
-
-        <!-- Credential 6: Cisco Python Essentials -->
-        <div onclick="openCertModal('assets/cert_python.jpg', 'Python Essentials 1 - Cisco & OpenEDG Python Institute', 'Certified competencies in core Python syntax, algorithmic data structures, and procedural programming.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>PYTHON INSTITUTE</span>
-            <span>2024</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            Python Essentials 1
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Algorithmic problem solving, object-oriented data structures, and procedural software foundations.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
-        </div>
-
-        <!-- Credential 7: Introduction Data Science -->
-        <div class="p-7 rounded-[32px] bg-white border border-lilac shadow-soft space-y-3">
-          <div class="flex items-center justify-between text-xs font-mono text-mauve">
-            <span>DATA SCIENCE</span>
-            <span>2025</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight">
-            Introduction to Data Science
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Dataset ingestion, statistical normalization, and exploratory predictive distributions.
-          </p>
-        </div>
-
-        <!-- Credential 8: Endpoint Security -->
-        <div class="p-7 rounded-[32px] bg-white border border-lilac shadow-soft space-y-3">
-          <div class="flex items-center justify-between text-xs font-mono text-mauve">
-            <span>SECURITY</span>
-            <span>2024</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight">
-            Endpoint Security Verification
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            System vulnerability assessment, secure API protocols, and defensive software layers.
-          </p>
-        </div>
-
-        <!-- Credential 9: AI Basics -->
-        <div onclick="openCertModal('assets/cert_ai_basics.jpg', 'Artificial Intelligence Basics (2023)', 'Foundational certification covering machine learning taxonomy and neural network theory.')" class="cursor-pointer tilt-card p-7 rounded-[32px] bg-white border border-lilac shadow-soft hover:border-coral hover:shadow-card transition-all space-y-3 relative group overflow-hidden">
-          <div class="flex items-center justify-between text-xs font-mono text-coral font-bold">
-            <span>FOUNDATIONS</span>
-            <span>2023</span>
-          </div>
-          <h4 class="text-xl font-serif font-bold text-twilight group-hover:text-coral transition-colors">
-            Artificial Intelligence Basics
-          </h4>
-          <p class="text-xs font-sans text-mauve leading-relaxed">
-            Supervised machine learning algorithms, classification metrics, and neural architectures.
-          </p>
-          <span class="text-[11px] font-mono text-coral font-medium block pt-1">Inspect Verification ↗</span>
-        </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- SECTION 6: CLEAN HIGH-CONTRAST FOOTER -->
+  <!-- SECTION 6: HIGH-IMPACT RECRUITER FOOTER WITH VALUE PILLARS -->
   <footer id="contact" class="py-24 max-w-6xl mx-auto px-6">
     <div class="p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden">
       
@@ -1047,13 +1147,29 @@
       <div class="absolute -top-24 -left-24 w-96 h-96 bg-lilac/20 rounded-full filter blur-3xl -z-10"></div>
 
       <div class="max-w-2xl mx-auto space-y-3">
-        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Connect</span>
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Connect & Hire</span>
         <h2 class="text-4xl sm:text-5xl font-serif text-white leading-tight">
           Ready to build <span class="italic font-normal text-coral">impactful intelligent systems.</span>
         </h2>
-        <p class="text-sm font-sans text-peach/80 pt-2">
-          Open to technical roles in Artificial Intelligence, Deep Learning research, and full-stack autonomous agent workflows.
+        <p class="text-sm font-sans text-peach/90 pt-2 leading-relaxed">
+          Open to full-time engineering roles, research opportunities, and high-impact AI/ML projects. Looking for an engineer who bridges cutting-edge deep learning with production architecture and communicative stage leadership? Let's connect.
         </p>
+      </div>
+
+      <!-- Recruiter Value Pillars (Clear Highlights for Hiring Managers) -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 max-w-3xl mx-auto text-left">
+        <div class="p-4 rounded-2xl bg-twilight-card border border-lilac/20 space-y-1">
+          <span class="text-coral text-xs font-mono font-bold block">01 / PRODUCTION READY</span>
+          <p class="text-xs font-sans text-peach/80 leading-relaxed">LangGraph multi-agent execution, FastAPI async backends, and DuckDB telemetry pipelines.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-twilight-card border border-lilac/20 space-y-1">
+          <span class="text-coral text-xs font-mono font-bold block">02 / PROVEN RESEARCH</span>
+          <p class="text-xs font-sans text-peach/80 leading-relaxed">97.54% gesture accuracy evaluating Attention Transformers over 44,697+ frames and Acoustic AI.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-twilight-card border border-lilac/20 space-y-1">
+          <span class="text-coral text-xs font-mono font-bold block">03 / STAGE LEADERSHIP</span>
+          <p class="text-xs font-sans text-peach/80 leading-relaxed">National MC for YOTNC 2024 at Kasablanka Hall and Co-Led 500+ student developers at GDGoC.</p>
+        </div>
       </div>
 
       <!-- Action Box: Direct Email Copy (Clean SVGs, Zero Emojis) -->
@@ -1061,7 +1177,7 @@
         <span id="email-text" class="text-xs font-mono font-medium px-4 py-2 text-white select-all">
           zeiniahalfiah@gmail.com
         </span>
-        <button id="copy-email-btn" onclick="copyEmailToClipboard()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-coral text-white text-xs font-mono font-semibold hover:bg-coral-hover transition-colors flex items-center justify-center gap-2 shadow-sm">
+        <button id="copy-email-btn" onclick="copyEmailToClipboard()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-coral text-white text-xs font-mono font-semibold hover:bg-coral-hover transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
           </svg>
@@ -1119,7 +1235,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT: INTERACTIVE CANVAS, SPEECH BUBBLE CYCLE, TABS, MODAL & COPY -->
+  <!-- JAVASCRIPT: BEN SHIH CREDENTIAL DOCK, INTERACTIVE HORIZON PARALLAX, SPEECH BUBBLE & CANVAS -->
   <script>
     // 1. Seth Lukin Interactive Speech Bubble & Avatar Wobble
     const speechQuotes = [
@@ -1172,7 +1288,7 @@
     }
     animateCursor();
 
-    // 3. Interactive Neural Spectrogram Canvas in Hero (Seth Lukin Parametric Graphs)
+    // 3. Interactive Neural Spectrogram Canvas in Hero
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -1230,16 +1346,365 @@
     }
     renderCanvas();
 
-    // 4. Parallax Scroll Effect for Rising Horizon (Seth Lukin Layer Effect)
-    const horizon = document.getElementById('horizon-transition');
+    // 4. Interactive Multilayer Parallax Cyber-Mountain Horizon (Ben Shih Parallax Depth)
+    const layer1 = document.getElementById('mountain-layer-1');
+    const layer2 = document.getElementById('mountain-layer-2');
+    const horizonContainer = document.getElementById('horizon-parallax-container');
+
+    window.addEventListener('mousemove', (e) => {
+      const normX = (e.clientX / window.innerWidth) - 0.5;
+      if (layer1) layer1.style.transform = `translateX(${normX * -25}px)`;
+      if (layer2) layer2.style.transform = `translateX(${normX * 18}px)`;
+    });
+
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
-      if (horizon && scrollY < 800) {
-        horizon.style.transform = `translateY(${scrollY * 0.12}px)`;
+      if (horizonContainer && scrollY < 900) {
+        horizonContainer.style.transform = `translateY(${scrollY * 0.15}px)`;
       }
     });
 
-    // 5. Certificate Modal Handlers
+    // 4.1 Smooth Descent to Telemetry Core
+    function scrollToPitch() {
+      const pitch = document.getElementById('recruiter-pitch');
+      if (pitch) {
+        pitch.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // 5. Ben Shih-Style Interactive Credentials Showcase with Dock Selector & Auto-Tour
+    const credentialsData = [
+      {
+        id: 'kada',
+        year: '2026',
+        category: 'software',
+        issuer: 'KOREA-ASEAN DIGITAL ACADEMY',
+        title: 'Practical AI Development & Cloud Systems',
+        desc: 'Selected Fellow in competitive international cohort. Engineered dynamic MongoDB survey schemas, real-time backend APIs, and an LLM-powered telemetry module to synthesize qualitative event survey data into executive recommendations.',
+        highlights: [
+          'Engineered dynamic MongoDB schemas and REST APIs for complex survey models.',
+          'Built LLM telemetry pipeline translating raw sentiment into structured metrics.',
+          'Implemented end-to-end cloud CI/CD deployment routines for team collaboration.'
+        ],
+        skills: ['Dynamic Schemas', 'MongoDB', 'TypeScript APIs', 'LLM Synthesis', 'Cloud CI/CD'],
+        badge: 'FELLOWSHIP',
+        image: 'assets/cert_ai_basics.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`
+      },
+      {
+        id: 'dicoding',
+        year: '2025',
+        category: 'ai',
+        issuer: 'DICODING INDONESIA',
+        title: 'elevAIte AI Training Program',
+        desc: 'Selected Awardee in intensive deep learning and neural network training program. Mastered advanced model optimization, loss function tailoring, regularization techniques, and production deployment.',
+        highlights: [
+          'Trained and fine-tuned multi-layer convolutional and recurrent neural networks.',
+          'Formulated custom regularization loss functions to mitigate overfitting.',
+          'Benchmarked inference latency for edge deployment in resource-constrained environments.'
+        ],
+        skills: ['Deep Learning', 'PyTorch', 'Optimization Algorithms', 'Loss Functions'],
+        badge: 'AWARDEE',
+        image: 'assets/cert_dibimbing.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`
+      },
+      {
+        id: 'datathon',
+        year: '2025',
+        category: 'ai',
+        issuer: 'RISTEK FAKULTAS ILMU KOMPUTER UI',
+        title: 'Datathon 2025 Audio AI Innovation',
+        desc: 'Developed an assistive acoustic intelligence 1D-CNN with 90% validation accuracy to detect sensory meltdown risks in autistic individuals using Librosa and Mel-Frequency Cepstral Coefficients (MFCC).',
+        highlights: [
+          'Engineered 1D-CNN achieving 90% accuracy on sensory acoustic anomaly detection.',
+          'Processed high-resolution audio spectrograms via Librosa and 20-band MFCCs.',
+          'Created real-time environmental hazard warning threshold logic for assistive care.'
+        ],
+        skills: ['1D-CNN', 'Librosa', 'MFCC', 'Acoustic Processing', 'Feature Extraction'],
+        badge: 'COMPETITION',
+        image: 'assets/project_meltdown_audio.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>`
+      },
+      {
+        id: 'cisco-data',
+        year: '2025',
+        category: 'data',
+        issuer: 'CISCO NETWORKING ACADEMY',
+        title: 'Data Analytics Essentials',
+        desc: 'Formal verification in exploratory data analysis (EDA), data wrangling, statistical distributions, visualization pipelines, and predictive modeling algorithms.',
+        highlights: [
+          'Executed structured exploratory data analysis (EDA) across heterogeneous tabular sets.',
+          'Designed data cleaning and outlier detection algorithms for sanitized model training.',
+          'Formulated statistical probability distributions to validate feature significance.'
+        ],
+        skills: ['Exploratory Data Analysis', 'Data Cleaning', 'Statistical Modeling', 'Predictive Pipelines'],
+        badge: 'CERTIFIED',
+        image: 'assets/cert_cisco_data.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`
+      },
+      {
+        id: 'dibimbing',
+        year: '2025',
+        category: 'ai',
+        issuer: 'DIBIMBING.ID',
+        title: 'Digital Skill Fair AI & Machine Learning',
+        desc: 'Intensive practical machine learning bootcamp. Gained hands-on experience in building predictive models, exploratory feature engineering, and solving real-world business challenges using Python.',
+        highlights: [
+          'Engineered predictive supervised classifiers and multi-variable regression pipelines.',
+          'Optimized hyperparameter grids using cross-validation and precision-recall scoring.',
+          'Synthesized ML model findings into clear executive presentation decks.'
+        ],
+        skills: ['Machine Learning', 'Feature Engineering', 'Predictive Modeling', 'Cross-Validation'],
+        badge: 'AWARDEE',
+        image: 'assets/cert_dibimbing.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`
+      },
+      {
+        id: 'python-cisco',
+        year: '2024',
+        category: 'software',
+        issuer: 'CISCO & OPENEDG PYTHON INSTITUTE',
+        title: 'Python Essentials 1',
+        desc: 'Certified competencies in core Python syntax, algorithmic problem solving, procedural programming, and object-oriented data structures.',
+        highlights: [
+          'Mastered object-oriented programming paradigms, exception handling, and modules.',
+          'Constructed algorithmic data structures with optimal Big-O time and space complexity.',
+          'Built reliable file I/O operations and memory-efficient generator workflows.'
+        ],
+        skills: ['Python Syntax', 'Algorithms', 'Data Structures', 'OOP', 'Generators'],
+        badge: 'CERTIFIED',
+        image: 'assets/cert_python.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`
+      },
+      {
+        id: 'data-science',
+        year: '2025',
+        category: 'data',
+        issuer: 'CISCO NETWORKING ACADEMY',
+        title: 'Introduction to Data Science',
+        desc: 'Foundational verification in dataset ingestion, feature normalization, data storytelling, and statistical distributions.',
+        highlights: [
+          'Verified end-to-end data ingestion pipelines from structured and unstructured sources.',
+          'Applied feature scaling and z-score standardization for machine learning models.',
+          'Created data visualization dashboards translating complex data into visual stories.'
+        ],
+        skills: ['Data Science Pipeline', 'Dataset Ingestion', 'Feature Normalization', 'Data Storytelling'],
+        badge: 'FOUNDATIONAL',
+        image: 'assets/cert_cisco_data.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>`
+      },
+      {
+        id: 'security',
+        year: '2024',
+        category: 'software',
+        issuer: 'CISCO NETWORKING ACADEMY',
+        title: 'Endpoint Security Verification',
+        desc: 'Verification in host defense, secure network protocols, threat identification, and vulnerability mitigation.',
+        highlights: [
+          'Implemented host-level defense audits and role-based access control (RBAC).',
+          'Configured encrypted transmission protocols and verified TLS/SSL cipher suites.',
+          'Identified zero-day attack vectors and mitigated network vulnerability surfaces.'
+        ],
+        skills: ['Endpoint Defense', 'Security Protocols', 'Threat Mitigation', 'RBAC Security'],
+        badge: 'SECURITY',
+        image: 'assets/cert_cisco_data.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`
+      },
+      {
+        id: 'ai-basics',
+        year: '2023',
+        category: 'ai',
+        issuer: 'FOUNDATIONS OF ARTIFICIAL INTELLIGENCE',
+        title: 'Artificial Intelligence Basics',
+        desc: 'Early foundational accreditation covering the taxonomy of machine learning, classification paradigms, and neural network theory.',
+        highlights: [
+          'Studied foundational taxonomy: supervised, unsupervised, and reinforcement paradigms.',
+          'Explored perceptron architectures, gradient descent backpropagation, and activations.',
+          'Assessed ethical guidelines and bias mitigation in autonomous computational systems.'
+        ],
+        skills: ['AI Foundations', 'Supervised Learning', 'Model Evaluation', 'Neural Theory'],
+        badge: 'FOUNDATIONAL',
+        image: 'assets/cert_ai_basics.jpg',
+        icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>`
+      }
+    ];
+
+    let activeCredIndex = 0;
+    let currentCategory = 'all';
+    let autoTourTimer = null;
+    let isAutoTourRunning = false;
+
+    function getFilteredCredentials() {
+      if (currentCategory === 'all') return credentialsData;
+      return credentialsData.filter(c => c.category === currentCategory);
+    }
+
+    function filterCredentials(cat) {
+      currentCategory = cat;
+      
+      // Update Tab Styles
+      const tabs = ['all', 'ai', 'data', 'software'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (!btn) return;
+        if (t === cat) {
+          btn.className = 'cred-tab px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border border-coral bg-coral text-white shadow-xs';
+        } else {
+          btn.className = 'cred-tab px-4 py-2 rounded-full text-xs font-mono font-medium transition-all border border-lilac bg-white text-mauve hover:text-twilight hover:border-coral';
+        }
+      });
+
+      const filtered = getFilteredCredentials();
+      const countEl = document.getElementById('dock-count');
+      if (countEl) countEl.textContent = filtered.length;
+
+      // Select first item of filtered list
+      const firstOriginalIdx = credentialsData.findIndex(c => c.id === filtered[0].id);
+      selectCredential(firstOriginalIdx >= 0 ? firstOriginalIdx : 0);
+    }
+
+    function renderCredentialDock() {
+      const dock = document.getElementById('credential-dock');
+      if (!dock) return;
+      dock.innerHTML = '';
+
+      const filtered = getFilteredCredentials();
+
+      filtered.forEach((cred) => {
+        const origIdx = credentialsData.findIndex(c => c.id === cred.id);
+        const isActive = origIdx === activeCredIndex;
+
+        const btn = document.createElement('button');
+        btn.className = `dock-card-btn flex-shrink-0 flex items-center gap-3 p-3 rounded-2xl border text-left cursor-pointer ${
+          isActive 
+            ? 'active-dock bg-white border-coral' 
+            : 'bg-white/80 border-lilac/70 hover:bg-white hover:border-lilac'
+        }`;
+        btn.onclick = () => selectCredential(origIdx);
+
+        btn.innerHTML = `
+          <div class="w-11 h-11 rounded-xl ${isActive ? 'bg-coral text-white shadow-sm' : 'bg-peach/60 text-twilight'} flex items-center justify-center transition-colors">
+            ${cred.icon}
+          </div>
+          <div class="pr-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-twilight/5 text-mauve">${cred.year}</span>
+              <p class="font-sans font-bold text-xs text-twilight whitespace-nowrap">${cred.title.slice(0, 22)}...</p>
+            </div>
+            <p class="font-mono text-[10px] text-mauve truncate max-w-[140px] mt-0.5">${cred.issuer}</p>
+          </div>
+        `;
+        dock.appendChild(btn);
+      });
+    }
+
+    function selectCredential(idx) {
+      activeCredIndex = idx;
+      const cred = credentialsData[idx];
+      const spotlight = document.getElementById('credential-spotlight');
+
+      spotlight.style.opacity = '0.3';
+      spotlight.style.transform = 'translateY(8px)';
+
+      setTimeout(() => {
+        document.getElementById('spotlight-badge').textContent = cred.badge;
+        document.getElementById('spotlight-issuer').textContent = cred.issuer;
+        document.getElementById('spotlight-year').textContent = `• ${cred.year}`;
+        document.getElementById('spotlight-title').textContent = cred.title;
+        document.getElementById('spotlight-desc').textContent = cred.desc;
+        document.getElementById('spotlight-img').src = cred.image;
+        document.getElementById('spotlight-watermark').textContent = cred.year;
+
+        // Mastered Highlights
+        const highlightsContainer = document.getElementById('spotlight-highlights');
+        highlightsContainer.innerHTML = '';
+        cred.highlights.forEach(point => {
+          const div = document.createElement('div');
+          div.className = 'flex items-start gap-2 text-xs font-sans text-mauve';
+          div.innerHTML = `
+            <svg class="w-4 h-4 text-coral shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>${point}</span>
+          `;
+          highlightsContainer.appendChild(div);
+        });
+
+        // Skills Tags
+        const skillsContainer = document.getElementById('spotlight-skills');
+        skillsContainer.innerHTML = '';
+        cred.skills.forEach(skill => {
+          const span = document.createElement('span');
+          span.className = 'px-3 py-1 rounded-lg bg-canvas-subtle text-xs font-mono text-twilight border border-border-subtle';
+          span.textContent = skill;
+          skillsContainer.appendChild(span);
+        });
+
+        spotlight.style.opacity = '1';
+        spotlight.style.transform = 'translateY(0)';
+      }, 140);
+
+      renderCredentialDock();
+    }
+
+    function prevCredential() {
+      const filtered = getFilteredCredentials();
+      const currentFilteredIdx = filtered.findIndex(c => c.id === credentialsData[activeCredIndex].id);
+      const nextFilteredIdx = (currentFilteredIdx - 1 + filtered.length) % filtered.length;
+      const targetOrigIdx = credentialsData.findIndex(c => c.id === filtered[nextFilteredIdx].id);
+      selectCredential(targetOrigIdx);
+    }
+
+    function nextCredential() {
+      const filtered = getFilteredCredentials();
+      const currentFilteredIdx = filtered.findIndex(c => c.id === credentialsData[activeCredIndex].id);
+      const nextFilteredIdx = (currentFilteredIdx + 1) % filtered.length;
+      const targetOrigIdx = credentialsData.findIndex(c => c.id === filtered[nextFilteredIdx].id);
+      selectCredential(targetOrigIdx);
+    }
+
+    function toggleAutoTour() {
+      const barContainer = document.getElementById('tour-bar-container');
+      const progressBar = document.getElementById('tour-progress');
+      const icon = document.getElementById('tour-icon');
+      const label = document.getElementById('tour-label');
+
+      if (isAutoTourRunning) {
+        clearInterval(autoTourTimer);
+        isAutoTourRunning = false;
+        barContainer.classList.add('hidden');
+        progressBar.style.width = '0%';
+        icon.textContent = '▶';
+        label.textContent = 'Auto-Tour';
+      } else {
+        isAutoTourRunning = true;
+        barContainer.classList.remove('hidden');
+        icon.textContent = '⏸';
+        label.textContent = 'Pause Tour';
+        
+        let progress = 0;
+        progressBar.style.width = '0%';
+
+        autoTourTimer = setInterval(() => {
+          progress += 5;
+          if (progress >= 100) {
+            progress = 0;
+            nextCredential();
+          }
+          progressBar.style.width = `${progress}%`;
+        }, 225);
+      }
+    }
+
+    function openActiveSpotlightCert() {
+      const cred = credentialsData[activeCredIndex];
+      openCertModal(cred.image, cred.title, cred.desc);
+    }
+
+    renderCredentialDock();
+    selectCredential(0);
+
+    // 6. Certificate Modal Handlers
     const certModal = document.getElementById('cert-modal');
     const modalImg = document.getElementById('modal-img');
     const modalTitle = document.getElementById('modal-title');
@@ -1270,7 +1735,7 @@
       }
     });
 
-    // 6. Direct Email Copy with Feedback
+    // 7. Direct Email Copy with Feedback
     function copyEmailToClipboard() {
       const email = 'zeiniahalfiah@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
