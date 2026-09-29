@@ -414,51 +414,176 @@
       cursor: text !important;
     }
 
-    /* Scroll reveals give each chapter a distinct entrance without trapping scroll. */
+    /* Scroll reveals use a different physical cue in each chapter. */
     html.scroll-motion-ready [data-reveal] {
       opacity: 0;
-      translate: var(--reveal-x, 0px) var(--reveal-y, 32px);
+      translate: var(--reveal-x, 0px) var(--reveal-y, 42px);
       scale: var(--reveal-scale, 1);
+      rotate: var(--reveal-rotation, z 0deg);
       filter: blur(var(--reveal-blur, 0px));
       transition:
-        opacity 760ms cubic-bezier(0.2, 0.8, 0.2, 1),
-        translate 900ms cubic-bezier(0.2, 0.8, 0.2, 1),
-        scale 900ms cubic-bezier(0.2, 0.8, 0.2, 1),
-        filter 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        opacity 820ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        translate 1100ms cubic-bezier(0.16, 1, 0.3, 1),
+        scale 1100ms cubic-bezier(0.16, 1, 0.3, 1),
+        rotate 1100ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+        clip-path 1200ms cubic-bezier(0.16, 1, 0.3, 1);
       transition-delay: var(--reveal-delay, 0ms);
-      will-change: opacity, translate, filter;
+      will-change: opacity, translate, scale, rotate, filter, clip-path;
     }
     html.scroll-motion-ready [data-reveal="from-left"] {
-      --reveal-x: -38px;
+      --reveal-x: -64px;
       --reveal-y: 0px;
+      --reveal-rotation: y 8deg;
     }
     html.scroll-motion-ready [data-reveal="from-right"] {
-      --reveal-x: 38px;
+      --reveal-x: 64px;
       --reveal-y: 0px;
+      --reveal-rotation: y -8deg;
     }
     html.scroll-motion-ready [data-reveal="soft"] {
-      --reveal-y: 18px;
-      --reveal-scale: 0.97;
-      --reveal-blur: 5px;
+      --reveal-y: 30px;
+      --reveal-scale: 0.92;
+      --reveal-blur: 9px;
     }
     html.scroll-motion-ready [data-reveal="zoom"] {
+      --reveal-y: 30px;
+      --reveal-scale: 0.88;
+    }
+    html.scroll-motion-ready [data-reveal="fan"] {
+      --reveal-y: 58px;
+      --reveal-scale: 0.84;
+      --reveal-rotation: z var(--fan-angle, 8deg);
+      transform-origin: center bottom;
+    }
+    html.scroll-motion-ready [data-reveal="unfold"] {
+      --reveal-y: 20px;
+      clip-path: inset(0 0 100% 0 round 28px);
+    }
+    html.scroll-motion-ready [data-reveal="portal"] {
       --reveal-y: 18px;
-      --reveal-scale: 0.94;
+      --reveal-scale: 0.9;
+      clip-path: circle(0% at 50% 50%);
     }
     html.scroll-motion-ready [data-reveal].is-in-view {
       opacity: 1;
       translate: 0 0;
       scale: 1;
+      rotate: z 0deg;
       filter: blur(0);
+    }
+    html.scroll-motion-ready [data-reveal="unfold"].is-in-view {
+      clip-path: inset(0 0 0 0 round 28px);
+    }
+    html.scroll-motion-ready [data-reveal="portal"].is-in-view {
+      clip-path: circle(150% at 50% 50%);
+    }
+
+    /* A small chapter rail turns the long page into a navigable story. */
+    .chapter-rail {
+      position: fixed;
+      z-index: 45;
+      top: 50%;
+      right: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+      padding: 14px 10px;
+      border: 1px solid rgba(203, 179, 196, 0.72);
+      border-radius: 999px;
+      background: rgba(250, 245, 243, 0.76);
+      box-shadow: 0 8px 28px rgba(35, 31, 46, 0.1);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transform: translateY(-50%);
+    }
+    .chapter-rail-track,
+    .chapter-rail-progress {
+      position: absolute;
+      top: 23px;
+      bottom: 23px;
+      left: 50%;
+      width: 1px;
+      border-radius: 999px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .chapter-rail-track {
+      background: rgba(139, 109, 131, 0.25);
+    }
+    .chapter-rail-progress {
+      bottom: auto;
+      height: var(--chapter-progress, 0%);
+      background: #D98F84;
+      box-shadow: 0 0 8px rgba(217, 143, 132, 0.7);
+      transition: height 120ms linear;
+    }
+    .chapter-rail-link {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 12px;
+      height: 12px;
+      place-items: center;
+      border-radius: 50%;
+    }
+    .chapter-rail-link::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border: 1px solid #8B6D83;
+      border-radius: 50%;
+      background: #FAF5F3;
+      transition: width 350ms ease, height 350ms ease, background 350ms ease, box-shadow 350ms ease;
+    }
+    .chapter-rail-link.is-active::before {
+      width: 10px;
+      height: 10px;
+      border-color: #D98F84;
+      background: #D98F84;
+      box-shadow: 0 0 0 4px rgba(217, 143, 132, 0.16), 0 0 14px rgba(217, 143, 132, 0.75);
+    }
+    .chapter-rail-label {
+      position: absolute;
+      right: calc(100% + 12px);
+      padding: 6px 9px;
+      border: 1px solid rgba(203, 179, 196, 0.75);
+      border-radius: 999px;
+      background: rgba(250, 245, 243, 0.92);
+      color: #493849;
+      font: 10px "DM Mono", monospace;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      opacity: 0;
+      translate: 6px 0;
+      transition: opacity 240ms ease, translate 240ms ease;
+      pointer-events: none;
+    }
+    .chapter-rail-link:hover .chapter-rail-label,
+    .chapter-rail-link:focus-visible .chapter-rail-label,
+    .chapter-rail-link.is-active .chapter-rail-label {
+      opacity: 1;
+      translate: 0 0;
+    }
+    @media (max-width: 1100px) {
+      .chapter-rail { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       html.scroll-motion-ready [data-reveal] {
         opacity: 1;
         translate: none;
         scale: none;
+        rotate: none;
         filter: none;
+        clip-path: none;
         transition: none;
         will-change: auto;
+      }
+      .chapter-rail-link::before,
+      .chapter-rail-progress,
+      .chapter-rail-label {
+        transition: none;
       }
     }
   </style>
@@ -475,9 +600,7 @@
         <span class="w-10 h-10 rounded-2xl bg-twilight text-peach font-serif font-bold text-xl flex items-center justify-center border border-lilac/60 group-hover:bg-coral group-hover:text-white transition-all shadow-sm">
           Z
         </span>
-        <span class="font-sans font-bold text-sm tracking-tight text-twilight group-hover:text-coral transition-colors">
-          ZEINIAH PORTO
-        </span>
+        <span class="sr-only">Zeiniah Porto — Home</span>
       </a>
 
       <!-- Desktop Nav Links (Clean, Familiar, Simple) -->
@@ -500,8 +623,20 @@
     </div>
   </header>
 
+  <nav class="chapter-rail" id="chapter-rail" aria-label="Portfolio chapter navigation">
+    <span class="chapter-rail-track" aria-hidden="true"></span>
+    <span class="chapter-rail-progress" id="chapter-rail-progress" aria-hidden="true"></span>
+    <a class="chapter-rail-link is-active" href="#hero" data-chapter-link="hero" aria-label="Intro" aria-current="location"><span class="chapter-rail-label">01 · Intro</span></a>
+    <a class="chapter-rail-link" href="#recruiter-pitch" data-chapter-link="recruiter-pitch" aria-label="Focus"><span class="chapter-rail-label">02 · Focus</span></a>
+    <a class="chapter-rail-link" href="#flagship" data-chapter-link="flagship" aria-label="Featured works"><span class="chapter-rail-label">03 · Works</span></a>
+    <a class="chapter-rail-link" href="#journey" data-chapter-link="journey" aria-label="Career trajectory"><span class="chapter-rail-label">04 · Journey</span></a>
+    <a class="chapter-rail-link" href="#speaking" data-chapter-link="speaking" aria-label="Public speaking"><span class="chapter-rail-label">05 · Stage</span></a>
+    <a class="chapter-rail-link" href="#credentials" data-chapter-link="credentials" aria-label="Credentials"><span class="chapter-rail-label">06 · Credentials</span></a>
+    <a class="chapter-rail-link" href="#contact" data-chapter-link="contact" aria-label="Contact"><span class="chapter-rail-label">07 · Contact</span></a>
+  </nav>
+
   <!-- SECTION 0: HERO (CLEAN FOREGROUND + DYNAMIC RAME BACKGROUND) -->
-  <section id="hero" class="relative min-h-[96vh] pt-36 pb-32 flex flex-col items-center justify-center overflow-hidden">
+  <section id="hero" data-chapter class="relative min-h-[96vh] pt-36 pb-32 flex flex-col items-center justify-center overflow-hidden">
     
     <!-- 1. Interactive Background Canvas (Parametric 3D Cyber-Vector Waves) -->
     <canvas id="neural-canvas" class="absolute inset-0 pointer-events-none opacity-60 z-0"></canvas>
@@ -639,7 +774,7 @@
   </div>
 
   <!-- SECTION 1: TACTILE CURTAIN RISER WITH MARQUEE & CAPABILITIES (DEEP TWILIGHT PLUM) -->
-  <section id="recruiter-pitch" class="bg-twilight text-peach pt-6 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain -mt-1">
+  <section id="recruiter-pitch" data-chapter class="bg-twilight text-peach pt-6 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain -mt-1">
     <div class="max-w-6xl mx-auto px-6 space-y-14">
       
       <!-- Infinite Running Marquee Bar -->
@@ -710,7 +845,7 @@
   </section>
 
   <!-- SECTION 2: FLAGSHIP CASE STUDIES (OUT-OF-THE-BOX STICKY STACKING CARDS TRANSITION) -->
-  <section id="flagship" class="py-24 bg-canvas-subtle border-b border-border-subtle relative">
+  <section id="flagship" data-chapter class="py-24 bg-canvas-subtle border-b border-border-subtle relative">
     <div class="max-w-6xl mx-auto px-6">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
@@ -989,7 +1124,7 @@
   </section>
 
   <!-- SECTION 3: BEN SHIH-STYLE STICKY RAIL EXPERIENCE & MILESTONES -->
-  <section id="journey" class="py-24 bg-canvas border-b border-border-subtle">
+  <section id="journey" data-chapter class="py-24 bg-canvas border-b border-border-subtle">
     <div class="max-w-6xl mx-auto px-6">
       
       <div class="space-y-3 mb-16 text-center max-w-2xl mx-auto" data-reveal="soft">
@@ -1132,7 +1267,7 @@
   </section>
 
   <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (BEN SHIH-INSPIRED INTERACTIVE CARD DECK & B&W EDITORIAL PHOTOGRAPHY) -->
-  <section id="speaking" class="py-24 overflow-hidden">
+  <section id="speaking" data-chapter class="py-24 overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12" data-reveal="from-left">
       <div class="space-y-3">
@@ -1145,15 +1280,10 @@
         </p>
       </div>
 
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-mono font-medium text-mauve px-3 py-1.5 rounded-full bg-white border border-lilac shadow-xs">
-          INTERACTIVE PHOTO DECK &bull; 4 KEY MOMENTS
-        </span>
-      </div>
     </div>
 
     <!-- Editorial Black & White Photography Fanned Deck (Ben Shih Interactive Spring Motion) -->
-    <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal-stagger="rise">
+    <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal-stagger="fan">
       
       <!-- Photo 1: REAL YOTNC 2024 Stage Photo (Uploaded by User) -->
       <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:-rotate-2 transition-all">
@@ -1208,7 +1338,7 @@
   </section>
 
   <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
-  <section id="credentials" class="py-24 border-y border-border-subtle">
+  <section id="credentials" data-chapter class="py-24 border-y border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 space-y-8">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal="from-left">
@@ -1240,7 +1370,7 @@
       </div>
 
       <!-- 1. The Featured Spotlight Showcase Card (Interactive Stage) -->
-      <div id="credential-spotlight" class="relative p-8 sm:p-12 rounded-[36px] bg-white border border-lilac shadow-card hover:border-coral transition-all spotlight-fade overflow-hidden">
+      <div id="credential-spotlight" data-reveal="unfold" class="relative p-8 sm:p-12 rounded-[36px] bg-white border border-lilac shadow-card hover:border-coral transition-all spotlight-fade overflow-hidden">
         
         <!-- Large Background Watermark Year -->
         <div id="spotlight-watermark" class="absolute -right-4 -bottom-6 text-8xl sm:text-9xl font-serif font-black text-twilight/5 select-none pointer-events-none">
@@ -1332,8 +1462,8 @@
   </section>
 
   <!-- SECTION 6: HIGH-IMPACT RECRUITER FOOTER WITH VALUE PILLARS -->
-  <footer id="contact" class="py-24 px-6">
-    <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden" data-reveal="zoom">
+  <footer id="contact" data-chapter class="py-24 px-6">
+    <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden" data-reveal="portal">
       
       <!-- Ambient Glow Behind Footer -->
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-coral/20 rounded-full filter blur-3xl -z-10"></div>
@@ -1881,9 +2011,14 @@
 
       const revealTargets = new Set(document.querySelectorAll('[data-reveal]'));
       document.querySelectorAll('[data-reveal-stagger]').forEach(group => {
+        const items = Array.from(group.children);
         Array.from(group.children).forEach((item, index) => {
           if (!item.hasAttribute('data-reveal')) item.dataset.reveal = group.dataset.revealStagger || 'rise';
           item.style.setProperty('--reveal-delay', `${Math.min(index * 100, 500)}ms`);
+          if (group.dataset.revealStagger === 'fan') {
+            const fanAngle = (index - (items.length - 1) / 2) * 7;
+            item.style.setProperty('--fan-angle', `${fanAngle}deg`);
+          }
           revealTargets.add(item);
         });
       });
@@ -1902,7 +2037,46 @@
       revealTargets.forEach(element => revealObserver.observe(element));
     }
 
+    function initChapterRail() {
+      const rail = document.getElementById('chapter-rail');
+      const progress = document.getElementById('chapter-rail-progress');
+      if (!rail || !progress || !('IntersectionObserver' in window)) return;
+
+      const links = Array.from(rail.querySelectorAll('[data-chapter-link]'));
+      const chapters = Array.from(document.querySelectorAll('[data-chapter]'));
+      const setActiveChapter = (id) => {
+        links.forEach(link => {
+          const isActive = link.dataset.chapterLink === id;
+          link.classList.toggle('is-active', isActive);
+          if (isActive) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      };
+
+      const chapterObserver = new IntersectionObserver((entries) => {
+        const activeEntry = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (activeEntry) setActiveChapter(activeEntry.target.id);
+      }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
+      chapters.forEach(chapter => chapterObserver.observe(chapter));
+
+      let progressFrame = 0;
+      const updateProgress = () => {
+        progressFrame = 0;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const amount = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+        progress.style.setProperty('--chapter-progress', `${amount * 100}%`);
+      };
+      window.addEventListener('scroll', () => {
+        if (!progressFrame) progressFrame = requestAnimationFrame(updateProgress);
+      }, { passive: true });
+      window.addEventListener('resize', updateProgress, { passive: true });
+      updateProgress();
+    }
+
     initScrollReveals();
+    initChapterRail();
 
     // 6. Direct Email Copy with Feedback
     function copyEmailToClipboard() {
