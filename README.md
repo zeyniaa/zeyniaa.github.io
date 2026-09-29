@@ -15,7 +15,7 @@ The official personal web portfolio of **Zeiniah Alfiah**, AI Engineer Intern at
 * **Curated 2-Tier Architecture**:
   * **Flagship Case Studies**: AutoRestock (PT Bali Towerindo Sentra Tbk), Qur'anic Hijaiyah Sign Language (LPMQ Kemenag RI), Autism Sensory Meltdown Detector (Datathon 2025 Ristek UI), and Event Telemetry (Korea-ASEAN Digital Academy).
   * **Comprehensive Vault**: Interactive category filter tabs for all academic, computer vision, audio, and IoT projects.
-* **Verified Credentials Lightbox**: Interactive certificate modal showcasing verified achievements from Cisco, Dicoding, KADA, and Dibimbing.
+* **Verified Credentials**: A browsable certificate spotlight with direct downloads for original achievement images.
 * **No Emojis**: Clean, vector-crafted micro-icons for a polished, high-end professional appearance.
 
 ---

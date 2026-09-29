@@ -117,70 +117,6 @@
       border-bottom: 1px solid rgba(232, 221, 229, 0.8);
     }
 
-    /* Custom Morphing Cursor */
-    .cursor-dot {
-      pointer-events: none;
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background-color: #D98F84;
-      border-radius: 50%;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-    }
-
-    .cursor-ring {
-      pointer-events: none;
-      position: fixed;
-      width: 34px;
-      height: 34px;
-      border: 1.5px solid rgba(217, 143, 132, 0.55);
-      border-radius: 50%;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                  height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                  background-color 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                  border-color 0.25s ease,
-                  box-shadow 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cursor-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
-      font-weight: 800;
-      color: #FFFFFF;
-      letter-spacing: 0.1em;
-      opacity: 0;
-      transform: scale(0.6);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      pointer-events: none;
-    }
-
-    /* Morphing states */
-    .cursor-hover .cursor-ring {
-      width: 60px;
-      height: 60px;
-      background-color: rgba(217, 143, 132, 0.92);
-      border-color: #D98F84;
-      box-shadow: 0 0 24px rgba(217, 143, 132, 0.45);
-    }
-    .cursor-hover .cursor-dot {
-      opacity: 0;
-    }
-    .cursor-hover .cursor-label {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .cursor-click .cursor-ring {
-      transform: translate(-50%, -50%) scale(0.8) !important;
-    }
-
     /* Utility: Hide scrollbar */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -288,16 +224,144 @@
       transform: translateY(-4px) scale(1.04);
       box-shadow: 0 12px 24px -6px rgba(217, 143, 132, 0.38), 0 0 0 2px #D98F84;
     }
+
+    /* A connected, twilight-inspired atmosphere for the final three chapters. */
+    #speaking,
+    #credentials,
+    #contact {
+      position: relative;
+      isolation: isolate;
+    }
+
+    #speaking {
+      background: #fbf5f1;
+    }
+    #speaking::before,
+    #speaking::after,
+    #credentials::before,
+    #credentials::after,
+    #contact::before,
+    #contact::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    #speaking::before {
+      background:
+        radial-gradient(ellipse at 12% 34%, rgba(217, 143, 132, 0.15), transparent 35%),
+        radial-gradient(ellipse at 90% 68%, rgba(203, 179, 196, 0.24), transparent 38%),
+        linear-gradient(115deg, rgba(255,255,255,0.5), transparent 65%);
+    }
+    #speaking::after {
+      inset: 12% -8% auto auto;
+      width: min(54vw, 760px);
+      height: min(54vw, 760px);
+      border: 1px solid rgba(139, 109, 131, 0.12);
+      border-radius: 50%;
+      box-shadow: 0 0 0 38px rgba(139, 109, 131, 0.035), 0 0 0 92px rgba(217, 143, 132, 0.035);
+      transform: rotate(-18deg);
+      animation: stageOrbit 24s ease-in-out infinite alternate;
+    }
+    #credentials {
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 8% 4%, rgba(217, 143, 132, 0.14), transparent 28%),
+        radial-gradient(ellipse at 92% 96%, rgba(139, 109, 131, 0.13), transparent 36%),
+        linear-gradient(135deg, #f8f1ee 0%, #f5edf1 52%, #fbf5f1 100%);
+    }
+    #credentials::before {
+      inset: -20%;
+      background: radial-gradient(ellipse, transparent 42%, rgba(203, 179, 196, 0.18) 42.2%, transparent 42.7%);
+      transform: rotate(-18deg) scale(1.1);
+      animation: credentialPulse 18s ease-in-out infinite alternate;
+    }
+    #credentials::after {
+      background-image: linear-gradient(rgba(139, 109, 131, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 109, 131, 0.045) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+      opacity: 0.45;
+    }
+    #credentials > div {
+      position: relative;
+      z-index: 1;
+    }
+    #contact {
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 12% 82%, rgba(217, 143, 132, 0.19), transparent 30%),
+        radial-gradient(ellipse at 86% 14%, rgba(139, 109, 131, 0.24), transparent 34%),
+        #231f2e;
+    }
+    #contact::before {
+      background-image: linear-gradient(rgba(203, 179, 196, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(203, 179, 196, 0.06) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(180deg, transparent, #000 26%, #000 80%, transparent);
+      animation: contactDrift 28s linear infinite;
+    }
+    #contact::after {
+      background: radial-gradient(ellipse at center, transparent 28%, rgba(203, 179, 196, 0.08) 28.2%, transparent 28.8%);
+      transform: scale(1.8);
+      animation: credentialPulse 16s ease-in-out infinite alternate-reverse;
+    }
+    #credential-dock {
+      cursor: url("assets/portfolio-cursor.svg") 9 7, grab;
+      touch-action: pan-x pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      scroll-behavior: smooth;
+    }
+    #credential-dock.is-dragging {
+      cursor: url("assets/portfolio-cursor.svg") 9 7, grabbing;
+      scroll-behavior: auto;
+    }
+    #credential-dock.is-dragging .dock-card-btn {
+      pointer-events: none;
+    }
+    @keyframes stageOrbit {
+      from { transform: translate3d(0, 0, 0) rotate(-18deg); }
+      to { transform: translate3d(-26px, 18px, 0) rotate(-7deg); }
+    }
+    @keyframes credentialPulse {
+      from { opacity: 0.34; }
+      to { opacity: 0.8; }
+    }
+    @keyframes contactDrift {
+      to { background-position: 58px 58px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #speaking::after,
+      #credentials::before,
+      #contact::before,
+      #contact::after {
+        animation: none;
+      }
+      #credential-dock {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Pixel-outline cursor inspired by the supplied reference. */
+    body {
+      cursor: url("assets/portfolio-cursor.svg") 9 7, auto;
+    }
+    a,
+    button,
+    [role="button"],
+    .cursor-pointer,
+    .cursor-default {
+      cursor: url("assets/portfolio-cursor.svg") 9 7, pointer !important;
+    }
+    input,
+    textarea,
+    [contenteditable="true"] {
+      cursor: text !important;
+    }
   </style>
 </head>
 
 <body class="bg-canvas text-twilight font-sans antialiased selection:bg-peach selection:text-twilight min-h-screen relative overflow-x-hidden">
-
-  <!-- Interactive Custom Morphing Cursor (Desktop Only) -->
-  <div id="cursor-dot" class="cursor-dot hidden md:block"></div>
-  <div id="cursor-ring" class="cursor-ring hidden md:block">
-    <span id="cursor-label" class="cursor-label">VIEW</span>
-  </div>
 
   <!-- FLOATING NAVIGATION BAR (Clean, Familiar, No Resume Button) -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
@@ -965,7 +1029,8 @@
   </section>
 
   <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (BEN SHIH-INSPIRED INTERACTIVE CARD DECK & B&W EDITORIAL PHOTOGRAPHY) -->
-  <section id="speaking" class="py-24 max-w-6xl mx-auto px-6">
+  <section id="speaking" class="py-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
       <div class="space-y-3">
         <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Stage & Facilitation</span>
@@ -973,7 +1038,7 @@
           Public Speaking & Leadership
         </h2>
         <p class="text-sm font-sans text-mauve max-w-xl">
-          High-impact stage communication: Master of Ceremonies and keynote facilitator hosting national youth summits, corporate student visits, and academic panels. Hover cards to elevate, tap to inspect full-screen.
+          A few moments and milestones from the stage and beyond.
         </p>
       </div>
 
@@ -988,14 +1053,9 @@
     <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Photo 1: REAL YOTNC 2024 Stage Photo (Uploaded by User) -->
-      <div onclick="openCertModal('assets/yotnc_real_stage.png', 'National MC at YOTNC 2024', 'Master of Ceremonies for Indonesia\'s largest national youth leadership summit at The Kasablanka Hall, Jakarta.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:-rotate-2 transition-all">
+      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:-rotate-2 transition-all">
         <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
           <img src="assets/yotnc_real_stage.png" alt="National MC at YOTNC 2024 Kasablanka Hall" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
-              Zoom Photo ↗
-            </span>
-          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">NATIONAL MC</span>
@@ -1005,14 +1065,9 @@
       </div>
 
       <!-- Photo 2: Company Visit & Keynote Host -->
-      <div onclick="openCertModal('assets/speaking_stage_mc.jpg', 'Tech Moderator & Keynote Host', 'Leading corporate technology tours, engineering panel discussions, and executive guest speaker sessions.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:rotate-1 transition-all">
+      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:rotate-1 transition-all">
         <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
           <img src="assets/speaking_stage_mc.jpg" alt="Company Visit MC" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
-              Zoom Photo ↗
-            </span>
-          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">TECH MODERATOR</span>
@@ -1022,14 +1077,9 @@
       </div>
 
       <!-- Photo 3: LPMQ Kemenag AI Research Internship Cohort -->
-      <div onclick="openCertModal('assets/kemenag_team.jpg', 'LPMQ Kementerian Agama RI', 'Collaborating with fellow university interns during the AI digitization research internship at LPMQ Kementerian Agama RI.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:-rotate-1 transition-all">
+      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:-rotate-1 transition-all">
         <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
           <img src="assets/kemenag_team.jpg" alt="Kemenag LPMQ AI Research Internship Cohort" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
-              Zoom Photo ↗
-            </span>
-          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">INTERNSHIP COHORT</span>
@@ -1039,14 +1089,9 @@
       </div>
 
       <!-- Photo 4: GDGoC Developer Community Gathering -->
-      <div onclick="openCertModal('assets/gdgoc_community.jpg', 'GDGoC Community Gathering', 'Leading 500+ student developers across 55+ technical events and hands-on workshops as Chapter Co-Lead.')" class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-pointer group transform lg:rotate-2 transition-all">
+      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:rotate-2 transition-all">
         <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
           <img src="assets/gdgoc_community.jpg" alt="GDGoC UIN Jakarta Gathering" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/20 transition-colors flex items-center justify-center">
-            <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-[11px] font-mono font-bold text-twilight shadow-md">
-              Zoom Photo ↗
-            </span>
-          </div>
         </div>
         <div class="p-3">
           <span class="text-xs font-mono text-coral font-bold block">COMMUNITY LEAD</span>
@@ -1056,10 +1101,11 @@
       </div>
 
     </div>
+    </div>
   </section>
 
   <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
-  <section id="credentials" class="py-24 bg-canvas-subtle border-y border-border-subtle">
+  <section id="credentials" class="py-24 border-y border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 space-y-8">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -1148,28 +1194,23 @@
             </div>
 
             <div class="pt-2 flex flex-wrap items-center gap-3">
-              <button id="spotlight-inspect-btn" onclick="openActiveSpotlightCert()" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors shadow-sm">
-                <span>Inspect Official Certificate</span>
+              <a id="spotlight-cert-link" href="assets/cert_ai_basics.jpg" download class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors shadow-sm">
+                <span>Download Certificate</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                 </svg>
-              </button>
+              </a>
             </div>
           </div>
 
-          <!-- Preview Frame with Interactive Hover Lens -->
+          <!-- Certificate preview, kept at a readable static size -->
           <div class="lg:col-span-4 flex justify-center">
-            <div onclick="openActiveSpotlightCert()" class="cursor-pointer group relative w-full max-w-xs rounded-2xl overflow-hidden border border-lilac p-2 bg-canvas-subtle shadow-soft hover:shadow-card transition-all">
+            <div class="relative w-full max-w-xs rounded-2xl overflow-hidden border border-lilac p-2 bg-canvas-subtle shadow-soft">
               <div class="rounded-xl overflow-hidden aspect-[4/3] bg-white flex items-center justify-center relative">
-                <img id="spotlight-img" src="assets/cert_ai_basics.jpg" alt="Certificate Preview" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 bg-twilight/0 group-hover:bg-twilight/10 transition-colors flex items-center justify-center">
-                  <span class="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full bg-white/95 text-xs font-mono font-bold text-twilight shadow-md">
-                    Click to Zoom ↗
-                  </span>
-                </div>
+                <img id="spotlight-img" src="assets/cert_ai_basics.jpg" alt="Certificate Preview" class="w-full h-full object-contain">
               </div>
-              <p class="text-[11px] font-mono text-mauve text-center mt-2 group-hover:text-coral transition-colors">
-                Tap to expand fullscreen ↗
+              <p class="text-[11px] font-mono text-mauve text-center mt-2">
+                Selected certificate preview
               </p>
             </div>
           </div>
@@ -1180,19 +1221,19 @@
       <!-- 2. The Ben Shih-Style Interactive Horizontal Credential Dock -->
       <div class="space-y-3">
         <div class="flex items-center justify-between text-xs font-mono text-mauve">
-          <span class="font-bold tracking-wider">ACCREDITATION DOCK (<span id="dock-count">10</span> AVAILABLE)</span>
+          <span class="font-bold tracking-wider">ACCREDITATION DOCK (<span id="dock-count">10</span> AVAILABLE) <span class="hidden sm:inline font-normal tracking-normal text-mauve/70">· drag to browse</span></span>
           <div class="flex items-center gap-2">
-            <button onclick="prevCredential()" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Previous Credential">
+            <button onclick="prevCredential()" aria-label="Previous credential" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Previous Credential">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
             </button>
-            <button onclick="nextCredential()" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Next Credential">
+            <button onclick="nextCredential()" aria-label="Next credential" class="p-2 rounded-full bg-white border border-lilac hover:text-twilight hover:border-coral transition-colors shadow-xs" title="Next Credential">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
           </div>
         </div>
 
         <!-- Scrollable Dock Container with Tactile Cards (Zero clipping, smooth scroll) -->
-        <div id="credential-dock" class="flex gap-3 overflow-x-auto no-scrollbar py-4 px-3 scroll-smooth">
+        <div id="credential-dock" role="group" aria-label="Accreditation cards. Drag horizontally or use the arrow buttons to browse." class="flex gap-3 overflow-x-auto no-scrollbar py-4 px-3 scroll-smooth">
           <!-- Dock Buttons populated dynamically in JS -->
         </div>
       </div>
@@ -1201,8 +1242,8 @@
   </section>
 
   <!-- SECTION 6: HIGH-IMPACT RECRUITER FOOTER WITH VALUE PILLARS -->
-  <footer id="contact" class="py-24 max-w-6xl mx-auto px-6">
-    <div class="p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden">
+  <footer id="contact" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden">
       
       <!-- Ambient Glow Behind Footer -->
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-coral/20 rounded-full filter blur-3xl -z-10"></div>
@@ -1251,29 +1292,6 @@
     </div>
   </footer>
 
-  <!-- CERTIFICATE LIGHTBOX MODAL -->
-  <div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-twilight/80 backdrop-blur-md p-4 transition-all duration-300">
-    <div class="relative max-w-3xl w-full bg-white rounded-3xl p-6 border border-lilac shadow-2xl space-y-4">
-      
-      <!-- Close Button -->
-      <button onclick="closeCertModal()" class="absolute top-4 right-4 p-2 rounded-full bg-canvas-subtle text-mauve hover:text-twilight hover:bg-peach/50 transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-
-      <div>
-        <h4 id="modal-title" class="text-xl font-serif text-twilight font-bold">Certificate Title</h4>
-        <p id="modal-desc" class="text-xs font-sans text-mauve mt-0.5">Certificate Description</p>
-      </div>
-
-      <!-- Modal Image Container -->
-      <div class="rounded-2xl overflow-hidden border border-border-subtle bg-canvas-subtle flex items-center justify-center p-2">
-        <img id="modal-img" src="" alt="Certificate" class="max-h-[70vh] w-auto object-contain rounded-xl">
-      </div>
-    </div>
-  </div>
-
   <!-- JAVASCRIPT: BEN SHIH CREDENTIAL DOCK, INTERACTIVE HORIZON PARALLAX, SPEECH BUBBLE & CANVAS -->
   <script>
     // 1. Seth Lukin Interactive Speech Bubble & Avatar Wobble
@@ -1305,78 +1323,15 @@
       }, 120);
     }
 
-    // 2. Custom Smooth Mouse Follower with Tactile Morphing States
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    const cursorLabel = document.getElementById('cursor-label');
-    let mouseX = -100, mouseY = -100;
-    let ringX = -100, ringY = -100;
-
+    // 2. Interactive Neural Spectrogram Canvas in Hero
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      dot.style.left = `${mouseX}px`;
-      dot.style.top = `${mouseY}px`;
     });
-
-    function animateCursor() {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      ring.style.left = `${ringX}px`;
-      ring.style.top = `${ringY}px`;
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Morphing Cursor Events (Hover expansion, text labels, and click squash)
-    document.addEventListener('mouseover', (e) => {
-      const el = e.target.closest('a, button, .deck-card, .tilt-card, .dock-card-btn, #avatar-btn, [data-cursor]');
-      if (el) {
-        document.body.classList.add('cursor-hover');
-        if (el.closest('#speaking')) {
-          cursorLabel.textContent = 'VIEW';
-        } else if (el.closest('#credential-spotlight') || el.closest('#credential-dock')) {
-          cursorLabel.textContent = 'INSPECT';
-        } else if (el.id === 'avatar-btn' || el.closest('#avatar-btn')) {
-          cursorLabel.textContent = 'HELLO!';
-        } else if (el.id === 'copy-email-btn' || el.closest('#copy-email-btn')) {
-          cursorLabel.textContent = 'COPY';
-        } else if (el.closest('#flagship')) {
-          cursorLabel.textContent = 'EXPLORE';
-        } else {
-          cursorLabel.textContent = 'OPEN';
-        }
-      }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-      const el = e.target.closest('a, button, .deck-card, .tilt-card, .dock-card-btn, #avatar-btn, [data-cursor]');
-      if (el) {
-        document.body.classList.remove('cursor-hover');
-      }
-    });
-
-    document.addEventListener('mousedown', () => {
-      document.body.classList.add('cursor-click');
-    });
-
-    document.addEventListener('mouseup', () => {
-      document.body.classList.remove('cursor-click');
-    });
-
-    document.addEventListener('mouseleave', () => {
-      dot.style.opacity = '0';
-      ring.style.opacity = '0';
-    });
-
-    document.addEventListener('mouseenter', () => {
-      dot.style.opacity = '1';
-      ring.style.opacity = '1';
-    });
-
-    // 3. Interactive Neural Spectrogram Canvas in Hero
-    const canvas = document.getElementById('neural-canvas');
-    const ctx = canvas.getContext('2d');
     let width, height;
     let time = 0;
 
@@ -1656,12 +1611,13 @@
 
       // Select first item of filtered list
       const firstOriginalIdx = credentialsData.findIndex(c => c.id === filtered[0].id);
-      selectCredential(firstOriginalIdx >= 0 ? firstOriginalIdx : 0);
+      selectCredential(firstOriginalIdx >= 0 ? firstOriginalIdx : 0, false, true);
     }
 
-    function renderCredentialDock() {
+    function renderCredentialDock(resetScroll = false) {
       const dock = document.getElementById('credential-dock');
       if (!dock) return;
+      const previousScrollLeft = dock.scrollLeft;
       dock.innerHTML = '';
 
       const filtered = getFilteredCredentials();
@@ -1692,9 +1648,60 @@
         `;
         dock.appendChild(btn);
       });
+
+      dock.scrollLeft = resetScroll ? 0 : previousScrollLeft;
     }
 
-    function selectCredential(idx) {
+    // Let desktop visitors grab and drag the dock. Touch devices keep native horizontal scrolling.
+    const credentialDock = document.getElementById('credential-dock');
+    let dockPointerId = null;
+    let dockPointerStartX = 0;
+    let dockScrollStart = 0;
+    let dockHasMoved = false;
+    let dockSuppressClick = false;
+
+    credentialDock.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      dockPointerId = e.pointerId;
+      dockPointerStartX = e.clientX;
+      dockScrollStart = credentialDock.scrollLeft;
+      dockHasMoved = false;
+    });
+
+    credentialDock.addEventListener('pointermove', (e) => {
+      if (e.pointerId !== dockPointerId) return;
+      const distance = e.clientX - dockPointerStartX;
+      if (Math.abs(distance) > 5) {
+        dockHasMoved = true;
+        credentialDock.classList.add('is-dragging');
+        if (!credentialDock.hasPointerCapture(e.pointerId)) credentialDock.setPointerCapture(e.pointerId);
+        credentialDock.scrollLeft = dockScrollStart - distance;
+      }
+    });
+
+    function finishDockDrag(e) {
+      if (e.pointerId !== dockPointerId) return;
+      if (dockHasMoved) {
+        dockSuppressClick = true;
+        requestAnimationFrame(() => { dockSuppressClick = false; });
+      }
+      credentialDock.classList.remove('is-dragging');
+      dockPointerId = null;
+      dockHasMoved = false;
+    }
+
+    credentialDock.addEventListener('pointerup', finishDockDrag);
+    credentialDock.addEventListener('pointercancel', finishDockDrag);
+    credentialDock.addEventListener('click', (e) => {
+      if (!dockSuppressClick) return;
+      dockSuppressClick = false;
+      if (e.target.closest('.dock-card-btn')) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+      }
+    }, true);
+
+    function selectCredential(idx, revealDock = false, resetDockScroll = false) {
       activeCredIndex = idx;
       const cred = credentialsData[idx];
       const spotlight = document.getElementById('credential-spotlight');
@@ -1709,6 +1716,9 @@
         document.getElementById('spotlight-title').textContent = cred.title;
         document.getElementById('spotlight-desc').textContent = cred.desc;
         document.getElementById('spotlight-img').src = cred.image;
+        document.getElementById('spotlight-img').alt = `${cred.title} certificate preview`;
+        document.getElementById('spotlight-cert-link').href = cred.image;
+        document.getElementById('spotlight-cert-link').download = cred.image.split('/').pop();
         document.getElementById('spotlight-watermark').textContent = cred.year;
 
         // Mastered Highlights
@@ -1740,7 +1750,22 @@
         spotlight.style.transform = 'translateY(0)';
       }, 140);
 
-      renderCredentialDock();
+      renderCredentialDock(resetDockScroll);
+      if (revealDock) {
+        requestAnimationFrame(() => {
+          const activeCard = document.querySelector('#credential-dock .active-dock');
+          if (!activeCard) return;
+          const dockBounds = credentialDock.getBoundingClientRect();
+          const cardBounds = activeCard.getBoundingClientRect();
+          const edge = 12;
+          const horizontalShift = cardBounds.left < dockBounds.left + edge
+            ? cardBounds.left - dockBounds.left - edge
+            : cardBounds.right > dockBounds.right - edge
+              ? cardBounds.right - dockBounds.right + edge
+              : 0;
+          if (horizontalShift) credentialDock.scrollBy({ left: horizontalShift, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        });
+      }
     }
 
     function prevCredential() {
@@ -1748,7 +1773,7 @@
       const currentFilteredIdx = filtered.findIndex(c => c.id === credentialsData[activeCredIndex].id);
       const nextFilteredIdx = (currentFilteredIdx - 1 + filtered.length) % filtered.length;
       const targetOrigIdx = credentialsData.findIndex(c => c.id === filtered[nextFilteredIdx].id);
-      selectCredential(targetOrigIdx);
+      selectCredential(targetOrigIdx, true);
     }
 
     function nextCredential() {
@@ -1756,7 +1781,7 @@
       const currentFilteredIdx = filtered.findIndex(c => c.id === credentialsData[activeCredIndex].id);
       const nextFilteredIdx = (currentFilteredIdx + 1) % filtered.length;
       const targetOrigIdx = credentialsData.findIndex(c => c.id === filtered[nextFilteredIdx].id);
-      selectCredential(targetOrigIdx);
+      selectCredential(targetOrigIdx, true);
     }
 
     function toggleAutoTour() {
@@ -1792,46 +1817,10 @@
       }
     }
 
-    function openActiveSpotlightCert() {
-      const cred = credentialsData[activeCredIndex];
-      openCertModal(cred.image, cred.title, cred.desc);
-    }
-
     renderCredentialDock();
     selectCredential(0);
 
-    // 6. Certificate Modal Handlers
-    const certModal = document.getElementById('cert-modal');
-    const modalImg = document.getElementById('modal-img');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modal-desc');
-
-    function openCertModal(imageSrc, title, desc) {
-      modalImg.src = imageSrc;
-      modalTitle.textContent = title;
-      modalDesc.textContent = desc;
-      certModal.classList.remove('hidden');
-      certModal.classList.add('flex');
-    }
-
-    function closeCertModal() {
-      certModal.classList.add('hidden');
-      certModal.classList.remove('flex');
-    }
-
-    certModal.addEventListener('click', (e) => {
-      if (e.target === certModal) {
-        closeCertModal();
-      }
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !certModal.classList.contains('hidden')) {
-        closeCertModal();
-      }
-    });
-
-    // 7. Direct Email Copy with Feedback
+    // 6. Direct Email Copy with Feedback
     function copyEmailToClipboard() {
       const email = 'zeiniahalfiah@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
