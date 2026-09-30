@@ -508,6 +508,9 @@
       html.scroll-motion-ready [data-reveal="from-right"] { --reveal-x: 18px; --reveal-rotation: z 0deg; }
       html.scroll-motion-ready[data-scroll-direction="up"] [data-reveal] { --reveal-y: -22px; }
     }
+    @media (max-width: 360px) {
+      .sign-demo-badge { display: none; }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1225,9 +1228,9 @@
                 <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-[#eee4e7]">
                   <div class="flex items-center gap-2.5 min-w-0">
                     <span class="grid place-items-center w-7 h-7 rounded-lg bg-[#f4e9ed] text-[#765f70] text-xs font-bold">G</span>
-                    <span class="truncate text-[11px] sm:text-xs font-mono font-bold text-twilight">Hijaiyah Sign Recognition</span>
+                    <span class="truncate text-[10px] sm:text-xs font-mono font-bold text-twilight">Sign Recognition</span>
                   </div>
-                  <span class="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#f7f0f1] px-2.5 py-1 text-[9px] font-mono font-semibold tracking-wide text-[#806c78]">
+                  <span class="sign-demo-badge shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#f7f0f1] px-2.5 py-1 text-[9px] font-mono font-semibold tracking-wide text-[#806c78]">
                     <span class="w-1.5 h-1.5 rounded-full bg-coral"></span> GRADIO PREVIEW
                   </span>
                 </div>
@@ -1239,7 +1242,7 @@
                   <img id="sign-demo-shot" src="assets/sign-mediapipe-lam-dhammah.webp" alt="Raw hand-sign frame beside its MediaPipe landmark overlay" loading="lazy" decoding="async">
                 </div>
                 <div class="grid grid-cols-2 gap-2.5 p-3">
-                  <button type="button" class="sign-sample-tab is-active text-left" data-sign-sample data-src="assets/sign-mediapipe-lam-dhammah.webp" data-alt="Raw hand-sign frame beside its MediaPipe landmark overlay" data-label="SAMPLE SIGN" data-confidence="—" aria-label="Show sign sample 01" aria-pressed="true">
+                  <button type="button" class="sign-sample-tab is-active text-left" data-sign-sample data-src="assets/sign-mediapipe-lam-dhammah.webp" data-alt="Raw hand-sign frame beside its MediaPipe landmark overlay" data-label="SAMPLE" data-confidence="—" aria-label="Show sign sample 01" aria-pressed="true">
                     <img src="assets/sign-mediapipe-lam-dhammah.webp" alt="" loading="lazy" decoding="async">
                     <span class="block truncate px-2 py-1.5 text-[9px] sm:text-[10px] font-mono">Sample 01</span>
                   </button>
@@ -1252,7 +1255,7 @@
                   <div class="flex items-center justify-between gap-3">
                     <div class="min-w-0">
                       <span class="block text-[9px] font-mono uppercase tracking-[.14em] text-mauve">Sample model output</span>
-                      <strong id="sign-demo-label" class="mt-1 block truncate text-sm sm:text-base font-mono font-bold text-twilight">SAMPLE SIGN</strong>
+                      <strong id="sign-demo-label" class="mt-1 block truncate text-sm sm:text-base font-mono font-bold text-twilight">SAMPLE</strong>
                     </div>
                     <div class="shrink-0 text-right">
                       <span class="block text-[9px] font-mono uppercase tracking-wide text-mauve">Confidence</span>
