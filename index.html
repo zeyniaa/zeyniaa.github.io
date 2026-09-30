@@ -497,12 +497,12 @@
   
     .activity-folder-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1.15rem;
-      perspective: 1400px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(16px, 2.4vw, 30px);
     }
     .activity-folder-card {
       position: relative;
+      z-index: 1;
       display: block;
       width: 100%;
       overflow: visible;
@@ -513,9 +513,9 @@
       color: #231F2E;
       text-align: left;
       box-shadow: 0 8px 30px rgba(35, 31, 46, 0.05);
-      transform-style: preserve-3d;
       rotate: z var(--album-angle, 0deg);
-      transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1), rotate 620ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 520ms ease, border-color 360ms ease;
+      transform-origin: left center;
+      transition: transform 760ms cubic-bezier(0.16, 1, 0.3, 1), rotate 620ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 520ms ease, border-color 360ms ease;
       cursor: pointer;
     }
     .activity-folder-card::before {
@@ -529,14 +529,20 @@
       transform: rotate(calc(var(--album-angle, 0deg) * -.55));
       transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1), background 360ms ease;
     }
-    .activity-folder-card:hover {
+    .activity-folder-card:nth-child(even) { transform-origin: right center; }
+    .activity-folder-card:hover,
+    .activity-folder-card:focus-visible,
+    .activity-folder-card.is-open {
+      z-index: 12;
       --album-angle: 0deg;
-      transform: translateY(-10px) scale(1.02);
+      transform: translateY(-9px) scaleX(1.18) scaleY(1.035);
       rotate: z 0deg;
       border-color: #D98F84;
       box-shadow: 0 24px 48px rgba(35, 31, 46, 0.16);
     }
-    .activity-folder-card:hover::before { transform: translate(7px, 3px) rotate(3deg); background: #fff; }
+    .activity-folder-card:hover::before,
+    .activity-folder-card:focus-visible::before,
+    .activity-folder-card.is-open::before { transform: translate(7px, 3px) rotate(3deg); background: #fff; }
     .activity-folder-card:focus-visible {
       outline: 3px solid rgba(217, 143, 132, 0.6);
       outline-offset: 4px;
@@ -546,8 +552,6 @@
       display: block;
       overflow: visible;
       aspect-ratio: 1.26 / 1;
-      perspective: 1100px;
-      transform-style: preserve-3d;
       isolation: isolate;
     }
     .activity-folder-cover::before {
@@ -566,29 +570,28 @@
     .activity-folder-pages {
       position: absolute;
       z-index: 1;
-      inset: 8% 8% 10%;
-      transform-style: preserve-3d;
+      inset: 4% 5% 18%;
     }
     .activity-folder-pages img {
       position: absolute;
-      top: 7%;
-      width: 61%;
-      height: 80%;
+      top: 8%;
+      width: 47%;
+      height: 72%;
       object-fit: cover;
       border: 5px solid #fff;
       border-radius: 14px;
       background: #EEE7EB;
       box-shadow: 0 12px 28px rgba(35, 31, 46, .24);
       filter: grayscale(1) contrast(1.08);
-      transition: transform 760ms cubic-bezier(.16, 1, .3, 1);
+      transition: transform 820ms cubic-bezier(.16, 1, .3, 1), filter 500ms ease;
     }
     .activity-folder-pages img:first-child {
-      left: 5%;
-      transform: translate3d(0, 19%, 2px) rotate(-9deg) scale(.94);
+      left: 3%;
+      transform: translate3d(0, 38%, 0) rotate(-8deg) scale(.92);
     }
     .activity-folder-pages img:last-child {
-      right: 5%;
-      transform: translate3d(0, 16%, 4px) rotate(8deg) scale(.94);
+      right: 3%;
+      transform: translate3d(0, 36%, 0) rotate(7deg) scale(.92);
     }
     .activity-folder-face {
       position: absolute;
@@ -600,32 +603,33 @@
       border-radius: 24px 24px 12px 12px;
       background: #2E283C;
       box-shadow: 0 10px 24px rgba(35, 31, 46, .18);
-      transform: translateZ(18px) rotateX(0deg);
-      transform-origin: 50% 2%;
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
-      transition: transform 760ms cubic-bezier(.18, .8, .22, 1), box-shadow 760ms ease;
+      transform: translateY(0) scaleY(1);
+      transform-origin: 50% 100%;
+      transition: transform 760ms cubic-bezier(.16, 1, .3, 1), box-shadow 760ms ease;
     }
     .activity-folder-face > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: grayscale(1) contrast(1.08) brightness(.96);
-      transform: translateZ(1px) scale(1.035);
+      transform: scale(1.035);
       transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms ease;
     }
     .activity-folder-card:hover .activity-folder-face,
-    .activity-folder-card:focus-visible .activity-folder-face {
-      transform: translateZ(10px) rotateX(-56deg);
+    .activity-folder-card:focus-visible .activity-folder-face,
+    .activity-folder-card.is-open .activity-folder-face {
+      transform: translateY(7px) scaleY(.94);
       box-shadow: 0 22px 34px rgba(35, 31, 46, .24);
     }
     .activity-folder-card:hover .activity-folder-pages img:first-child,
-    .activity-folder-card:focus-visible .activity-folder-pages img:first-child {
-      transform: translate3d(0, -2%, 5px) rotate(-9deg) scale(1);
+    .activity-folder-card:focus-visible .activity-folder-pages img:first-child,
+    .activity-folder-card.is-open .activity-folder-pages img:first-child {
+      transform: translate3d(-5%, -34%, 0) rotate(-11deg) scale(1.03);
     }
     .activity-folder-card:hover .activity-folder-pages img:last-child,
-    .activity-folder-card:focus-visible .activity-folder-pages img:last-child {
-      transform: translate3d(0, 2%, 7px) rotate(8deg) scale(1);
+    .activity-folder-card:focus-visible .activity-folder-pages img:last-child,
+    .activity-folder-card.is-open .activity-folder-pages img:last-child {
+      transform: translate3d(5%, -31%, 0) rotate(10deg) scale(1.03);
     }
     .activity-cover-shade {
       position: absolute;
@@ -666,7 +670,9 @@
       transition: gap 300ms ease, opacity 300ms ease;
     }
     .activity-folder-action svg { width: 19px; height: 19px; color: #F6DAD4; }
-    .activity-folder-card:hover .activity-folder-action { gap: 12px; opacity: 1; }
+    .activity-folder-card:hover .activity-folder-action,
+    .activity-folder-card:focus-visible .activity-folder-action,
+    .activity-folder-card.is-open .activity-folder-action { gap: 12px; opacity: 1; }
     .activity-folder-copy {
       position: relative;
       display: grid;
@@ -688,107 +694,12 @@
       font: 600 18px/1.18 'Instrument Serif', Georgia, serif;
     }
     .activity-folder-title > span { color: #D98F84; font: 500 14px/1 'DM Mono', monospace; transition: transform 300ms ease; }
-    .activity-folder-card:hover .activity-folder-title > span { transform: translate(2px,-2px); }
+    .activity-folder-card:hover .activity-folder-title > span,
+    .activity-folder-card:focus-visible .activity-folder-title > span,
+    .activity-folder-card.is-open .activity-folder-title > span { transform: translate(2px,-2px); }
 
-    .activity-gallery-dialog {
-      width: min(76rem, calc(100vw - 2rem));
-      max-width: none;
-      max-height: min(90dvh, 920px);
-      padding: 0;
-      overflow: auto;
-      border: 1px solid #E8DDE5;
-      border-radius: 30px;
-      background: #FAF5F3;
-      color: #231F2E;
-      box-shadow: 0 32px 100px rgba(14, 10, 22, .36);
-    }
-    .activity-gallery-dialog::backdrop {
-      background: rgba(24, 20, 31, .76);
-      backdrop-filter: blur(9px);
-    }
-    .activity-gallery-dialog[open] { animation: gallery-open 520ms cubic-bezier(.16,1,.3,1) both; }
-    @keyframes gallery-open {
-      from { opacity: 0; transform: translateY(34px) rotateX(5deg) scale(.94); filter: blur(8px); }
-      to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); filter: blur(0); }
-    }
-    .activity-gallery-shell { padding: clamp(20px, 4vw, 42px); }
-    .activity-gallery-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 26px;
-    }
-    .activity-gallery-kicker { color: #D98F84; font: 600 10px/1.4 'DM Mono', monospace; letter-spacing: .12em; text-transform: uppercase; }
-    .activity-gallery-title { margin: 0; color: #231F2E; font: 400 clamp(32px, 5vw, 54px)/1 'Instrument Serif', Georgia, serif; }
-    .activity-gallery-summary { max-width: 680px; margin: 10px 0 0; color: #735E72; font: 400 13px/1.7 'Plus Jakarta Sans', sans-serif; }
-    .activity-gallery-close {
-      flex: 0 0 auto;
-      display: grid;
-      width: 44px;
-      height: 44px;
-      place-items: center;
-      border: 1px solid #E8DDE5;
-      border-radius: 50%;
-      background: white;
-      color: #735E72;
-      transition: transform 260ms ease, border-color 260ms ease, color 260ms ease;
-      cursor: pointer;
-    }
-    .activity-gallery-close:hover { transform: rotate(90deg); border-color: #D98F84; color: #D98F84; }
-    .activity-gallery-close svg { width: 19px; height: 19px; }
-    .activity-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .activity-gallery-item {
-      overflow: hidden;
-      border: 1px solid #E8DDE5;
-      border-radius: 20px;
-      background: #fff;
-      box-shadow: 0 8px 26px rgba(35,31,46,.055);
-      transform-origin: 50% 80%;
-      animation: gallery-item-in 620ms cubic-bezier(.16,1,.3,1) both;
-      animation-delay: var(--item-delay, 0ms);
-    }
-    @keyframes gallery-item-in {
-      from { opacity: 0; transform: translateY(28px) rotate(var(--item-angle, -3deg)) scale(.94); clip-path: inset(0 0 12% 0 round 20px); filter: blur(5px); }
-      to { opacity: 1; transform: translateY(0) rotate(0) scale(1); clip-path: inset(0 0 0 0 round 20px); filter: blur(0); }
-    }
-    .activity-gallery-frame { display: grid; aspect-ratio: 4 / 3; overflow: hidden; place-items: center; background: #EEE7EB; }
-    .activity-gallery-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.07) brightness(.97); }
-    .activity-gallery-frame.is-portrait { aspect-ratio: 3 / 4; background: #2E283C; }
-    .activity-gallery-frame.is-portrait img { object-fit: contain; }
-    .activity-gallery-caption { display: flex; gap: 10px; padding: 13px 14px 15px; color: #735E72; font: 500 10px/1.5 'DM Mono', monospace; }
-    .activity-gallery-caption span { color: #D98F84; }
-    .activity-gallery-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding-top: 22px;
-      margin-top: 24px;
-      border-top: 1px solid #E8DDE5;
-      color: #8B6D83;
-      font: 500 10px/1.4 'DM Mono', monospace;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-    .activity-gallery-footer button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 15px;
-      border: 1px solid #CBB3C4;
-      border-radius: 999px;
-      background: white;
-      color: #231F2E;
-      font: 500 10px/1 'DM Mono', monospace;
-      cursor: pointer;
-      transition: background 220ms ease, border-color 220ms ease;
-    }
-    .activity-gallery-footer button:hover { border-color: #D98F84; background: #F6DAD4; }
-    .activity-gallery-footer button span { color: #D98F84; font-size: 16px; }
     @media (max-width: 980px) {
       .activity-folder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .activity-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 560px) {
       .activity-folder-grid { gap: 12px; }
@@ -802,18 +713,17 @@
       .activity-folder-role { font-size: 9px; }
       .activity-folder-action { left: 11px; bottom: 11px; gap: 5px; font-size: 9px; }
       .activity-folder-action svg { width: 16px; height: 16px; }
-      .activity-gallery-dialog { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 23px; }
-      .activity-gallery-shell { padding: 20px 16px; }
-      .activity-gallery-grid { grid-template-columns: 1fr; gap: 13px; }
-      .activity-gallery-frame { aspect-ratio: 4 / 3; }
-      .activity-gallery-frame.is-portrait { aspect-ratio: 3 / 4; }
-      .activity-gallery-summary { font-size: 12px; }
+      .activity-folder-card:hover,
+      .activity-folder-card:focus-visible,
+      .activity-folder-card.is-open { transform: translateY(-5px) scaleX(1.07) scaleY(1.02); }
     }
     @media (prefers-reduced-motion: reduce) {
       .activity-folder-card, .activity-folder-card::before, .activity-folder-cover::before,
-      .activity-folder-face, .activity-folder-pages img, .activity-folder-cover > img, .activity-folder-action,
-      .activity-gallery-close, .activity-gallery-item { transition: none !important; animation: none !important; }
-      .activity-folder-card { rotate: none; transform: none; }
+      .activity-folder-face, .activity-folder-pages img, .activity-folder-cover > img, .activity-folder-action { transition: none !important; animation: none !important; }
+      .activity-folder-card,
+      .activity-folder-card:hover,
+      .activity-folder-card:focus-visible,
+      .activity-folder-card.is-open { rotate: none; transform: none; }
     }
 </style>
 </head>
@@ -1512,60 +1422,60 @@
           <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Chapters in Motion</span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">Activities & Leadership</h2>
           <p class="text-sm font-sans text-mauve max-w-xl">
-            Open a folder to explore the teams, stages, and fieldwork behind each chapter.
+            Hover or tap a folder to spread its photo story. The moments stay inside the page.
           </p>
         </div>
         <span class="text-xs font-mono text-mauve">04 ALBUMS <span class="text-coral">/</span> 11 MOMENTS</span>
       </div>
 
       <div class="activity-folder-grid" data-reveal-stagger="fan">
-        <button type="button" class="activity-folder-card group" data-activity-album="yot" onclick="openActivityAlbum('yot')" aria-label="Open YOTers Jakarta album, 3 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="yot" aria-label="Preview YOTers Jakarta activity photos" aria-expanded="false">
           <span class="activity-folder-cover">
             <span class="activity-folder-pages" aria-hidden="true"></span>
             <span class="activity-folder-face">
               <img src="assets/yot_headtech_01.webp" alt="" loading="lazy">
               <span class="activity-cover-shade" aria-hidden="true"></span>
               <span class="activity-folder-topline"><span>01 <span class="text-coral">/</span> YOUNG ON TOP</span><span>03 PHOTOS</span></span>
-              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Peek inside</span><span aria-hidden="true">↗</span></span>
             </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">Head of Technology · 2024</span><span class="activity-folder-title">YOTers Jakarta <span aria-hidden="true">↗</span></span></span>
         </button>
 
-        <button type="button" class="activity-folder-card group" data-activity-album="gdgoc" onclick="openActivityAlbum('gdgoc')" aria-label="Open GDGoC UIN Jakarta album, 2 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="gdgoc" aria-label="Preview GDGoC UIN Jakarta activity photos" aria-expanded="false">
           <span class="activity-folder-cover">
             <span class="activity-folder-pages" aria-hidden="true"></span>
             <span class="activity-folder-face">
               <img src="assets/gdgoc_colead_01.webp" alt="" loading="lazy">
               <span class="activity-cover-shade" aria-hidden="true"></span>
               <span class="activity-folder-topline"><span>02 <span class="text-coral">/</span> GDGOC UIN JAKARTA</span><span>02 PHOTOS</span></span>
-              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Peek inside</span><span aria-hidden="true">↗</span></span>
             </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">Co-Lead · 2024–2025</span><span class="activity-folder-title">GDGoC UIN Jakarta <span aria-hidden="true">↗</span></span></span>
         </button>
 
-        <button type="button" class="activity-folder-card group" data-activity-album="stage" onclick="openActivityAlbum('stage')" aria-label="Open MC and Moderator album, 3 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="stage" aria-label="Preview MC and Moderator activity photos" aria-expanded="false">
           <span class="activity-folder-cover">
             <span class="activity-folder-pages" aria-hidden="true"></span>
             <span class="activity-folder-face">
               <img src="assets/yotnc_real_stage.png" alt="" loading="lazy">
               <span class="activity-cover-shade" aria-hidden="true"></span>
               <span class="activity-folder-topline"><span>03 <span class="text-coral">/</span> STAGE & FACILITATION</span><span>03 PHOTOS</span></span>
-              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Peek inside</span><span aria-hidden="true">↗</span></span>
             </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">Hosting · Moderation · 2024–2025</span><span class="activity-folder-title">MC & Moderator <span aria-hidden="true">↗</span></span></span>
         </button>
 
-        <button type="button" class="activity-folder-card group" data-activity-album="internship" onclick="openActivityAlbum('internship')" aria-label="Open LPMQ internship album, 3 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="internship" aria-label="Preview LPMQ internship activity photos" aria-expanded="false">
           <span class="activity-folder-cover">
             <span class="activity-folder-pages" aria-hidden="true"></span>
             <span class="activity-folder-face">
               <img src="assets/lpmq_internship_visit.webp" alt="" loading="lazy">
               <span class="activity-cover-shade" aria-hidden="true"></span>
               <span class="activity-folder-topline"><span>04 <span class="text-coral">/</span> LPMQ KEMENAG RI</span><span>03 PHOTOS</span></span>
-              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Peek inside</span><span aria-hidden="true">↗</span></span>
             </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">AI Engineer Intern · Jul–Oct 2025</span><span class="activity-folder-title">LPMQ Kemenag RI <span aria-hidden="true">↗</span></span></span>
@@ -1574,22 +1484,7 @@
     </div>
   </section>
 
-  <dialog id="activity-gallery-dialog" class="activity-gallery-dialog" aria-labelledby="activity-gallery-title" aria-describedby="activity-gallery-summary">
-    <div class="activity-gallery-shell">
-      <header class="activity-gallery-header">
-        <div class="space-y-2">
-          <span id="activity-gallery-kicker" class="activity-gallery-kicker"></span>
-          <h3 id="activity-gallery-title" class="activity-gallery-title"></h3>
-          <p id="activity-gallery-summary" class="activity-gallery-summary"></p>
-        </div>
-        <button type="button" class="activity-gallery-close" onclick="closeActivityAlbum()" aria-label="Close activity album">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </button>
-      </header>
-      <div id="activity-gallery-grid" class="activity-gallery-grid"></div>
-      <footer class="activity-gallery-footer"><span id="activity-gallery-count"></span><button type="button" onclick="closeActivityAlbum()">Close album <span aria-hidden="true">×</span></button></footer>
-    </div>
-  </dialog>
+
 
   <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
   <section id="credentials" class="py-24 border-y border-border-subtle">
@@ -1889,7 +1784,7 @@
       }
     }
 
-    // 5. Activity albums: open each folder into a responsive photo gallery
+    // 5. Activity photo folders: reveal their moments in place
     const activityAlbums = {
       yot: {
         kicker: 'CHAPTER 01 · YOUNG ON TOP JAKARTA',
@@ -1936,7 +1831,7 @@
       }
     };
 
-    // Seed each folder with loose photo pages that fan into view when it opens on hover.
+    // Place later photos behind each cover so hover or tap can reveal them in place.
     document.querySelectorAll('[data-activity-album]').forEach(folder => {
       const album = activityAlbums[folder.dataset.activityAlbum];
       const pages = folder.querySelector('.activity-folder-pages');
@@ -1951,36 +1846,51 @@
       });
     });
 
-    function openActivityAlbum(albumId) {
-      const album = activityAlbums[albumId];
-      const dialog = document.getElementById('activity-gallery-dialog');
-      if (!album || !dialog) return;
+    // Photo folders expand in place. A tap pins the preview; no image opens separately.
+    const activityFolders = Array.from(document.querySelectorAll('[data-activity-album]'));
 
-      document.getElementById('activity-gallery-kicker').textContent = album.kicker;
-      document.getElementById('activity-gallery-title').textContent = album.title;
-      document.getElementById('activity-gallery-summary').textContent = album.summary;
-      document.getElementById('activity-gallery-count').textContent = `${String(album.images.length).padStart(2, '0')} PHOTOS · ${album.role}`;
-      document.getElementById('activity-gallery-grid').innerHTML = album.images.map((photo, index) => `
-        <figure class="activity-gallery-item" style="--item-delay: ${index * 90}ms; --item-angle: ${index % 2 ? 3 : -3}deg">
-          <div class="activity-gallery-frame${photo.portrait ? ' is-portrait' : ''}">
-            <img src="${photo.src}" alt="${photo.alt}" loading="lazy" decoding="async">
-          </div>
-          <figcaption class="activity-gallery-caption"><span>${String(index + 1).padStart(2, '0')}</span>${photo.caption}</figcaption>
-        </figure>
-      `).join('');
-
-      dialog.showModal();
-      dialog.querySelector('.activity-gallery-close')?.focus({ preventScroll: true });
+    function setActivityFolderOpen(folder, isOpen) {
+      folder.classList.toggle('is-open', isOpen);
+      folder.setAttribute('aria-expanded', String(isOpen));
     }
 
-    function closeActivityAlbum() {
-      document.getElementById('activity-gallery-dialog')?.close();
+    function closeActivityFoldersExcept(activeFolder) {
+      activityFolders.forEach(folder => {
+        if (folder === activeFolder) return;
+        folder.classList.remove('is-pinned');
+        setActivityFolderOpen(folder, false);
+      });
     }
 
-    document.getElementById('activity-gallery-dialog')?.addEventListener('click', (event) => {
-      if (event.target === event.currentTarget) closeActivityAlbum();
+    activityFolders.forEach(folder => {
+      folder.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'mouse') return;
+        closeActivityFoldersExcept(folder);
+        setActivityFolderOpen(folder, true);
+      });
+      folder.addEventListener('pointerleave', () => {
+        if (folder.classList.contains('is-pinned') || folder.matches(':focus-visible')) return;
+        setActivityFolderOpen(folder, false);
+      });
+      folder.addEventListener('focus', () => {
+        closeActivityFoldersExcept(folder);
+        setActivityFolderOpen(folder, true);
+      });
+      folder.addEventListener('blur', () => {
+        window.setTimeout(() => {
+          if (folder.classList.contains('is-pinned') || folder.matches(':hover') || folder.matches(':focus-visible')) return;
+          setActivityFolderOpen(folder, false);
+        }, 0);
+      });
+      folder.addEventListener('click', event => {
+        const pinOpen = !folder.classList.contains('is-pinned');
+        closeActivityFoldersExcept(folder);
+        folder.classList.toggle('is-pinned', pinOpen);
+        const stillHovered = folder.matches(':hover') && window.matchMedia('(hover: hover)').matches;
+        const keyboardActivation = event.detail === 0 && folder === document.activeElement;
+        setActivityFolderOpen(folder, pinOpen || stillHovered || keyboardActivation);
+      });
     });
-
     // 6. Interactive credentials showcase with category filters and a browsable dock
     const credentialsData = [
       {
