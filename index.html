@@ -80,6 +80,8 @@
   </script>
 
   <style>
+    html { overflow-x: clip; }
+
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
@@ -498,6 +500,21 @@
         clip-path: none;
         transition: none;
         will-change: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      html.scroll-motion-ready [data-reveal="from-left"] { --reveal-x: -18px; --reveal-rotation: z 0deg; }
+      html.scroll-motion-ready [data-reveal="from-right"] { --reveal-x: 18px; --reveal-rotation: z 0deg; }
+      html.scroll-motion-ready[data-scroll-direction="up"] [data-reveal] { --reveal-y: -22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
       }
     }
   
