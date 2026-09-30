@@ -681,6 +681,52 @@
       object-fit: cover;
       background: #e8eef4;
     }
+    .sign-demo-window {
+      overflow: hidden;
+      border: 1px solid #e5d6dd;
+      border-radius: 24px;
+      background: #fffdfc;
+      box-shadow: 0 18px 42px rgba(35, 31, 46, .12);
+    }
+    .sign-demo-preview {
+      display: grid;
+      place-items: center;
+      min-height: 152px;
+      aspect-ratio: 2.45 / 1;
+      overflow: hidden;
+      background: #fff9d8;
+    }
+    .sign-demo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 220ms ease, transform 420ms cubic-bezier(.16, 1, .3, 1);
+    }
+    .sign-demo-preview.is-changing img { opacity: .25; transform: scale(.985); }
+    .sign-sample-tab {
+      min-width: 0;
+      border: 1px solid #e7dce1;
+      border-radius: 12px;
+      background: #fff;
+      color: #765f70;
+      transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+    }
+    .sign-sample-tab:hover { transform: translateY(-2px); }
+    .sign-sample-tab.is-active {
+      border-color: #d98f84;
+      box-shadow: 0 0 0 2px rgba(217, 143, 132, .2);
+      color: #231f2e;
+    }
+    .sign-sample-tab img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2.2 / 1;
+      object-fit: cover;
+      background: #fff9d8;
+    }
+    @media (max-width: 1023px) {
+      .sign-demo-preview { min-height: 0; }
+    }
     .activity-cover-shade {
       position: absolute;
       inset: 0;
@@ -1158,12 +1204,45 @@
             </div>
 
             <div class="lg:col-span-5">
-              <div class="rounded-3xl overflow-hidden border border-lilac shadow-soft bg-canvas-subtle p-2">
-                <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5">
-                  <img src="assets/project_quran_sign.jpg" alt="MediaPipe 75 Keypoints Quranic Sign Language Landmark" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+              <div class="sign-demo-window" aria-label="Gradio-style sample dashboard for Hijaiyah sign recognition">
+                <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-[#eee4e7]">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="grid place-items-center w-7 h-7 rounded-lg bg-[#f4e9ed] text-[#765f70] text-xs font-bold">G</span>
+                    <span class="truncate text-[11px] sm:text-xs font-mono font-bold text-twilight">Hijaiyah Sign Recognition</span>
+                  </div>
+                  <span class="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#f7f0f1] px-2.5 py-1 text-[9px] font-mono font-semibold tracking-wide text-[#806c78]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-coral"></span> GRADIO PREVIEW
+                  </span>
                 </div>
-                <div class="p-3 text-center">
-                  <span class="text-[11px] font-mono text-mauve">75 Skeletal Landmark Mesh &bull; Multi-Head Attention Benchmark</span>
+                <div class="flex items-center justify-between gap-2 px-4 py-2.5 bg-[#fcf8f7]">
+                  <span class="text-[9px] sm:text-[10px] font-mono font-semibold tracking-wide text-mauve">INPUT FRAME <span class="text-coral">/</span> MEDIAPIPE OVERLAY</span>
+                  <span id="sign-sample-count" class="text-[9px] font-mono text-mauve" aria-live="polite">01 / 02</span>
+                </div>
+                <div id="sign-demo-stage" class="sign-demo-preview">
+                  <img id="sign-demo-shot" src="assets/sign-mediapipe-lam-dhammah.webp" alt="Raw hand-sign frame beside its MediaPipe landmark overlay" loading="lazy" decoding="async">
+                </div>
+                <div class="grid grid-cols-2 gap-2.5 p-3">
+                  <button type="button" class="sign-sample-tab is-active text-left" data-sign-sample data-src="assets/sign-mediapipe-lam-dhammah.webp" data-alt="Raw hand-sign frame beside its MediaPipe landmark overlay" data-label="LAM_DHAMMAH" data-confidence="98.95%" aria-label="Show the Lam Dhammah sample" aria-pressed="true">
+                    <img src="assets/sign-mediapipe-lam-dhammah.webp" alt="" loading="lazy" decoding="async">
+                    <span class="block truncate px-2 py-1.5 text-[9px] sm:text-[10px] font-mono">Lam Dhammah</span>
+                  </button>
+                  <button type="button" class="sign-sample-tab text-left" data-sign-sample data-src="assets/sign-mediapipe-ba-kasrah.webp" data-alt="Original Ba Kasrah sign beside its MediaPipe landmark overlay" data-label="BA_KASRAH" data-confidence="Sample label" aria-label="Show the Ba Kasrah sample" aria-pressed="false">
+                    <img src="assets/sign-mediapipe-ba-kasrah.webp" alt="" loading="lazy" decoding="async">
+                    <span class="block truncate px-2 py-1.5 text-[9px] sm:text-[10px] font-mono">Ba Kasrah</span>
+                  </button>
+                </div>
+                <div class="mx-3 mb-3 rounded-2xl border border-[#eee4e7] bg-[#fcf8f7] p-3.5">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="min-w-0">
+                      <span class="block text-[9px] font-mono uppercase tracking-[.14em] text-mauve">Sample model output</span>
+                      <strong id="sign-demo-label" class="mt-1 block truncate text-sm sm:text-base font-mono font-bold text-twilight">LAM_DHAMMAH</strong>
+                    </div>
+                    <div class="shrink-0 text-right">
+                      <span class="block text-[9px] font-mono uppercase tracking-wide text-mauve">Confidence</span>
+                      <strong id="sign-demo-confidence" class="mt-1 block text-sm font-mono font-bold text-coral">98.95%</strong>
+                    </div>
+                  </div>
+                  <p class="mt-2 text-[9px] font-mono leading-relaxed text-mauve">Static interface preview · MediaPipe landmark examples</p>
                 </div>
               </div>
             </div>
@@ -1829,7 +1908,35 @@
       }
     }
 
-    // 5. BaliTowerOps gallery: switch between the real product screens.
+    // 5. Sign-language samples: swap the MediaPipe examples and their reference labels.
+    const signDemoStage = document.getElementById('sign-demo-stage');
+    const signDemoShot = document.getElementById('sign-demo-shot');
+    const signDemoLabel = document.getElementById('sign-demo-label');
+    const signDemoConfidence = document.getElementById('sign-demo-confidence');
+    const signSampleCount = document.getElementById('sign-sample-count');
+    let signSampleTimer;
+    document.querySelectorAll('[data-sign-sample]').forEach((button, index) => {
+      button.addEventListener('click', () => {
+        if (!signDemoStage || !signDemoShot) return;
+        window.clearTimeout(signSampleTimer);
+        signDemoStage.classList.add('is-changing');
+        document.querySelectorAll('[data-sign-sample]').forEach(tab => {
+          const isActive = tab === button;
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-pressed', String(isActive));
+        });
+        signSampleTimer = window.setTimeout(() => {
+          signDemoShot.src = button.dataset.src;
+          signDemoShot.alt = button.dataset.alt;
+          signDemoLabel.textContent = button.dataset.label;
+          signDemoConfidence.textContent = button.dataset.confidence;
+          signSampleCount.textContent = `${String(index + 1).padStart(2, '0')} / 02`;
+          signDemoStage.classList.remove('is-changing');
+        }, 130);
+      });
+    });
+
+    // 6. BaliTowerOps gallery: switch between the real product screens.
     const baliTowerStage = document.getElementById('balitower-stage');
     const baliTowerShot = document.getElementById('balitower-shot');
     const baliTowerShotLabel = document.getElementById('balitower-shot-label');
