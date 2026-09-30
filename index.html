@@ -479,96 +479,6 @@
       clip-path: circle(150% at 50% 50%);
     }
 
-    /* A small chapter rail turns the long page into a navigable story. */
-    .chapter-rail {
-      position: fixed;
-      z-index: 45;
-      top: 50%;
-      right: 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 11px;
-      padding: 14px 10px;
-      border: 1px solid rgba(203, 179, 196, 0.72);
-      border-radius: 999px;
-      background: rgba(250, 245, 243, 0.76);
-      box-shadow: 0 8px 28px rgba(35, 31, 46, 0.1);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transform: translateY(-50%);
-    }
-    .chapter-rail-track,
-    .chapter-rail-progress {
-      position: absolute;
-      top: 23px;
-      bottom: 23px;
-      left: 50%;
-      width: 1px;
-      border-radius: 999px;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-    .chapter-rail-track {
-      background: rgba(139, 109, 131, 0.25);
-    }
-    .chapter-rail-progress {
-      bottom: auto;
-      height: var(--chapter-progress, 0%);
-      background: #D98F84;
-      box-shadow: 0 0 8px rgba(217, 143, 132, 0.7);
-      transition: height 120ms linear;
-    }
-    .chapter-rail-link {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      width: 12px;
-      height: 12px;
-      place-items: center;
-      border-radius: 50%;
-    }
-    .chapter-rail-link::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border: 1px solid #8B6D83;
-      border-radius: 50%;
-      background: #FAF5F3;
-      transition: width 350ms ease, height 350ms ease, background 350ms ease, box-shadow 350ms ease;
-    }
-    .chapter-rail-link.is-active::before {
-      width: 10px;
-      height: 10px;
-      border-color: #D98F84;
-      background: #D98F84;
-      box-shadow: 0 0 0 4px rgba(217, 143, 132, 0.16), 0 0 14px rgba(217, 143, 132, 0.75);
-    }
-    .chapter-rail-label {
-      position: absolute;
-      right: calc(100% + 12px);
-      padding: 6px 9px;
-      border: 1px solid rgba(203, 179, 196, 0.75);
-      border-radius: 999px;
-      background: rgba(250, 245, 243, 0.92);
-      color: #493849;
-      font: 10px "DM Mono", monospace;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      opacity: 0;
-      translate: 6px 0;
-      transition: opacity 240ms ease, translate 240ms ease;
-      pointer-events: none;
-    }
-    .chapter-rail-link:hover .chapter-rail-label,
-    .chapter-rail-link:focus-visible .chapter-rail-label,
-    .chapter-rail-link.is-active .chapter-rail-label {
-      opacity: 1;
-      translate: 0 0;
-    }
-    @media (max-width: 1100px) {
-      .chapter-rail { display: none; }
-    }
     @media (prefers-reduced-motion: reduce) {
       html.scroll-motion-ready [data-reveal] {
         opacity: 1;
@@ -579,11 +489,6 @@
         clip-path: none;
         transition: none;
         will-change: auto;
-      }
-      .chapter-rail-link::before,
-      .chapter-rail-progress,
-      .chapter-rail-label {
-        transition: none;
       }
     }
   </style>
@@ -623,20 +528,8 @@
     </div>
   </header>
 
-  <nav class="chapter-rail" id="chapter-rail" aria-label="Portfolio chapter navigation">
-    <span class="chapter-rail-track" aria-hidden="true"></span>
-    <span class="chapter-rail-progress" id="chapter-rail-progress" aria-hidden="true"></span>
-    <a class="chapter-rail-link is-active" href="#hero" data-chapter-link="hero" aria-label="Intro" aria-current="location"><span class="chapter-rail-label">01 · Intro</span></a>
-    <a class="chapter-rail-link" href="#recruiter-pitch" data-chapter-link="recruiter-pitch" aria-label="Focus"><span class="chapter-rail-label">02 · Focus</span></a>
-    <a class="chapter-rail-link" href="#flagship" data-chapter-link="flagship" aria-label="Featured works"><span class="chapter-rail-label">03 · Works</span></a>
-    <a class="chapter-rail-link" href="#journey" data-chapter-link="journey" aria-label="Career trajectory"><span class="chapter-rail-label">04 · Journey</span></a>
-    <a class="chapter-rail-link" href="#speaking" data-chapter-link="speaking" aria-label="Public speaking"><span class="chapter-rail-label">05 · Stage</span></a>
-    <a class="chapter-rail-link" href="#credentials" data-chapter-link="credentials" aria-label="Credentials"><span class="chapter-rail-label">06 · Credentials</span></a>
-    <a class="chapter-rail-link" href="#contact" data-chapter-link="contact" aria-label="Contact"><span class="chapter-rail-label">07 · Contact</span></a>
-  </nav>
-
   <!-- SECTION 0: HERO (CLEAN FOREGROUND + DYNAMIC RAME BACKGROUND) -->
-  <section id="hero" data-chapter class="relative min-h-[96vh] pt-36 pb-32 flex flex-col items-center justify-center overflow-hidden">
+  <section id="hero" class="relative min-h-[96vh] pt-36 pb-32 flex flex-col items-center justify-center overflow-hidden">
     
     <!-- 1. Interactive Background Canvas (Parametric 3D Cyber-Vector Waves) -->
     <canvas id="neural-canvas" class="absolute inset-0 pointer-events-none opacity-60 z-0"></canvas>
@@ -774,7 +667,7 @@
   </div>
 
   <!-- SECTION 1: TACTILE CURTAIN RISER WITH MARQUEE & CAPABILITIES (DEEP TWILIGHT PLUM) -->
-  <section id="recruiter-pitch" data-chapter class="bg-twilight text-peach pt-6 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain -mt-1">
+  <section id="recruiter-pitch" class="bg-twilight text-peach pt-6 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain -mt-1">
     <div class="max-w-6xl mx-auto px-6 space-y-14">
       
       <!-- Infinite Running Marquee Bar -->
@@ -845,7 +738,7 @@
   </section>
 
   <!-- SECTION 2: FLAGSHIP CASE STUDIES (OUT-OF-THE-BOX STICKY STACKING CARDS TRANSITION) -->
-  <section id="flagship" data-chapter class="py-24 bg-canvas-subtle border-b border-border-subtle relative">
+  <section id="flagship" class="py-24 bg-canvas-subtle border-b border-border-subtle relative">
     <div class="max-w-6xl mx-auto px-6">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
@@ -1124,7 +1017,7 @@
   </section>
 
   <!-- SECTION 3: BEN SHIH-STYLE STICKY RAIL EXPERIENCE & MILESTONES -->
-  <section id="journey" data-chapter class="py-24 bg-canvas border-b border-border-subtle">
+  <section id="journey" class="py-24 bg-canvas border-b border-border-subtle">
     <div class="max-w-6xl mx-auto px-6">
       
       <div class="space-y-3 mb-16 text-center max-w-2xl mx-auto" data-reveal="soft">
@@ -1267,7 +1160,7 @@
   </section>
 
   <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (BEN SHIH-INSPIRED INTERACTIVE CARD DECK & B&W EDITORIAL PHOTOGRAPHY) -->
-  <section id="speaking" data-chapter class="py-24 overflow-hidden">
+  <section id="speaking" class="py-24 overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12" data-reveal="from-left">
       <div class="space-y-3">
@@ -1338,7 +1231,7 @@
   </section>
 
   <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
-  <section id="credentials" data-chapter class="py-24 border-y border-border-subtle">
+  <section id="credentials" class="py-24 border-y border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 space-y-8">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal="from-left">
@@ -1462,7 +1355,7 @@
   </section>
 
   <!-- SECTION 6: HIGH-IMPACT RECRUITER FOOTER WITH VALUE PILLARS -->
-  <footer id="contact" data-chapter class="py-24 px-6">
+  <footer id="contact" class="py-24 px-6">
     <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden" data-reveal="portal">
       
       <!-- Ambient Glow Behind Footer -->
@@ -2005,9 +1898,9 @@
     renderCredentialDock();
     selectCredential(0);
 
-    // Each chapter enters with its own direction and stagger as it reaches the viewport.
+    // Reveal animation runs on scroll; geometry checks also handle nested, clipped reveal cards.
     function initScrollReveals() {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const revealTargets = new Set(document.querySelectorAll('[data-reveal]'));
       document.querySelectorAll('[data-reveal-stagger]').forEach(group => {
@@ -2024,59 +1917,33 @@
       });
 
       if (!revealTargets.size) return;
+      const revealVisibleTargets = () => {
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        revealTargets.forEach(element => {
+          if (element.classList.contains('is-in-view')) return;
+          const bounds = element.getBoundingClientRect();
+          if (bounds.top <= viewportHeight * 0.92 && bounds.bottom >= 0) {
+            element.classList.add('is-in-view');
+          }
+        });
+      };
+
+      let revealFrame = 0;
+      const scheduleRevealCheck = () => {
+        if (revealFrame) return;
+        revealFrame = window.requestAnimationFrame(() => {
+          revealFrame = 0;
+          revealVisibleTargets();
+        });
+      };
+
       document.documentElement.classList.add('scroll-motion-ready');
-
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-in-view');
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
-
-      revealTargets.forEach(element => revealObserver.observe(element));
-    }
-
-    function initChapterRail() {
-      const rail = document.getElementById('chapter-rail');
-      const progress = document.getElementById('chapter-rail-progress');
-      if (!rail || !progress || !('IntersectionObserver' in window)) return;
-
-      const links = Array.from(rail.querySelectorAll('[data-chapter-link]'));
-      const chapters = Array.from(document.querySelectorAll('[data-chapter]'));
-      const setActiveChapter = (id) => {
-        links.forEach(link => {
-          const isActive = link.dataset.chapterLink === id;
-          link.classList.toggle('is-active', isActive);
-          if (isActive) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        });
-      };
-
-      const chapterObserver = new IntersectionObserver((entries) => {
-        const activeEntry = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (activeEntry) setActiveChapter(activeEntry.target.id);
-      }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
-      chapters.forEach(chapter => chapterObserver.observe(chapter));
-
-      let progressFrame = 0;
-      const updateProgress = () => {
-        progressFrame = 0;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const amount = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
-        progress.style.setProperty('--chapter-progress', `${amount * 100}%`);
-      };
-      window.addEventListener('scroll', () => {
-        if (!progressFrame) progressFrame = requestAnimationFrame(updateProgress);
-      }, { passive: true });
-      window.addEventListener('resize', updateProgress, { passive: true });
-      updateProgress();
+      window.addEventListener('scroll', scheduleRevealCheck, { passive: true });
+      window.addEventListener('resize', scheduleRevealCheck, { passive: true });
+      revealVisibleTargets();
     }
 
     initScrollReveals();
-    initChapterRail();
 
     // 6. Direct Email Copy with Feedback
     function copyEmailToClipboard() {
