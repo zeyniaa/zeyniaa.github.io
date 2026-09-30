@@ -544,20 +544,89 @@
     .activity-folder-cover {
       position: relative;
       display: block;
-      overflow: hidden;
+      overflow: visible;
       aspect-ratio: 1.26 / 1;
-      background: #2E283C;
-      border-radius: 25px 25px 0 0;
+      perspective: 1100px;
+      transform-style: preserve-3d;
+      isolation: isolate;
     }
-    .activity-folder-cover > img {
+    .activity-folder-cover::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      top: -9px;
+      left: 14px;
+      width: 36%;
+      height: 17px;
+      border: 1px solid #E8DDE5;
+      border-bottom: 0;
+      border-radius: 10px 10px 0 0;
+      background: #F8F1EE;
+    }
+    .activity-folder-pages {
+      position: absolute;
+      z-index: 1;
+      inset: 8% 8% 10%;
+      transform-style: preserve-3d;
+    }
+    .activity-folder-pages img {
+      position: absolute;
+      top: 7%;
+      width: 61%;
+      height: 80%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      border-radius: 14px;
+      background: #EEE7EB;
+      box-shadow: 0 12px 28px rgba(35, 31, 46, .24);
+      filter: grayscale(1) contrast(1.08);
+      transition: transform 760ms cubic-bezier(.16, 1, .3, 1);
+    }
+    .activity-folder-pages img:first-child {
+      left: 5%;
+      transform: translate3d(0, 19%, 2px) rotate(-9deg) scale(.94);
+    }
+    .activity-folder-pages img:last-child {
+      right: 5%;
+      transform: translate3d(0, 16%, 4px) rotate(8deg) scale(.94);
+    }
+    .activity-folder-face {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      display: block;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .42);
+      border-radius: 24px 24px 12px 12px;
+      background: #2E283C;
+      box-shadow: 0 10px 24px rgba(35, 31, 46, .18);
+      transform: translateZ(18px) rotateX(0deg);
+      transform-origin: 50% 2%;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: transform 760ms cubic-bezier(.18, .8, .22, 1), box-shadow 760ms ease;
+    }
+    .activity-folder-face > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: grayscale(1) contrast(1.08) brightness(.96);
-      transform: scale(1.035);
-      transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms ease;
+      transform: translateZ(1px) scale(1.035);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms ease;
     }
-    .activity-folder-card:hover .activity-folder-cover > img { transform: scale(1.1); filter: grayscale(1) contrast(1.12) brightness(1); }
+    .activity-folder-card:hover .activity-folder-face,
+    .activity-folder-card:focus-visible .activity-folder-face {
+      transform: translateZ(10px) rotateX(-56deg);
+      box-shadow: 0 22px 34px rgba(35, 31, 46, .24);
+    }
+    .activity-folder-card:hover .activity-folder-pages img:first-child,
+    .activity-folder-card:focus-visible .activity-folder-pages img:first-child {
+      transform: translate3d(0, -2%, 5px) rotate(-9deg) scale(1);
+    }
+    .activity-folder-card:hover .activity-folder-pages img:last-child,
+    .activity-folder-card:focus-visible .activity-folder-pages img:last-child {
+      transform: translate3d(0, 2%, 7px) rotate(8deg) scale(1);
+    }
     .activity-cover-shade {
       position: absolute;
       inset: 0;
@@ -741,7 +810,8 @@
       .activity-gallery-summary { font-size: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .activity-folder-card, .activity-folder-card::before, .activity-folder-cover > img, .activity-folder-action,
+      .activity-folder-card, .activity-folder-card::before, .activity-folder-cover::before,
+      .activity-folder-face, .activity-folder-pages img, .activity-folder-cover > img, .activity-folder-action,
       .activity-gallery-close, .activity-gallery-item { transition: none !important; animation: none !important; }
       .activity-folder-card { rotate: none; transform: none; }
     }
@@ -1449,42 +1519,54 @@
       </div>
 
       <div class="activity-folder-grid" data-reveal-stagger="fan">
-        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('yot')" aria-label="Open YOTers Jakarta album, 3 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="yot" onclick="openActivityAlbum('yot')" aria-label="Open YOTers Jakarta album, 3 photos">
           <span class="activity-folder-cover">
-            <img src="assets/yot_headtech_01.webp" alt="" loading="lazy">
-            <span class="activity-cover-shade" aria-hidden="true"></span>
-            <span class="activity-folder-topline"><span>01 <span class="text-coral">/</span> YOUNG ON TOP</span><span>03 PHOTOS</span></span>
-            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            <span class="activity-folder-pages" aria-hidden="true"></span>
+            <span class="activity-folder-face">
+              <img src="assets/yot_headtech_01.webp" alt="" loading="lazy">
+              <span class="activity-cover-shade" aria-hidden="true"></span>
+              <span class="activity-folder-topline"><span>01 <span class="text-coral">/</span> YOUNG ON TOP</span><span>03 PHOTOS</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">Head of Technology · 2024</span><span class="activity-folder-title">YOTers Jakarta <span aria-hidden="true">↗</span></span></span>
         </button>
 
-        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('gdgoc')" aria-label="Open GDGoC UIN Jakarta album, 2 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="gdgoc" onclick="openActivityAlbum('gdgoc')" aria-label="Open GDGoC UIN Jakarta album, 2 photos">
           <span class="activity-folder-cover">
-            <img src="assets/gdgoc_colead_01.webp" alt="" loading="lazy">
-            <span class="activity-cover-shade" aria-hidden="true"></span>
-            <span class="activity-folder-topline"><span>02 <span class="text-coral">/</span> GDGOC UIN JAKARTA</span><span>02 PHOTOS</span></span>
-            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            <span class="activity-folder-pages" aria-hidden="true"></span>
+            <span class="activity-folder-face">
+              <img src="assets/gdgoc_colead_01.webp" alt="" loading="lazy">
+              <span class="activity-cover-shade" aria-hidden="true"></span>
+              <span class="activity-folder-topline"><span>02 <span class="text-coral">/</span> GDGOC UIN JAKARTA</span><span>02 PHOTOS</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">Co-Lead · 2024–2025</span><span class="activity-folder-title">GDGoC UIN Jakarta <span aria-hidden="true">↗</span></span></span>
         </button>
 
-        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('stage')" aria-label="Open MC and Moderator album, 3 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="stage" onclick="openActivityAlbum('stage')" aria-label="Open MC and Moderator album, 3 photos">
           <span class="activity-folder-cover">
-            <img src="assets/yotnc_real_stage.png" alt="" loading="lazy">
-            <span class="activity-cover-shade" aria-hidden="true"></span>
-            <span class="activity-folder-topline"><span>03 <span class="text-coral">/</span> STAGE & FACILITATION</span><span>03 PHOTOS</span></span>
-            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            <span class="activity-folder-pages" aria-hidden="true"></span>
+            <span class="activity-folder-face">
+              <img src="assets/yotnc_real_stage.png" alt="" loading="lazy">
+              <span class="activity-cover-shade" aria-hidden="true"></span>
+              <span class="activity-folder-topline"><span>03 <span class="text-coral">/</span> STAGE & FACILITATION</span><span>03 PHOTOS</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">Hosting · Moderation · 2024–2025</span><span class="activity-folder-title">MC & Moderator <span aria-hidden="true">↗</span></span></span>
         </button>
 
-        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('internship')" aria-label="Open LPMQ internship album, 3 photos">
+        <button type="button" class="activity-folder-card group" data-activity-album="internship" onclick="openActivityAlbum('internship')" aria-label="Open LPMQ internship album, 3 photos">
           <span class="activity-folder-cover">
-            <img src="assets/lpmq_internship_visit.webp" alt="" loading="lazy">
-            <span class="activity-cover-shade" aria-hidden="true"></span>
-            <span class="activity-folder-topline"><span>04 <span class="text-coral">/</span> LPMQ KEMENAG RI</span><span>03 PHOTOS</span></span>
-            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            <span class="activity-folder-pages" aria-hidden="true"></span>
+            <span class="activity-folder-face">
+              <img src="assets/lpmq_internship_visit.webp" alt="" loading="lazy">
+              <span class="activity-cover-shade" aria-hidden="true"></span>
+              <span class="activity-folder-topline"><span>04 <span class="text-coral">/</span> LPMQ KEMENAG RI</span><span>03 PHOTOS</span></span>
+              <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+            </span>
           </span>
           <span class="activity-folder-copy"><span class="activity-folder-role">AI Engineer Intern · Jul–Oct 2025</span><span class="activity-folder-title">LPMQ Kemenag RI <span aria-hidden="true">↗</span></span></span>
         </button>
@@ -1853,6 +1935,21 @@
         ]
       }
     };
+
+    // Seed each folder with loose photo pages that fan into view when it opens on hover.
+    document.querySelectorAll('[data-activity-album]').forEach(folder => {
+      const album = activityAlbums[folder.dataset.activityAlbum];
+      const pages = folder.querySelector('.activity-folder-pages');
+      if (!album || !pages) return;
+      album.images.slice(1, 3).forEach(photo => {
+        const page = document.createElement('img');
+        page.src = photo.src;
+        page.alt = '';
+        page.loading = 'lazy';
+        page.draggable = false;
+        pages.appendChild(page);
+      });
+    });
 
     function openActivityAlbum(albumId) {
       const album = activityAlbums[albumId];
