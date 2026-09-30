@@ -491,7 +491,231 @@
         will-change: auto;
       }
     }
-  </style>
+  
+    .activity-folder-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.15rem;
+    }
+    .activity-folder-card {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid #E8DDE5;
+      border-radius: 26px;
+      background: #fff;
+      color: #231F2E;
+      text-align: left;
+      box-shadow: 0 8px 30px rgba(35, 31, 46, 0.05);
+      transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 520ms ease, border-color 360ms ease;
+      cursor: pointer;
+    }
+    .activity-folder-card:hover {
+      transform: translateY(-8px);
+      border-color: #D98F84;
+      box-shadow: 0 22px 42px rgba(35, 31, 46, 0.12);
+    }
+    .activity-folder-card:focus-visible {
+      outline: 3px solid rgba(217, 143, 132, 0.6);
+      outline-offset: 4px;
+    }
+    .activity-folder-cover {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 1.26 / 1;
+      background: #2E283C;
+    }
+    .activity-folder-cover > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms ease;
+    }
+    .activity-folder-card:hover .activity-folder-cover > img { transform: scale(1.055); }
+    .activity-cover-shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(35,31,46,.42) 0%, transparent 32%, rgba(35,31,46,.78) 100%);
+    }
+    .activity-folder-topline {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #fff;
+      font: 500 9px/1.4 'DM Mono', monospace;
+      letter-spacing: .07em;
+      text-shadow: 0 1px 8px rgba(0,0,0,.35);
+    }
+    .activity-folder-topline > span:last-child {
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      background: rgba(35,31,46,.28);
+      backdrop-filter: blur(10px);
+    }
+    .activity-folder-action {
+      position: absolute;
+      left: 16px;
+      bottom: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      font: 500 11px/1 'DM Mono', monospace;
+      opacity: .92;
+      transition: gap 300ms ease, opacity 300ms ease;
+    }
+    .activity-folder-action svg { width: 19px; height: 19px; color: #F6DAD4; }
+    .activity-folder-card:hover .activity-folder-action { gap: 12px; opacity: 1; }
+    .activity-folder-copy {
+      display: grid;
+      gap: 7px;
+      padding: 16px 17px 18px;
+    }
+    .activity-folder-role {
+      color: #8B6D83;
+      font: 500 10px/1.35 'DM Mono', monospace;
+      letter-spacing: .015em;
+    }
+    .activity-folder-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #231F2E;
+      font: 600 18px/1.18 'Instrument Serif', Georgia, serif;
+    }
+    .activity-folder-title > span { color: #D98F84; font: 500 14px/1 'DM Mono', monospace; transition: transform 300ms ease; }
+    .activity-folder-card:hover .activity-folder-title > span { transform: translate(2px,-2px); }
+
+    .activity-gallery-dialog {
+      width: min(76rem, calc(100vw - 2rem));
+      max-width: none;
+      max-height: min(90dvh, 920px);
+      padding: 0;
+      overflow: auto;
+      border: 1px solid #E8DDE5;
+      border-radius: 30px;
+      background: #FAF5F3;
+      color: #231F2E;
+      box-shadow: 0 32px 100px rgba(14, 10, 22, .36);
+    }
+    .activity-gallery-dialog::backdrop {
+      background: rgba(24, 20, 31, .76);
+      backdrop-filter: blur(9px);
+    }
+    .activity-gallery-dialog[open] { animation: gallery-open 360ms cubic-bezier(.16,1,.3,1) both; }
+    @keyframes gallery-open {
+      from { opacity: 0; transform: translateY(18px) scale(.975); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .activity-gallery-shell { padding: clamp(20px, 4vw, 42px); }
+    .activity-gallery-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+    .activity-gallery-kicker { color: #D98F84; font: 600 10px/1.4 'DM Mono', monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .activity-gallery-title { margin: 0; color: #231F2E; font: 400 clamp(32px, 5vw, 54px)/1 'Instrument Serif', Georgia, serif; }
+    .activity-gallery-summary { max-width: 680px; margin: 10px 0 0; color: #735E72; font: 400 13px/1.7 'Plus Jakarta Sans', sans-serif; }
+    .activity-gallery-close {
+      flex: 0 0 auto;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid #E8DDE5;
+      border-radius: 50%;
+      background: white;
+      color: #735E72;
+      transition: transform 260ms ease, border-color 260ms ease, color 260ms ease;
+      cursor: pointer;
+    }
+    .activity-gallery-close:hover { transform: rotate(90deg); border-color: #D98F84; color: #D98F84; }
+    .activity-gallery-close svg { width: 19px; height: 19px; }
+    .activity-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .activity-gallery-item {
+      overflow: hidden;
+      border: 1px solid #E8DDE5;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 8px 26px rgba(35,31,46,.055);
+      animation: gallery-item-in 480ms cubic-bezier(.16,1,.3,1) both;
+      animation-delay: var(--item-delay, 0ms);
+    }
+    @keyframes gallery-item-in {
+      from { opacity: 0; transform: translateY(12px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .activity-gallery-frame { display: grid; aspect-ratio: 4 / 3; overflow: hidden; place-items: center; background: #EEE7EB; }
+    .activity-gallery-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .activity-gallery-frame.is-portrait { aspect-ratio: 3 / 4; background: #2E283C; }
+    .activity-gallery-frame.is-portrait img { object-fit: contain; }
+    .activity-gallery-caption { display: flex; gap: 10px; padding: 13px 14px 15px; color: #735E72; font: 500 10px/1.5 'DM Mono', monospace; }
+    .activity-gallery-caption span { color: #D98F84; }
+    .activity-gallery-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 22px;
+      margin-top: 24px;
+      border-top: 1px solid #E8DDE5;
+      color: #8B6D83;
+      font: 500 10px/1.4 'DM Mono', monospace;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .activity-gallery-footer button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border: 1px solid #CBB3C4;
+      border-radius: 999px;
+      background: white;
+      color: #231F2E;
+      font: 500 10px/1 'DM Mono', monospace;
+      cursor: pointer;
+      transition: background 220ms ease, border-color 220ms ease;
+    }
+    .activity-gallery-footer button:hover { border-color: #D98F84; background: #F6DAD4; }
+    .activity-gallery-footer button span { color: #D98F84; font-size: 16px; }
+    @media (max-width: 980px) {
+      .activity-folder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .activity-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .activity-folder-grid { gap: 12px; }
+      .activity-folder-cover { aspect-ratio: 1 / 1.05; }
+      .activity-folder-topline { left: 10px; right: 10px; top: 10px; font-size: 8px; }
+      .activity-folder-topline > span:last-child { padding: 5px 7px; }
+      .activity-folder-copy { padding: 12px 12px 14px; }
+      .activity-folder-title { font-size: 16px; }
+      .activity-folder-role { font-size: 9px; }
+      .activity-folder-action { left: 11px; bottom: 11px; gap: 5px; font-size: 9px; }
+      .activity-folder-action svg { width: 16px; height: 16px; }
+      .activity-gallery-dialog { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 23px; }
+      .activity-gallery-shell { padding: 20px 16px; }
+      .activity-gallery-grid { grid-template-columns: 1fr; gap: 13px; }
+      .activity-gallery-frame { aspect-ratio: 4 / 3; }
+      .activity-gallery-frame.is-portrait { aspect-ratio: 3 / 4; }
+      .activity-gallery-summary { font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .activity-folder-card, .activity-folder-cover > img, .activity-folder-action,
+      .activity-gallery-close, .activity-gallery-item { transition: none !important; animation: none !important; }
+    }
+</style>
 </head>
 
 <body class="bg-canvas text-twilight font-sans antialiased selection:bg-peach selection:text-twilight min-h-screen relative overflow-x-hidden">
@@ -954,17 +1178,17 @@
             <div class="lg:col-span-7 space-y-4">
               <div class="flex items-center gap-3">
                 <span class="text-xs font-mono px-3.5 py-1 rounded-full bg-peach/80 text-twilight font-semibold border border-lilac/40">
-                  CASE STUDY 04
+                  KADA CAPSTONE
                 </span>
                 <span class="text-xs font-mono text-coral font-medium">Korea-ASEAN Digital Academy</span>
               </div>
               
               <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
-                Event Telemetry & Survey Intelligence Engine
+                KADA Capstone: Event Analytics System
               </h3>
 
               <p class="text-sm font-sans text-mauve leading-relaxed">
-                Engineered a full-stack analytics platform with flexible MongoDB schemas and Express/TypeScript APIs, integrated with an LLM-driven synthesis layer to transform unstructured event participant surveys into structured diagnostic insights and actionable sentiment opportunities.
+                Built a dynamic MongoDB form builder for flexible survey schemas, developed backend APIs for real-time data collection and processing, and created an LLM-powered analytics module to surface key insights, opportunities, and improvement recommendations from survey responses.
               </p>
 
               <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
@@ -1070,13 +1294,13 @@
             <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h4 class="text-2xl font-serif font-bold text-twilight">Fellow & AI Engineer</h4>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">KADA Program Fellow</h4>
                   <p class="text-xs font-mono text-mauve font-medium">Korea-ASEAN Digital Academy (KADA)</p>
                 </div>
                 <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">FEB 2026 - APR 2026</span>
               </div>
               <p class="text-sm font-sans text-mauve leading-relaxed">
-                Selected in competitive international cohort focusing on end-to-end cloud systems, DevOps (CI/CD), dynamic MongoDB form builders, and LLM telemetry modules for automated survey insights.
+                Selected for a competitive Korea–ASEAN program in practical AI and digital solutions. As Backend & AI Engineer for the Event Analytics System capstone, built a dynamic MongoDB form builder, real-time data APIs, and an LLM-powered module that turns survey responses into insights, opportunities, and improvement recommendations. The program also covered backend and web systems, DevOps (CI/CD), and LLM applications.
               </p>
               <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
                 <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">MongoDB</span>
@@ -1134,11 +1358,30 @@
 
           <!-- Cards on Right -->
           <div class="lg:col-span-9 space-y-6" data-reveal-stagger="from-right">
-            <!-- Role 4: GDGoC -->
+            <!-- Role 4: Young On Top Jakarta -->
             <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h4 class="text-2xl font-serif font-bold text-twilight">Co-Lead Organizer</h4>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">Head of Technology</h4>
+                  <p class="text-xs font-mono text-mauve font-medium">Young On Top Jakarta</p>
+                </div>
+                <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">JAN 2024 - DEC 2024</span>
+              </div>
+              <p class="text-sm font-sans text-mauve leading-relaxed">
+                Led a 30+ member technology division, organized monthly technical workshops and industry mentorships, and led INTUTIVA, a UI/UX competition with 500+ participants. Also selected as Master of Ceremonies for YOTNC 2024.
+              </p>
+              <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">30+ Team Members</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">500+ Participants</span>
+                <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">National MC</span>
+              </div>
+            </div>
+
+            <!-- Role 5: GDGoC -->
+            <div class="p-8 rounded-[32px] bg-white border border-lilac shadow-soft hover:shadow-card hover:border-coral transition-all space-y-4 tilt-card">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-2xl font-serif font-bold text-twilight">Co-Lead</h4>
                   <p class="text-xs font-mono text-mauve font-medium">Google Developer Group on Campus UIN Jakarta</p>
                 </div>
                 <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">NOV 2024 - AUG 2025</span>
@@ -1152,6 +1395,8 @@
                 <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">93% Retention</span>
               </div>
             </div>
+
+
           </div>
         </div>
 
@@ -1159,76 +1404,80 @@
     </div>
   </section>
 
-  <!-- SECTION 4: PUBLIC SPEAKING & ACTIVITIES (BEN SHIH-INSPIRED INTERACTIVE CARD DECK & B&W EDITORIAL PHOTOGRAPHY) -->
+  <!-- SECTION 4: ACTIVITY ALBUMS -->
   <section id="speaking" class="py-24 overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12" data-reveal="from-left">
-      <div class="space-y-3">
-        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Stage & Facilitation</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
-          Public Speaking & Leadership
-        </h2>
-        <p class="text-sm font-sans text-mauve max-w-xl">
-          A few moments and milestones from the stage and beyond.
-        </p>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12" data-reveal="from-left">
+        <div class="space-y-3">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Chapters in Motion</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">Activities & Leadership</h2>
+          <p class="text-sm font-sans text-mauve max-w-xl">
+            Open a folder to explore the teams, stages, and fieldwork behind each chapter.
+          </p>
+        </div>
+        <span class="text-xs font-mono text-mauve">04 ALBUMS <span class="text-coral">/</span> 11 MOMENTS</span>
       </div>
 
-    </div>
+      <div class="activity-folder-grid" data-reveal-stagger="fan">
+        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('yot')" aria-label="Open YOTers Jakarta album, 3 photos">
+          <span class="activity-folder-cover">
+            <img src="assets/yot_headtech_01.webp" alt="" loading="lazy">
+            <span class="activity-cover-shade" aria-hidden="true"></span>
+            <span class="activity-folder-topline"><span>01 <span class="text-coral">/</span> YOUNG ON TOP</span><span>03 PHOTOS</span></span>
+            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="activity-folder-copy"><span class="activity-folder-role">Head of Technology · 2024</span><span class="activity-folder-title">YOTers Jakarta <span aria-hidden="true">↗</span></span></span>
+        </button>
 
-    <!-- Editorial Black & White Photography Fanned Deck (Ben Shih Interactive Spring Motion) -->
-    <div class="deck-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal-stagger="fan">
-      
-      <!-- Photo 1: REAL YOTNC 2024 Stage Photo (Uploaded by User) -->
-      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:-rotate-2 transition-all">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
-          <img src="assets/yotnc_real_stage.png" alt="National MC at YOTNC 2024 Kasablanka Hall" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="p-3">
-          <span class="text-xs font-mono text-coral font-bold block">NATIONAL MC</span>
-          <p class="text-base font-serif text-twilight mt-0.5 font-bold">YOTNC 2024 Kasablanka Hall</p>
-          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Master of Ceremonies for Indonesia's largest youth summit</p>
-        </div>
+        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('gdgoc')" aria-label="Open GDGoC UIN Jakarta album, 2 photos">
+          <span class="activity-folder-cover">
+            <img src="assets/gdgoc_colead_01.webp" alt="" loading="lazy">
+            <span class="activity-cover-shade" aria-hidden="true"></span>
+            <span class="activity-folder-topline"><span>02 <span class="text-coral">/</span> GDGOC UIN JAKARTA</span><span>02 PHOTOS</span></span>
+            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="activity-folder-copy"><span class="activity-folder-role">Co-Lead · 2024–2025</span><span class="activity-folder-title">GDGoC UIN Jakarta <span aria-hidden="true">↗</span></span></span>
+        </button>
+
+        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('stage')" aria-label="Open MC and Moderator album, 3 photos">
+          <span class="activity-folder-cover">
+            <img src="assets/mc_moderator_user.webp" alt="" loading="lazy">
+            <span class="activity-cover-shade" aria-hidden="true"></span>
+            <span class="activity-folder-topline"><span>03 <span class="text-coral">/</span> STAGE & FACILITATION</span><span>03 PHOTOS</span></span>
+            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="activity-folder-copy"><span class="activity-folder-role">Hosting · Moderation · 2024–2025</span><span class="activity-folder-title">MC & Moderator <span aria-hidden="true">↗</span></span></span>
+        </button>
+
+        <button type="button" class="activity-folder-card group" onclick="openActivityAlbum('internship')" aria-label="Open LPMQ internship album, 3 photos">
+          <span class="activity-folder-cover">
+            <img src="assets/lpmq_internship_visit.webp" alt="" loading="lazy">
+            <span class="activity-cover-shade" aria-hidden="true"></span>
+            <span class="activity-folder-topline"><span>04 <span class="text-coral">/</span> LPMQ KEMENAG RI</span><span>03 PHOTOS</span></span>
+            <span class="activity-folder-action"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.75 7.5A1.75 1.75 0 0 1 5.5 5.75h4.15l1.8 2h7.05A1.75 1.75 0 0 1 20.25 9.5v8A1.75 1.75 0 0 1 18.5 19.25h-13A1.75 1.75 0 0 1 3.75 17.5v-10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.9 9.1h16.2" stroke="currentColor" stroke-width="1.5"/></svg><span>Open folder</span><span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="activity-folder-copy"><span class="activity-folder-role">AI Engineer Intern · Jul–Oct 2025</span><span class="activity-folder-title">LPMQ Kemenag RI <span aria-hidden="true">↗</span></span></span>
+        </button>
       </div>
-
-      <!-- Photo 2: Company Visit & Keynote Host -->
-      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:rotate-1 transition-all">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
-          <img src="assets/speaking_stage_mc.jpg" alt="Company Visit MC" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="p-3">
-          <span class="text-xs font-mono text-coral font-bold block">TECH MODERATOR</span>
-          <p class="text-base font-serif text-twilight mt-0.5 font-bold">Company Visit & Keynote</p>
-          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Leading corporate technology tours & panel discussions</p>
-        </div>
-      </div>
-
-      <!-- Photo 3: LPMQ Kemenag AI Research Internship Cohort -->
-      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:-rotate-1 transition-all">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
-          <img src="assets/kemenag_team.jpg" alt="Kemenag LPMQ AI Research Internship Cohort" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="p-3">
-          <span class="text-xs font-mono text-coral font-bold block">INTERNSHIP COHORT</span>
-          <p class="text-base font-serif text-twilight mt-0.5 font-bold">LPMQ Kemenag RI</p>
-          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Collaborating with fellow university interns during the AI research internship</p>
-        </div>
-      </div>
-
-      <!-- Photo 4: GDGoC Developer Community Gathering -->
-      <div class="deck-card rounded-3xl overflow-hidden bg-white p-3.5 border border-lilac shadow-soft hover:border-coral cursor-default group transform lg:rotate-2 transition-all">
-        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-twilight/5 relative">
-          <img src="assets/gdgoc_community.jpg" alt="GDGoC UIN Jakarta Gathering" class="w-full h-full object-cover bw-editorial group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="p-3">
-          <span class="text-xs font-mono text-coral font-bold block">COMMUNITY LEAD</span>
-          <p class="text-base font-serif text-twilight mt-0.5 font-bold">GDGoC UIN Jakarta</p>
-          <p class="text-[11px] font-sans text-mauve mt-1 leading-relaxed">Gathering 500+ student developers across 55+ technical events</p>
-        </div>
-      </div>
-
-    </div>
     </div>
   </section>
+
+  <dialog id="activity-gallery-dialog" class="activity-gallery-dialog" aria-labelledby="activity-gallery-title" aria-describedby="activity-gallery-summary">
+    <div class="activity-gallery-shell">
+      <header class="activity-gallery-header">
+        <div class="space-y-2">
+          <span id="activity-gallery-kicker" class="activity-gallery-kicker"></span>
+          <h3 id="activity-gallery-title" class="activity-gallery-title"></h3>
+          <p id="activity-gallery-summary" class="activity-gallery-summary"></p>
+        </div>
+        <button type="button" class="activity-gallery-close" onclick="closeActivityAlbum()" aria-label="Close activity album">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+      <div id="activity-gallery-grid" class="activity-gallery-grid"></div>
+      <footer class="activity-gallery-footer"><span id="activity-gallery-count"></span><button type="button" onclick="closeActivityAlbum()">Close album <span aria-hidden="true">×</span></button></footer>
+    </div>
+  </dialog>
 
   <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
   <section id="credentials" class="py-24 border-y border-border-subtle">
@@ -1286,11 +1535,11 @@
             </div>
 
             <h3 id="spotlight-title" class="text-3xl sm:text-4xl font-serif font-bold text-twilight">
-              Practical AI Development & Cloud Systems
+              Practical AI Development & Application
             </h3>
 
             <p id="spotlight-desc" class="text-sm font-sans text-mauve leading-relaxed max-w-2xl">
-              Selected Fellow in competitive international cohort. Engineered dynamic MongoDB survey schemas, real-time backend APIs, and an LLM-powered telemetry module to synthesize qualitative event survey data into executive recommendations.
+              Selected for a competitive Korea–ASEAN program in practical AI and digital solutions. For the Event Analytics System capstone, served as Backend & AI Engineer, building flexible MongoDB survey forms, real-time data APIs, and LLM-powered insights and recommendations.
             </p>
 
             <!-- 3 Bullet Point Mastered Competencies -->
@@ -1528,19 +1777,96 @@
       }
     }
 
-    // 5. Interactive credentials showcase with category filters and a browsable dock
+    // 5. Activity albums: open each folder into a responsive photo gallery
+    const activityAlbums = {
+      yot: {
+        kicker: 'CHAPTER 01 · YOUNG ON TOP JAKARTA',
+        title: 'YOTers Jakarta',
+        summary: 'Head of Technology in 2024. Led a 30+ member technology division and helped deliver workshops, industry mentorship, and the INTUTIVA UI/UX competition.',
+        role: 'HEAD OF TECHNOLOGY · 2024',
+        images: [
+          { src: 'assets/yot_headtech_01.webp', alt: 'YOTers Jakarta members gathered with their community banner', caption: 'YOTers Jakarta · Community gathering' },
+          { src: 'assets/yot_headtech_02.webp', alt: 'Young On Top Jakarta team photo', caption: 'Young On Top Jakarta · Team photo' },
+          { src: 'assets/yot_headtech_03.webp', alt: 'YOTers members holding event identity cards', caption: 'YOTers members · Event badges' }
+        ]
+      },
+      gdgoc: {
+        kicker: 'CHAPTER 02 · GDGOC UIN JAKARTA',
+        title: 'Google Developer Group on Campus',
+        summary: 'Co-Lead from November 2024 to August 2025. Helped lead a chapter with 55+ technical events and 500+ members.',
+        role: 'CO-LEAD · 2024–2025',
+        images: [
+          { src: 'assets/gdgoc_colead_01.webp', alt: 'Large GDGoC community group photo in an auditorium', caption: 'GDGoC UIN Jakarta · Chapter gathering' },
+          { src: 'assets/gdgoc_colead_02.webp', alt: 'GDGoC community members gathered after an event', caption: 'GDGoC UIN Jakarta · Community event' }
+        ]
+      },
+      stage: {
+        kicker: 'CHAPTER 03 · STAGE & FACILITATION',
+        title: 'MC & Moderator',
+        summary: 'A small archive of stage moments, including the YOT National Conference 2024 where I was selected as Master of Ceremonies.',
+        role: 'HOSTING · MODERATION · 2024–2025',
+        images: [
+          { src: 'assets/yotnc_real_stage.png', alt: 'Zeiniah hosting on stage at YOTNC 2024', caption: 'YOTNC 2024 · National MC' },
+          { src: 'assets/mc_moderator_stage.jpg', alt: 'Zeiniah speaking with a microphone during a community event', caption: 'Stage facilitation · Moderator' },
+          { src: 'assets/mc_moderator_user.webp', alt: 'Zeiniah hosting an event on stage', caption: 'MC · Community event', portrait: true }
+        ]
+      },
+      internship: {
+        kicker: 'CHAPTER 04 · LPMQ KEMENAG RI',
+        title: 'AI Engineer Internship',
+        summary: 'AI Engineer Intern at LPMQ Kementerian Agama RI from July to October 2025, working on computer vision for inclusive Quranic sign language learning.',
+        role: 'AI ENGINEER INTERN · JUL–OCT 2025',
+        images: [
+          { src: 'assets/lpmq_internship_visit.webp', alt: 'Bayt Al-Qur’an and Museum Istiqlal at Taman Mini Indonesia Indah', caption: 'Bayt Al-Qur’an & Museum Istiqlal', portrait: true },
+          { src: 'assets/kemenag_team.jpg', alt: 'LPMQ Kementerian Agama RI internship cohort', caption: 'LPMQ Kemenag RI · Internship cohort' },
+          { src: 'assets/kemenag_building.jpg', alt: 'Zeiniah at the Kementerian Agama RI complex', caption: 'Kementerian Agama RI · Fieldwork', portrait: true }
+        ]
+      }
+    };
+
+    function openActivityAlbum(albumId) {
+      const album = activityAlbums[albumId];
+      const dialog = document.getElementById('activity-gallery-dialog');
+      if (!album || !dialog) return;
+
+      document.getElementById('activity-gallery-kicker').textContent = album.kicker;
+      document.getElementById('activity-gallery-title').textContent = album.title;
+      document.getElementById('activity-gallery-summary').textContent = album.summary;
+      document.getElementById('activity-gallery-count').textContent = `${String(album.images.length).padStart(2, '0')} PHOTOS · ${album.role}`;
+      document.getElementById('activity-gallery-grid').innerHTML = album.images.map((photo, index) => `
+        <figure class="activity-gallery-item" style="--item-delay: ${index * 70}ms">
+          <div class="activity-gallery-frame${photo.portrait ? ' is-portrait' : ''}">
+            <img src="${photo.src}" alt="${photo.alt}" loading="lazy" decoding="async">
+          </div>
+          <figcaption class="activity-gallery-caption"><span>${String(index + 1).padStart(2, '0')}</span>${photo.caption}</figcaption>
+        </figure>
+      `).join('');
+
+      dialog.showModal();
+      dialog.querySelector('.activity-gallery-close')?.focus({ preventScroll: true });
+    }
+
+    function closeActivityAlbum() {
+      document.getElementById('activity-gallery-dialog')?.close();
+    }
+
+    document.getElementById('activity-gallery-dialog')?.addEventListener('click', (event) => {
+      if (event.target === event.currentTarget) closeActivityAlbum();
+    });
+
+    // 6. Interactive credentials showcase with category filters and a browsable dock
     const credentialsData = [
       {
         id: 'kada',
         year: '2026',
         category: 'ai',
         issuer: 'KOREA-ASEAN DIGITAL ACADEMY',
-        title: 'Practical AI Development & Cloud Systems',
-        desc: 'Selected Fellow in competitive international cohort. Engineered dynamic MongoDB survey schemas, real-time backend APIs, and an LLM-powered telemetry module to synthesize qualitative event survey data into executive recommendations.',
+        title: 'Practical AI Development & Application',
+        desc: 'Selected for a competitive Korea-ASEAN program in practical AI and digital solutions. For the Event Analytics System capstone, served as Backend & AI Engineer, building a dynamic MongoDB form builder, real-time data APIs, and an LLM-powered analytics module to surface insights, opportunities, and improvement recommendations.',
         highlights: [
-          'Engineered dynamic MongoDB schemas and REST APIs for complex survey models.',
-          'Built LLM telemetry pipeline translating raw sentiment into structured metrics.',
-          'Implemented end-to-end cloud CI/CD deployment routines for team collaboration.'
+          'Built a dynamic MongoDB form builder for flexible survey schemas.',
+          'Developed backend APIs for real-time survey data collection and processing.',
+          'Created LLM-powered analytics for key insights, opportunities, and recommendations.'
         ],
         skills: ['Dynamic Schemas', 'MongoDB', 'TypeScript APIs', 'LLM Synthesis', 'Cloud CI/CD'],
         badge: 'FELLOWSHIP',
