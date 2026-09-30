@@ -574,9 +574,9 @@
     }
     .activity-folder-pages img {
       position: absolute;
-      top: 8%;
-      width: 47%;
-      height: 72%;
+      top: 7%;
+      width: 61%;
+      height: 86%;
       object-fit: cover;
       border: 5px solid #fff;
       border-radius: 14px;
@@ -624,12 +624,56 @@
     .activity-folder-card:hover .activity-folder-pages img:first-child,
     .activity-folder-card:focus-visible .activity-folder-pages img:first-child,
     .activity-folder-card.is-open .activity-folder-pages img:first-child {
-      transform: translate3d(-5%, -34%, 0) rotate(-11deg) scale(1.03);
+      transform: translate3d(-8%, -59%, 0) rotate(-11deg) scale(1.04);
     }
     .activity-folder-card:hover .activity-folder-pages img:last-child,
     .activity-folder-card:focus-visible .activity-folder-pages img:last-child,
     .activity-folder-card.is-open .activity-folder-pages img:last-child {
-      transform: translate3d(5%, -31%, 0) rotate(10deg) scale(1.03);
+      transform: translate3d(8%, -55%, 0) rotate(10deg) scale(1.04);
+    }
+    .balitower-gallery {
+      overflow: hidden;
+      border: 1px solid #d8e1ea;
+      border-radius: 26px;
+      background: #f5f8fb;
+      box-shadow: 0 18px 42px rgba(35, 31, 46, .12);
+    }
+    .balitower-stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1.72 / 1;
+      overflow: hidden;
+      background: #e8eef4;
+    }
+    .balitower-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 240ms ease, transform 420ms cubic-bezier(.16, 1, .3, 1);
+    }
+    .balitower-stage.is-changing img { opacity: .25; transform: scale(.985); }
+    .balitower-shot-tab {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid #d8e1ea;
+      border-radius: 12px;
+      background: white;
+      color: #586579;
+      transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+    }
+    .balitower-shot-tab:hover { transform: translateY(-2px); }
+    .balitower-shot-tab.is-active {
+      border-color: #d98f84;
+      box-shadow: 0 0 0 2px rgba(217, 143, 132, .24);
+      color: #231f2e;
+    }
+    .balitower-shot-tab img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1.72 / 1;
+      object-fit: cover;
+      background: #e8eef4;
     }
     .activity-cover-shade {
       position: absolute;
@@ -939,7 +983,7 @@
           <span class="text-coral font-mono text-xs font-bold block">01 / PRODUCTION AI</span>
           <h3 class="text-lg font-serif font-bold text-white">Autonomous Agents</h3>
           <p class="text-xs font-sans text-peach/70 leading-relaxed">
-            Architected AutoRestock at PT Bali Towerindo Sentra Tbk, managing multi-agent loops with LangGraph and DuckDB.
+            Contributed to BaliTowerOps at PT Bali Towerindo Sentra Tbk, combining LangGraph workflow orchestration with DuckDB-backed operational data.
           </p>
         </div>
 
@@ -990,7 +1034,7 @@
       <!-- STACKING CARDS DECK (Interactive Scroll Motion) -->
       <div class="space-y-12">
         
-        <!-- Case Study 01: AutoRestock (Stack Card 1) -->
+        <!-- Case Study 01: BaliTowerOps (Stack Card 1) -->
         <article class="stack-card-1 p-8 sm:p-10 lg:p-12 rounded-[36px] bg-white border border-lilac shadow-stack hover:border-coral transition-all">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-7 space-y-4">
@@ -1002,31 +1046,31 @@
               </div>
               
               <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
-                AutoRestock: Autonomous Multi-Agent Procurement System
+                BaliTowerOps: Multi-Agent Operations Platform
               </h3>
 
               <p class="text-sm font-sans text-mauve leading-relaxed">
-                Designed an enterprise replenishment architecture bridging real-time warehouse inventory telemetry with intelligent supplier selection. Employs LangGraph to manage stateful multi-agent execution, verifying stock depletion velocity, drafting supplier tenders, and compiling legal PDF Purchase Orders via Typst with human-in-the-loop governance.
+                An enterprise operations platform for PT Bali Towerindo Sentra Tbk, bringing inventory, logistics, HR, finance, and administrative workflows into one multi-tenant system. The product pairs FastAPI services with LangGraph workflow orchestration and DuckDB-backed operational data, with Typst document generation and live server-sent updates.
               </p>
 
               <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
                 <div>
                   <span class="text-xl font-serif font-bold text-twilight">LangGraph</span>
-                  <span class="text-[11px] font-mono text-mauve block">Multi-Agent Loops</span>
+                  <span class="text-[11px] font-mono text-mauve block">Workflow Orchestration</span>
                 </div>
                 <div>
                   <span class="text-xl font-serif font-bold text-twilight">DuckDB</span>
-                  <span class="text-[11px] font-mono text-mauve block">Sub-ms Queries</span>
+                  <span class="text-[11px] font-mono text-mauve block">Operational Data</span>
                 </div>
                 <div>
                   <span class="text-xl font-serif font-bold text-twilight">FastAPI</span>
-                  <span class="text-[11px] font-mono text-mauve block">Async Engine</span>
+                  <span class="text-[11px] font-mono text-mauve block">Service API</span>
                 </div>
               </div>
 
               <div class="flex items-center gap-4 pt-2">
-                <a href="https://github.com/zeyniaa/AutoRestock-AI-Agent" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors shadow-sm">
-                  <span>Inspect Repository</span>
+                <a href="https://github.com/daffaarigoh/BaliTowerOps" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-medium px-5 py-2.5 rounded-full bg-coral text-white hover:bg-coral-hover transition-colors shadow-sm">
+                  <span>View BaliTowerOps on GitHub</span>
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>
@@ -1034,34 +1078,29 @@
               </div>
             </div>
 
-            <!-- Software Console UI -->
             <div class="lg:col-span-5">
-              <div class="p-6 rounded-3xl bg-twilight text-peach border border-lilac/30 shadow-card space-y-4">
-                <div class="flex items-center justify-between border-b border-lilac/20 pb-3">
-                  <span class="text-xs font-mono text-coral font-bold flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    AUTORESTOCK AGENT PIPELINE
-                  </span>
-                  <span class="text-[10px] font-mono text-peach/60">LIVE TELEMETRY</span>
+              <div class="balitower-gallery" aria-label="BaliTowerOps real product screenshots">
+                <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-[#d8e1ea]">
+                  <span class="text-[10px] sm:text-xs font-mono font-bold tracking-wide text-[#33445b]">BALITOWER OPS <span class="text-coral">/</span> PRODUCT SCREENS</span>
+                  <span id="balitower-shot-count" class="text-[10px] font-mono text-[#718096]" aria-live="polite">01 / 03</span>
                 </div>
-
-                <div class="space-y-2.5 text-xs font-mono">
-                  <div class="p-3 rounded-2xl bg-twilight-card border border-lilac/20 flex items-center justify-between">
-                    <span class="text-white">1. Telemetry Monitor</span>
-                    <span class="text-emerald-400 font-bold">DuckDB (0.42ms)</span>
-                  </div>
-                  <div class="p-3 rounded-2xl bg-twilight-card border border-lilac/20 flex items-center justify-between">
-                    <span class="text-white">2. Supplier Bidding Agent</span>
-                    <span class="text-coral font-bold">3 Tenders Ranked</span>
-                  </div>
-                  <div class="p-3 rounded-2xl bg-twilight-card border border-lilac/20 flex items-center justify-between">
-                    <span class="text-white">3. Governance Gate</span>
-                    <span class="text-amber-300 font-bold">Human Verified</span>
-                  </div>
-                  <div class="p-3 rounded-2xl bg-twilight-card border border-lilac/20 flex items-center justify-between">
-                    <span class="text-white">4. Legal PO Dispatch</span>
-                    <span class="text-indigo-300 font-bold">Typst PDF Compiled</span>
-                  </div>
+                <div id="balitower-stage" class="balitower-stage">
+                  <img id="balitower-shot" src="assets/balitowerops-login.webp" alt="BaliTowerOps sign-in screen over a telecommunications tower site" loading="lazy" decoding="async">
+                  <span id="balitower-shot-label" class="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-[10px] font-mono text-[#33445b] shadow-sm">Sign-in</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 p-3">
+                  <button type="button" class="balitower-shot-tab is-active text-left" data-balitower-shot data-src="assets/balitowerops-login.webp" data-label="Sign-in" data-alt="BaliTowerOps sign-in screen over a telecommunications tower site" aria-label="Show the BaliTowerOps sign-in screen" aria-pressed="true">
+                    <img src="assets/balitowerops-login.webp" alt="" loading="lazy" decoding="async">
+                    <span class="block truncate px-2 py-1.5 text-[9px] sm:text-[10px] font-mono">Sign-in</span>
+                  </button>
+                  <button type="button" class="balitower-shot-tab text-left" data-balitower-shot data-src="assets/balitowerops-inventory-dashboard.webp" data-label="Inventory command center" data-alt="BaliTowerOps inventory and logistics command center dashboard" aria-label="Show the BaliTowerOps inventory dashboard" aria-pressed="false">
+                    <img src="assets/balitowerops-inventory-dashboard.webp" alt="" loading="lazy" decoding="async">
+                    <span class="block truncate px-2 py-1.5 text-[9px] sm:text-[10px] font-mono">Inventory</span>
+                  </button>
+                  <button type="button" class="balitower-shot-tab text-left" data-balitower-shot data-src="assets/balitowerops-admin-workflows.webp" data-label="Admin workflow orchestrator" data-alt="BaliTowerOps admin workflow orchestrator dashboard" aria-label="Show the BaliTowerOps admin workflow dashboard" aria-pressed="false">
+                    <img src="assets/balitowerops-admin-workflows.webp" alt="" loading="lazy" decoding="async">
+                    <span class="block truncate px-2 py-1.5 text-[9px] sm:text-[10px] font-mono">Admin</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1290,7 +1329,7 @@
                 <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-peach/80 text-twilight border border-lilac/50">AUG 2026 - PRESENT</span>
               </div>
               <p class="text-sm font-sans text-mauve leading-relaxed">
-                Spearheaded AutoRestock, an autonomous procurement workflow utilizing LangGraph for dynamic multi-agent execution, DuckDB for high-throughput inventory telemetry, and FastAPI for resilient order dispatch.
+                Contributed to BaliTowerOps, a multi-tenant operations platform using LangGraph for workflow orchestration, DuckDB for operational data, and FastAPI for service APIs.
               </p>
               <div class="flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
                 <span class="px-2.5 py-1 rounded-lg bg-canvas-subtle text-[11px] font-mono text-twilight border border-border-subtle">LangGraph</span>
@@ -1784,7 +1823,33 @@
       }
     }
 
-    // 5. Activity photo folders: reveal their moments in place
+    // 5. BaliTowerOps gallery: switch between the real product screens.
+    const baliTowerStage = document.getElementById('balitower-stage');
+    const baliTowerShot = document.getElementById('balitower-shot');
+    const baliTowerShotLabel = document.getElementById('balitower-shot-label');
+    const baliTowerShotCount = document.getElementById('balitower-shot-count');
+    let baliTowerShotTimer;
+    document.querySelectorAll('[data-balitower-shot]').forEach((button, index) => {
+      button.addEventListener('click', () => {
+        if (!baliTowerStage || !baliTowerShot) return;
+        window.clearTimeout(baliTowerShotTimer);
+        baliTowerStage.classList.add('is-changing');
+        document.querySelectorAll('[data-balitower-shot]').forEach(tab => {
+          const isActive = tab === button;
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-pressed', String(isActive));
+        });
+        baliTowerShotTimer = window.setTimeout(() => {
+          baliTowerShot.src = button.dataset.src;
+          baliTowerShot.alt = button.dataset.alt;
+          baliTowerShotLabel.textContent = button.dataset.label;
+          baliTowerShotCount.textContent = `${String(index + 1).padStart(2, '0')} / 03`;
+          baliTowerStage.classList.remove('is-changing');
+        }, 150);
+      });
+    });
+
+    // 6. Activity photo folders: reveal their moments in place
     const activityAlbums = {
       yot: {
         kicker: 'CHAPTER 01 · YOUNG ON TOP JAKARTA',
@@ -2367,3 +2432,4 @@
   </script>
 </body>
 </html>
+
