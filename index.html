@@ -142,6 +142,12 @@
     .stack-card-2 { position: sticky; top: 130px; z-index: 20; }
     .stack-card-3 { position: sticky; top: 150px; z-index: 30; }
     .stack-card-4 { position: sticky; top: 170px; z-index: 40; }
+    @media (max-width: 1023px) {
+      .stack-card-1, .stack-card-2, .stack-card-3, .stack-card-4 {
+        position: relative;
+        top: auto;
+      }
+    }
 
     /* Interactive 3D Tilt Card */
     .tilt-card {
