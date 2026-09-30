@@ -497,8 +497,8 @@
   
     .activity-folder-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(16px, 2.4vw, 30px);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.15rem;
     }
     .activity-folder-card {
       position: relative;
@@ -535,7 +535,7 @@
     .activity-folder-card.is-open {
       z-index: 12;
       --album-angle: 0deg;
-      transform: translateY(-9px) scaleX(1.18) scaleY(1.035);
+      transform: translateY(-8px) scale(1.02);
       rotate: z 0deg;
       border-color: #D98F84;
       box-shadow: 0 24px 48px rgba(35, 31, 46, 0.16);
@@ -715,7 +715,7 @@
       .activity-folder-action svg { width: 16px; height: 16px; }
       .activity-folder-card:hover,
       .activity-folder-card:focus-visible,
-      .activity-folder-card.is-open { transform: translateY(-5px) scaleX(1.12) scaleY(1.02); }
+      .activity-folder-card.is-open { transform: translateY(-4px) scale(1.02); }
     }
     @media (prefers-reduced-motion: reduce) {
       .activity-folder-card, .activity-folder-card::before, .activity-folder-cover::before,
