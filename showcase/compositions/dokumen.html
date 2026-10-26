@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1280,height=720"><title>dokumen — source UI film</title><script src="../vendor/gsap.min.js"></script><style>*{box-sizing:border-box;margin:0}html,body{width:1280px;height:720px;overflow:hidden;background:#f6f7f1}#root{position:relative;width:1280px;height:720px;overflow:hidden}.clip{position:absolute;inset:0}.screen{position:absolute;inset:0;opacity:0;visibility:hidden;transform-origin:center}#screen1{opacity:1;visibility:visible}.screen img{width:100%;height:100%;display:block;object-fit:contain}.edge{position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#a9bbaa,#e1c6b0);transform-origin:left;opacity:.65}</style></head><body><main id="root" data-composition-id="dokumen" data-start="0" data-duration="10" data-width="1280" data-height="720" data-fps="24">
+<figure id="clip-1" class="clip" data-start="0" data-duration="10" data-track-index="1"><div id="screen1" class="screen"><img src="../screens/dokumen-01.webp" alt="Actual zeyniaa/DokumenTanya web interface, captured from the running source, view 1"></div></figure>
+<figure id="clip-2" class="clip" data-start="0" data-duration="10" data-track-index="2"><div id="screen2" class="screen"><img src="../screens/dokumen-02.webp" alt="Actual zeyniaa/DokumenTanya web interface, captured from the running source, view 2"></div></figure>
+<figure id="clip-3" class="clip" data-start="0" data-duration="10" data-track-index="3"><div id="screen3" class="screen"><img src="../screens/dokumen-03.webp" alt="Actual zeyniaa/DokumenTanya web interface, captured from the running source, view 3"></div></figure>
+<div id="clip-4" class="clip" data-start="0" data-duration="10" data-track-index="4"><div id="progress" class="edge"></div></div></main><script>
+const timeline=gsap.timeline({paused:true});
+timeline.set('#screen1',{autoAlpha:1,scale:.985,x:0},0).set('#screen2,#screen3',{autoAlpha:0},0);
+timeline.to('#screen1',{scale:1,duration:3.2,ease:'sine.out'},0);
+timeline.to('#screen1',{autoAlpha:0,x:-20,duration:.55,ease:'power2.inOut'},3.15);
+timeline.fromTo('#screen2',{autoAlpha:0,x:24,scale:.985},{autoAlpha:1,x:0,scale:1,duration:.7,ease:'power3.out'},3.15);
+timeline.to('#screen2',{autoAlpha:0,y:-12,duration:.55,ease:'power2.inOut'},6.5);
+timeline.fromTo('#screen3',{autoAlpha:0,y:18,scale:.985},{autoAlpha:1,y:0,scale:1,duration:.7,ease:'power3.out'},6.5);
+timeline.fromTo('#progress',{scaleX:0},{scaleX:1,duration:10,ease:'none'},0);
+window.__timelines=window.__timelines||{};window.__timelines["dokumen"]=timeline;
+timeline.seek(0);
+</script></body></html>

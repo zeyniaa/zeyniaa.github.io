@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-  
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -523,7 +523,7 @@
         transition-duration: .01ms !important;
       }
     }
-  
+
     .activity-folder-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -749,8 +749,8 @@
     }
     .hyperframe-shell { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border: 1px solid rgba(203,179,196,.7); border-radius: 24px; background: #231f2e; box-shadow: 0 18px 42px rgba(35,31,46,.14); }
     .hyperframe-poster, .hyperframe-player { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .hyperframe-poster { object-fit: cover; }
-    .hyperframe-player { display: block; z-index: 1; aspect-ratio: 16 / 9; border: 0; background: transparent; }
+    .hyperframe-poster { object-fit: contain; }
+    .hyperframe-player { display:block; z-index:1; aspect-ratio:16 / 9; border:0; background:#f7f6f4; object-fit:contain; }
     .hyperframe-caption { position: static; display: flex; align-items: baseline; gap: 10px; margin-top: 8px; color: #8B6D83; pointer-events: none; }
     .hyperframe-caption span { color: #D98F84; font: 600 8px/1.2 "DM Mono",monospace; letter-spacing: .12em; }
     .hyperframe-caption b { font: 600 11px/1.2 "Plus Jakarta Sans",sans-serif; }
@@ -864,7 +864,7 @@
   <!-- FLOATING NAVIGATION BAR (Clean, Familiar, No Resume Button) -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      
+
       <!-- Minimal Monogram Brand Mark -->
       <a href="#hero" class="flex items-center group" aria-label="Zeiniah Porto — Home">
         <span class="w-8 h-8 flex items-center justify-center text-twilight font-serif font-bold text-2xl group-hover:text-coral group-hover:scale-110 transition-all">
@@ -894,13 +894,13 @@
 
   <!-- SECTION 0: HERO (CLEAN FOREGROUND + DYNAMIC RAME BACKGROUND) -->
   <section id="hero" class="relative min-h-[96vh] pt-36 pb-32 flex flex-col items-center justify-center overflow-hidden">
-    
+
     <!-- 1. Interactive Background Canvas (Parametric 3D Cyber-Vector Waves) -->
     <canvas id="neural-canvas" class="absolute inset-0 pointer-events-none opacity-60 z-0"></canvas>
 
     <!-- 2. "Rame di Background": Floating Interactive Tech Badges & Stickers (Seth Lukin + Sierra Hopkins Style) -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden z-0 select-none">
-      
+
       <!-- Floating Badge 1: LangGraph -->
       <div class="absolute top-[18%] left-[7%] px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-md border border-lilac text-[11px] font-mono font-medium text-mauve shadow-soft animate-float-1 hidden sm:block">
         <span class="text-coral">✦</span> LANGGRAPH MULTI-AGENT
@@ -940,20 +940,20 @@
 
     <!-- 3. Clean Foreground: Majestic Typography + 16-Bit Avatar + Speech Bubble (Zero Overlap, No S.Kom, No Buttons) -->
     <div class="relative z-10 max-w-5xl mx-auto px-6 w-full text-center space-y-6">
-      
+
       <!-- CENTERPIECE: SETH LUKIN TYPOGRAPHY + 16-BIT PIXEL AVATAR + SPEECH BUBBLE -->
       <div class="relative pt-6 pb-2 flex flex-col items-center justify-center select-none">
-        
+
         <!-- Large Responsive Display Typography -->
         <div class="flex items-center justify-center flex-wrap gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-          
+
           <span class="text-6xl sm:text-8xl md:text-9xl lg:text-[10.5rem] font-serif font-black tracking-tight text-twilight leading-none">
             ZEI
           </span>
 
           <!-- Centered Interactive Avatar with Speech Bubble -->
           <div class="relative inline-flex flex-col items-center my-3 group cursor-pointer" id="avatar-trigger" onclick="cycleAvatarQuote()">
-            
+
             <!-- Interactive Floating Speech Bubble (Plenty of Space, Completely Clean Background) -->
             <div id="speech-bubble" class="absolute -top-16 sm:-top-20 px-4 py-2 rounded-2xl bg-white border-2 border-coral shadow-speech text-xs sm:text-sm font-mono font-bold text-twilight tracking-wide whitespace-nowrap animate-bounce-gentle select-none transition-all duration-300">
               <span id="speech-text">HI THERE!</span>
@@ -1014,13 +1014,13 @@
 
         <!-- Distant Ridge: Soft Lilac Mist with Parallax Layer 1 -->
         <path id="mountain-layer-1" d="M0,130 C260,50 500,210 820,100 C1120,15 1300,160 1440,120 L1440,320 L0,320 Z" fill="#CBB3C4" fill-opacity="0.42"/>
-        
+
         <!-- Mid Ridge: Muted Mauve with Parallax Layer 2 -->
         <path id="mountain-layer-2" d="M0,180 C290,110 610,240 930,140 C1170,60 1340,200 1440,170 L1440,320 L0,320 Z" fill="#8B6D83" fill-opacity="0.75"/>
-        
+
         <!-- Foreground Ridge: Deep Twilight Plum -->
         <path id="mountain-layer-3" d="M0,225 C340,160 680,265 1020,180 C1240,130 1370,220 1440,205 L1440,320 L0,320 Z" fill="#231F2E"/>
-        
+
         <!-- Static Sunset Contour Line -->
         <path d="M0,225 C340,160 680,265 1020,180 C1240,130 1370,220 1440,205" stroke="#D98F84" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
 
@@ -1033,7 +1033,7 @@
   <!-- SECTION 1: TACTILE CURTAIN RISER WITH MARQUEE & CAPABILITIES (DEEP TWILIGHT PLUM) -->
   <section id="recruiter-pitch" class="bg-twilight text-peach pt-6 pb-20 relative z-10 border-b border-lilac/20 shadow-curtain -mt-1">
     <div class="max-w-6xl mx-auto px-6 space-y-14">
-      
+
       <!-- Infinite Running Marquee Bar -->
       <div class="w-full overflow-hidden whitespace-nowrap py-3 border-y border-lilac/30 bg-twilight-card/60 backdrop-blur-sm -mx-6 sm:mx-0 sm:rounded-2xl">
         <div class="inline-flex animate-marquee gap-8 text-xs font-mono tracking-widest uppercase text-peach/90">
@@ -1104,7 +1104,7 @@
   <!-- SECTION 2: FLAGSHIP CASE STUDIES (OUT-OF-THE-BOX STICKY STACKING CARDS TRANSITION) -->
   <section id="flagship" class="py-24 bg-canvas-subtle border-b border-border-subtle relative">
     <div class="max-w-6xl mx-auto px-6">
-      
+
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
         <div>
           <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Featured Works</span>
@@ -1113,13 +1113,13 @@
           </h2>
         </div>
         <p class="text-sm font-sans text-mauve max-w-md">
-          Play short interface previews for each project, built with HyperFrames.
+          A closer look at the interfaces, workflows, and systems behind my work.
         </p>
       </div>
 
       <!-- STACKING CARDS DECK (Interactive Scroll Motion) -->
       <div class="space-y-12">
-        
+
         <!-- Case Study 01: Simpul HR Workflow Platform -->
         <article data-reveal="from-right" class="stack-card-1 p-8 sm:p-10 lg:p-12 rounded-[36px] bg-white border border-lilac shadow-stack hover:border-coral transition-all">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -1148,7 +1148,7 @@
               </div>
             </div>
 
-            <div class="lg:col-span-5"><div class="hyperframe-shell"><img class="hyperframe-poster" src="assets/simpul/employee-assistant.svg" alt="Simpul · Connected HR Workflows preview poster" loading="lazy" decoding="async"><iframe class="hyperframe-player" data-preview-src="assets/hyperframes/simpul.html?rev=48f6ebb" title="Play Simpul · Connected HR Workflows interface preview" loading="lazy" allow="autoplay"></iframe></div><div class="hyperframe-caption"><span>HYPERFRAMES PREVIEW</span><b>Simpul · Connected HR Workflows</b></div></div>
+            <div class="lg:col-span-5"><div class="hyperframe-shell"><video class="hyperframe-player project-film" data-video-src="assets/videos/simpul.mp4?v=20261026" poster="assets/videos/simpul-poster.webp" autoplay muted loop playsinline controls preload="none" aria-label="Simpul · Connected HR Workflows interface preview">Your browser does not support video. <a href="assets/videos/simpul.mp4">Open the project video</a>.</video></div><div class="hyperframe-caption"><span>UI WALKTHROUGH</span><b>Simpul · Connected HR Workflows</b></div></div>
           </div>
         </article>
 
@@ -1173,7 +1173,7 @@
                 </a>
               </div>
             </div>
-            <div class="lg:col-span-5"><div class="hyperframe-shell"><img class="hyperframe-poster" src="assets/dokumen-tanya-preview.svg" alt="DokumenTanya · Document Intelligence preview poster" loading="lazy" decoding="async"><iframe class="hyperframe-player" data-preview-src="assets/hyperframes/dokumen.html?rev=48f6ebb" title="Play DokumenTanya · Document Intelligence interface preview" loading="lazy" allow="autoplay"></iframe></div><div class="hyperframe-caption"><span>HYPERFRAMES PREVIEW</span><b>DokumenTanya · Document Intelligence</b></div></div>
+            <div class="lg:col-span-5"><div class="hyperframe-shell"><video class="hyperframe-player project-film" data-video-src="assets/videos/dokumen.mp4?v=20261026" poster="assets/videos/dokumen-poster.webp" autoplay muted loop playsinline controls preload="none" aria-label="DokumenTanya · Document Intelligence interface preview">Your browser does not support video. <a href="assets/videos/dokumen.mp4">Open the project video</a>.</video></div><div class="hyperframe-caption"><span>UI WALKTHROUGH</span><b>DokumenTanya · Document Intelligence</b></div></div>
           </div>
         </article>
 
@@ -1186,7 +1186,7 @@
                 </span>
                 <span class="text-xs font-mono text-coral font-medium">PT Bali Towerindo Sentra Tbk</span>
               </div>
-              
+
               <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
                 BaliTowerOps: Multi-Agent Operations Platform
               </h3>
@@ -1220,7 +1220,7 @@
               </div>
             </div>
 
-            <div class="lg:col-span-5"><div class="hyperframe-shell"><img class="hyperframe-poster" src="assets/balitowerops-inventory-dashboard.webp" alt="BaliTowerOps · Operations Platform preview poster" loading="lazy" decoding="async"><iframe class="hyperframe-player" data-preview-src="assets/hyperframes/bali.html?rev=48f6ebb" title="Play BaliTowerOps · Operations Platform interface preview" loading="lazy" allow="autoplay"></iframe></div><div class="hyperframe-caption"><span>HYPERFRAMES PREVIEW</span><b>BaliTowerOps · Operations Platform</b></div></div>
+            <div class="lg:col-span-5"><div class="hyperframe-shell"><video class="hyperframe-player project-film" data-video-src="assets/videos/bali.mp4?v=20261026" poster="assets/videos/bali-poster.webp" autoplay muted loop playsinline controls preload="none" aria-label="BaliTowerOps · Operations Platform interface preview">Your browser does not support video. <a href="assets/videos/bali.mp4">Open the project video</a>.</video></div><div class="hyperframe-caption"><span>UI WALKTHROUGH</span><b>BaliTowerOps · Operations Platform</b></div></div>
           </div>
         </article>
 
@@ -1233,13 +1233,13 @@
                 </span>
                 <span class="text-xs font-mono text-coral font-medium">LPMQ Kementerian Agama RI</span>
               </div>
-              
+
               <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
                 Qur'anic Hijaiyah Sign Language Recognition
               </h3>
 
               <p class="text-sm font-sans text-mauve leading-relaxed">
-                Spearheaded computer vision research to translate 112 Hijaiyah letter and harakat sign language gestures into text for deaf inclusive Quranic education. Extracted 75 skeleton keypoints per frame via MediaPipe Holistic and benchmarked Bi-LSTM, Hybrid LSTM-GRU, and Transformer Encoders over 44,697+ frames.
+                Spearheaded computer vision research to translate 112 Hijaiyah letter and harakat sign language gestures into text for deaf inclusive Quranic education. Extracted 75 hand and pose features per frame via MediaPipe Holistic and benchmarked Bi-LSTM, Hybrid LSTM-GRU, and Transformer Encoders over 44,697+ frames.
               </p>
 
               <div class="grid grid-cols-3 gap-4 pt-2 border-y border-border-subtle py-4">
@@ -1252,8 +1252,8 @@
                   <span class="text-[11px] font-mono text-mauve block">Gesture Classes</span>
                 </div>
                 <div>
-                  <span class="text-2xl font-serif font-bold text-twilight">75 Pts</span>
-                  <span class="text-[11px] font-mono text-mauve block">MediaPipe Keypoints</span>
+                  <span class="text-2xl font-serif font-bold text-twilight">75</span>
+                  <span class="text-[11px] font-mono text-mauve block">MediaPipe Features</span>
                 </div>
               </div>
 
@@ -1267,7 +1267,7 @@
               </div>
             </div>
 
-            <div class="lg:col-span-5"><div class="hyperframe-shell"><img class="hyperframe-poster" src="assets/sign-mediapipe-lam-dhammah.webp" alt="Hijaiyah Sign Recognition preview poster" loading="lazy" decoding="async"><iframe class="hyperframe-player" data-preview-src="assets/hyperframes/sign.html?rev=48f6ebb" title="Play Hijaiyah Sign Recognition interface preview" loading="lazy" allow="autoplay"></iframe></div><div class="hyperframe-caption"><span>HYPERFRAMES PREVIEW</span><b>Hijaiyah Sign Recognition</b></div></div>
+            <div class="lg:col-span-5"><div class="hyperframe-shell"><video class="hyperframe-player project-film" data-video-src="assets/videos/sign.mp4?v=20261026" poster="assets/videos/sign-poster.webp" autoplay muted loop playsinline controls preload="none" aria-label="Hijaiyah Sign Recognition interface preview">Your browser does not support video. <a href="assets/videos/sign.mp4">Open the project video</a>.</video></div><div class="hyperframe-caption"><span>UI WALKTHROUGH</span><b>Hijaiyah Sign Recognition</b></div></div>
           </div>
         </article>
 
@@ -1280,7 +1280,7 @@
                 </span>
                 <span class="text-xs font-mono text-coral font-medium">Datathon 2025 by Ristek UI</span>
               </div>
-              
+
               <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
                 Autism Sensory Meltdown Audio Risk Detector
               </h3>
@@ -1314,7 +1314,7 @@
               </div>
             </div>
 
-            <div class="lg:col-span-5"><div class="hyperframe-shell"><img class="hyperframe-poster" src="assets/project_meltdown_audio.jpg" alt="Autism Sensory Meltdown Risk Detector preview poster" loading="lazy" decoding="async"><iframe class="hyperframe-player" data-preview-src="assets/hyperframes/autism.html?rev=48f6ebb" title="Play Autism Sensory Meltdown Risk Detector interface preview" loading="lazy" allow="autoplay"></iframe></div><div class="hyperframe-caption"><span>HYPERFRAMES PREVIEW</span><b>Autism Sensory Meltdown Risk Detector</b></div></div>
+            <div class="lg:col-span-5"><div class="hyperframe-shell"><video class="hyperframe-player project-film" data-video-src="assets/videos/autism.mp4?v=20261026" poster="assets/videos/autism-poster.webp" autoplay muted loop playsinline controls preload="none" aria-label="Autism Sensory Meltdown Risk Detector interface preview">Your browser does not support video. <a href="assets/videos/autism.mp4">Open the project video</a>.</video></div><div class="hyperframe-caption"><span>UI WALKTHROUGH</span><b>Autism Sensory Meltdown Risk Detector</b></div></div>
           </div>
         </article>
 
@@ -1327,7 +1327,7 @@
                 </span>
                 <span class="text-xs font-mono text-coral font-medium">Korea-ASEAN Digital Academy</span>
               </div>
-              
+
               <h3 class="text-3xl sm:text-4xl font-serif text-twilight">
                 KADA Capstone: Event Analytics System
               </h3>
@@ -1361,7 +1361,7 @@
               </div>
             </div>
 
-            <div class="lg:col-span-5"><div class="hyperframe-shell"><img class="hyperframe-poster" src="assets/kada-preview-poster.svg" alt="KADA Event Intelligence preview poster" loading="lazy" decoding="async"><iframe class="hyperframe-player" data-preview-src="assets/hyperframes/kada.html?rev=48f6ebb" title="Play KADA Event Intelligence interface preview" loading="lazy" allow="autoplay"></iframe></div><div class="hyperframe-caption"><span>HYPERFRAMES PREVIEW</span><b>KADA Event Intelligence</b></div></div>
+            <div class="lg:col-span-5"><div class="hyperframe-shell"><video class="hyperframe-player project-film" data-video-src="assets/videos/kada.mp4?v=20261026" poster="assets/videos/kada-poster.webp" autoplay muted loop playsinline controls preload="none" aria-label="KADA Event Intelligence interface preview">Your browser does not support video. <a href="assets/videos/kada.mp4">Open the project video</a>.</video></div><div class="hyperframe-caption"><span>UI WALKTHROUGH</span><b>KADA Event Intelligence</b></div></div>
           </div>
         </article>
 
@@ -1372,7 +1372,7 @@
   <!-- SECTION 3: BEN SHIH-STYLE STICKY RAIL EXPERIENCE & MILESTONES -->
   <section id="journey" class="py-24 bg-canvas border-b border-border-subtle">
     <div class="max-w-6xl mx-auto px-6">
-      
+
       <div class="space-y-3 mb-16 text-center max-w-2xl mx-auto" data-reveal="soft">
         <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Career Trajectory</span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-twilight">
@@ -1385,7 +1385,7 @@
 
       <!-- Ben Shih Sticky Rail Layout: Year Indicator on Left, Cards on Right -->
       <div class="space-y-12">
-        
+
         <!-- Year 2026 Group -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <!-- Sticky Year Pin on Left -->
@@ -1608,7 +1608,7 @@
   <!-- SECTION 5: OUT-OF-THE-BOX BEN SHIH-INSPIRED INTERACTIVE CREDENTIAL SHOWCASE WITH DOCK SELECTOR -->
   <section id="credentials" class="py-24 border-y border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 space-y-8">
-      
+
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal="from-left">
         <div>
           <span class="text-xs font-mono font-semibold uppercase tracking-wider text-coral">Verified Accreditations</span>
@@ -1639,14 +1639,14 @@
 
       <!-- 1. The Featured Spotlight Showcase Card (Interactive Stage) -->
       <div id="credential-spotlight" data-reveal="unfold" class="relative p-8 sm:p-12 rounded-[36px] bg-white border border-lilac shadow-card hover:border-coral transition-all spotlight-fade overflow-hidden">
-        
+
         <!-- Large Background Watermark Year -->
         <div id="spotlight-watermark" class="absolute -right-4 -bottom-6 text-8xl sm:text-9xl font-serif font-black text-twilight/5 select-none pointer-events-none">
           2026
         </div>
 
         <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-reveal="soft">
-          
+
           <div class="lg:col-span-8 space-y-4">
             <div class="flex flex-wrap items-center gap-3">
               <span id="spotlight-badge" class="text-xs font-mono px-3.5 py-1 rounded-full bg-peach text-twilight font-bold border border-lilac/40">
@@ -1741,7 +1741,7 @@
   <!-- SECTION 6: HIGH-IMPACT RECRUITER FOOTER WITH VALUE PILLARS -->
   <footer id="contact" class="py-24 px-6">
     <div class="max-w-6xl mx-auto p-8 sm:p-12 lg:p-16 rounded-[40px] bg-twilight text-peach border border-lilac/30 shadow-card text-center space-y-8 relative overflow-hidden" data-reveal="portal">
-      
+
       <!-- Ambient Glow Behind Footer -->
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-coral/20 rounded-full filter blur-3xl -z-10"></div>
       <div class="absolute -top-24 -left-24 w-96 h-96 bg-lilac/20 rounded-full filter blur-3xl -z-10"></div>
@@ -2259,7 +2259,7 @@
 
     function filterCredentials(cat) {
       currentCategory = cat;
-      
+
       // Update Tab Styles
       const tabs = ['all', 'ai', 'data', 'software'];
       tabs.forEach(t => {
@@ -2295,8 +2295,8 @@
 
         const btn = document.createElement('button');
         btn.className = `dock-card-btn flex-shrink-0 flex items-center gap-3 p-3 rounded-2xl border text-left cursor-pointer ${
-          isActive 
-            ? 'active-dock bg-white border-coral' 
+          isActive
+            ? 'active-dock bg-white border-coral'
             : 'bg-white/80 border-lilac/70 hover:bg-white hover:border-lilac'
         }`;
         btn.onclick = () => selectCredential(origIdx);
@@ -2525,24 +2525,58 @@
     }
 
     initScrollReveals();
-    // Load each HyperFrames preview only when it enters view; pause it when it leaves.
-    const previewPlayers = document.querySelectorAll('iframe[data-preview-src]');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const activatePreview = player => {
-      if (!player.hasAttribute('src')) player.setAttribute('src', player.dataset.previewSrc);
-      if (player.contentWindow) player.contentWindow.postMessage({ type: 'portfolio-preview', playing: !reducedMotion }, '*');
+    // Native MP4 playback keeps the entire source UI inside its responsive frame.
+    const previewPlayers = document.querySelectorAll('video[data-video-src]');
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pausePreview = video => { video.dataset.pauseReason = 'viewport'; video.pause(); };
+    const activatePreview = video => {
+      if (!video.hasAttribute('src')) {
+        video.muted = true;
+        video.defaultMuted = true;
+        video.src = video.dataset.videoSrc;
+        video.load();
+      }
+      if (!motionPreference.matches && video.dataset.userPaused !== 'true' && !document.hidden) {
+        video.muted = true;
+        video.play().catch(() => { /* Native controls remain usable if autoplay is unavailable. */ });
+      }
     };
+    previewPlayers.forEach(video => {
+      video.muted = true;
+      video.defaultMuted = true;
+      if (motionPreference.matches) video.removeAttribute('autoplay');
+      video.addEventListener('play', () => {
+        if (document.hidden || video.dataset.visible === 'false') {
+          pausePreview(video);
+          return;
+        }
+        video.dataset.pauseReason = '';
+        video.dataset.userPaused = 'false';
+      });
+      video.addEventListener('pause', () => {
+        if (video.dataset.pauseReason !== 'viewport' && video.dataset.visible === 'true') video.dataset.userPaused = 'true';
+      });
+      video.addEventListener('error', () => {
+        video.setAttribute('aria-label', video.getAttribute('aria-label') + ' — video unavailable; poster shown');
+        video.removeAttribute('autoplay');
+      }, { once:true });
+    });
     if ('IntersectionObserver' in window) {
-      const previewObserver = new IntersectionObserver(entries => entries.forEach(entry => {
-        entry.target.dataset.visible = String(entry.isIntersecting);
-        if (entry.isIntersecting) activatePreview(entry.target);
-        else if (entry.target.contentWindow) entry.target.contentWindow.postMessage({ type: 'portfolio-preview', playing: false }, '*');
-      }), { threshold: 0.35 });
-      previewPlayers.forEach(player => previewObserver.observe(player));
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        const video = entry.target;
+        video.dataset.visible = String(entry.isIntersecting);
+        if (entry.isIntersecting) activatePreview(video); else pausePreview(video);
+      }), { threshold:0.15 });
+      previewPlayers.forEach(video => observer.observe(video));
     } else {
-      previewPlayers.forEach(player => { player.dataset.visible = 'true'; activatePreview(player); });
+      previewPlayers.forEach(video => { video.dataset.visible = 'true'; activatePreview(video); });
     }
-
+    document.addEventListener('visibilitychange', () => previewPlayers.forEach(video => {
+      if (document.hidden) pausePreview(video); else if (video.dataset.visible === 'true') activatePreview(video);
+    }));
+    motionPreference.addEventListener('change', () => previewPlayers.forEach(video => {
+      if (motionPreference.matches) pausePreview(video); else if (video.dataset.visible === 'true') activatePreview(video);
+    }));
 
     // Simpul project: switch the featured product screen in place.
     const simpulShot = document.getElementById('simpul-shot');

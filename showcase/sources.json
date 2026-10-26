@@ -1,0 +1,54 @@
+{
+  "renderer": "hyperframes 0.8.201",
+  "size": [
+    1280,
+    720
+  ],
+  "fps": 24,
+  "duration_seconds": 10,
+  "capture_date": "2026-10-26",
+  "projects": {
+    "simpul": {
+      "repository": "https://github.com/zeyniaa/Simpul",
+      "source_commit": "165565585d0861f70eda27875d057de2049e1453",
+      "capture_note": "Repository browser acceptance server; synthetic accounts and workflow catalog, no live HR records.",
+      "composition": "compositions/simpul.html",
+      "output": "../assets/videos/simpul.mp4"
+    },
+    "dokumen": {
+      "repository": "https://github.com/zeyniaa/DokumenTanya",
+      "source_commit": "28bdac0441eb07667c49089fdcd43577b263936f",
+      "capture_note": "Local FastAPI baseline; uploaded examples/sop-demo.pdf, extractive answer and source highlighting.",
+      "composition": "compositions/dokumen.html",
+      "output": "../assets/videos/dokumen.mp4"
+    },
+    "bali": {
+      "repository": "https://github.com/daffaarigoh/BaliTowerOps",
+      "source_commit": "7700ee74ca4b95c2239cbc69aca2323dc648375f",
+      "capture_note": "Local FastAPI server with repository seed data. LLM not configured; no autonomous execution claimed.",
+      "composition": "compositions/bali.html",
+      "output": "../assets/videos/bali.mp4"
+    },
+    "sign": {
+      "repository": "https://github.com/zeyniaa/Hijaiyah-Sign-Language-Recognition",
+      "source_commit": "82ac4154d0faeb5abc32102589104be17e9674ab",
+      "capture_note": "New FastAPI web workspace in this repository. No trained checkpoint; camera/video controls and guide, no simulated predictions.",
+      "composition": "compositions/sign.html",
+      "output": "../assets/videos/sign.mp4"
+    },
+    "autism": {
+      "repository": "https://github.com/zeyniaa/Autism-Meltdown-Detector",
+      "source_commit": "a8fff9634b62bfa83acc62d6908c2b536b856281",
+      "capture_note": "New FastAPI web workspace. Waveform/MFCC computed from the explicitly named generated calibration tone; no trained checkpoint or fabricated classification.",
+      "composition": "compositions/autism.html",
+      "output": "../assets/videos/autism.mp4"
+    },
+    "kada": {
+      "repository": "https://github.com/zeyniaa/Event-Intelligence-Platform",
+      "source_commit": "1b1e63d75bf3187bb029418be999c6a2326889ff",
+      "capture_note": "Repository Vite analytics frontend. Public login, manual registration-form editor and custom-field panel; no backend analytics data fabricated.",
+      "composition": "compositions/kada.html",
+      "output": "../assets/videos/kada.mp4"
+    }
+  }
+}
