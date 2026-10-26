@@ -45,24 +45,15 @@
   const render=(p,s)=>s.type==='image'?imageScene(p,s):s.type==='sign'?signScene(p,s):s.type==='sign-summary'?signSummary(p,s):s.type==='document'?documentScene(p,s):s.type==='audio'?audioScene(p,s):kadaScene(p,s);
   const profile=profiles[root.dataset.project]; if(!profile)return;
   const seconds=3.2, clip=document.createElement('div'); clip.id='preview-clip'; clip.className='clip'; clip.dataset.start='0'; clip.dataset.duration=String(profile.scenes.length*seconds); clip.dataset.trackIndex='0';
-  clip.innerHTML=profile.scenes.map((s,i)=>`<section id="scene-${i}" class="scene">${render(profile,s)}</section>`).join(''); root.appendChild(clip);
-  const setup=()=>{if(!window.gsap){document.getElementById('scene-0').style.opacity='1';return;}const tl=window.gsap.timeline({paused:true});tl.set('#scene-0',{opacity:1,scale:1},0);profile.scenes.forEach((_,i)=>{if(!i)return;const at=i*seconds;tl.to(`#scene-${i-1}`,{opacity:0,scale:.985,duration:.42},at);tl.fromTo(`#scene-${i}`,{opacity:0,scale:1.025},{opacity:1,scale:1,duration:.48},at);});tl.to({}, {duration:profile.scenes.length*seconds},0);window.__timelines=window.__timelines||{};window.__timelines.root=tl;};
-  if (window.gsap) {
-    setup();
-  } else {
-    const scenes = Array.from(clip.querySelectorAll('.scene'));
-    let active = 0;
-    const show = index => {
-      scenes.forEach((scene, sceneIndex) => {
-        scene.style.opacity = sceneIndex === index ? '1' : '0';
-        scene.style.transform = sceneIndex === index ? 'scale(1)' : 'scale(1.025)';
-      });
-      active = index;
-    };
-    show(0);
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && scenes.length > 1) {
-      window.setInterval(() => show((active + 1) % scenes.length), seconds * 1000);
-    }
-  }
+  clip.innerHTML=profile.scenes.map((s,i)=>`<section id="scene-${i}" class="scene${i===0?" is-active":""}">${render(profile,s)}</section>`).join(""); root.appendChild(clip);
+  const scenes = Array.from(clip.querySelectorAll(".scene"));
+  let active = 0;
+  let timer = null;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const show = index => { scenes[active]?.classList.remove("is-active"); active = index; scenes[active]?.classList.add("is-active"); };
+  const start = () => { if (reducedMotion || timer || scenes.length < 2) return; timer = window.setInterval(() => show((active + 1) % scenes.length), seconds * 1000); };
+  const stop = () => { if (timer) window.clearInterval(timer); timer = null; };
+  start();
+  window.addEventListener("message", event => { if (event.data?.type !== "portfolio-preview") return; event.data.playing ? start() : stop(); });
 })();
 
